@@ -1,0 +1,730 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: RZData
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (R)</a> &raquo; 
+    
+    
+    <span class="title">RZData</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: RZData
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">RZData</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/common/rz_data.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This class is the interface to all querying and saving of data This class
+uses the RzPersistController class to persist changes to the chosen
+database</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#config-instance_method" title="#config (instance method)">- (Object) <strong>config</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute config.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#persist_ctrl-instance_method" title="#persist_ctrl (instance method)">- (Object) <strong>persist_ctrl</strong> </a>
+    
+
+    
+  </span>
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute persist_ctrl.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_all_objects-instance_method" title="#delete_all_objects (instance method)">- (Object) <strong>delete_all_objects</strong>(object_symbol) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_object-instance_method" title="#delete_object (instance method)">- (Object) <strong>delete_object</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_object_by_uuid-instance_method" title="#delete_object_by_uuid (instance method)">- (Object) <strong>delete_object_by_uuid</strong>(object_symbol, object_uuid) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fetch_all_objects-instance_method" title="#fetch_all_objects (instance method)">- (Object) <strong>fetch_all_objects</strong>(object_symbol) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fetch_object_by_uuid-instance_method" title="#fetch_object_by_uuid (instance method)">- (Object) <strong>fetch_object_by_uuid</strong>(object_symbol, object_uuid) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (RZData) <strong>initialize</strong> </a>
+    
+
+    
+  </span>
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>init our RZData object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#persist_object-instance_method" title="#persist_object (instance method)">- (Object) <strong>persist_object</strong>(object) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#teardown-instance_method" title="#teardown (instance method)">- (Object) <strong>teardown</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <p class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="RZData (class)">RZData</a></span></tt>) <strong>initialize</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>init our RZData object</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='comment'># We need to load from our config file
+</span>  <span class='id identifier rubyid_load_config'>load_config</span>
+  <span class='id identifier rubyid_setup_persist'>setup_persist</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="config=-instance_method"></span>
+      <span id="config-instance_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="config-instance_method">
+  
+    - (<tt>Object</tt>) <strong>config</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute config</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
+  <span class='ivar'>@config</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="persist_ctrl=-instance_method"></span>
+      <span id="persist_ctrl-instance_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="persist_ctrl-instance_method">
+  
+    - (<tt>Object</tt>) <strong>persist_ctrl</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute persist_ctrl</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span>
+  <span class='ivar'>@persist_ctrl</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="delete_all_objects-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_all_objects</strong>(object_symbol) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_all_objects'>delete_all_objects</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_object_hash_remove_all'>object_hash_remove_all</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delete_object-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_object</strong>(object) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_object'>delete_object</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_object_hash_remove'>object_hash_remove</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_to_hash'>to_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid__collection'>_collection</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="delete_object_by_uuid-instance_method">
+  
+    - (<tt>Object</tt>) <strong>delete_object_by_uuid</strong>(object_symbol, object_uuid) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 59</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_object_by_uuid'>delete_object_by_uuid</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_object_uuid'>object_uuid</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fetch_all_objects'>fetch_all_objects</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span>
+    <span class='op'>|</span><span class='id identifier rubyid_object'>object</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_object_hash_remove'>object_hash_remove</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_to_hash'>to_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_uuid'>uuid</span> <span class='op'>==</span> <span class='id identifier rubyid_object_uuid'>object_uuid</span>
+  <span class='kw'>end</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="fetch_all_objects-instance_method">
+  
+    - (<tt>Object</tt>) <strong>fetch_all_objects</strong>(object_symbol) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_all_objects'>fetch_all_objects</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_object_array'>object_array</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_object_hash_array'>object_hash_array</span> <span class='op'>=</span> <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_object_hash_get_all'>object_hash_get_all</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_object_hash_array'>object_hash_array</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_object_hash'>object_hash</span><span class='op'>|</span> <span class='id identifier rubyid_object_array'>object_array</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_object_hash_to_object'>object_hash_to_object</span><span class='lparen'>(</span><span class='id identifier rubyid_object_hash'>object_hash</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_object_array'>object_array</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="fetch_object_by_uuid-instance_method">
+  
+    - (<tt>Object</tt>) <strong>fetch_object_by_uuid</strong>(object_symbol, object_uuid) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_object_by_uuid'>fetch_object_by_uuid</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='comma'>,</span> <span class='id identifier rubyid_object_uuid'>object_uuid</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fetch_all_objects'>fetch_all_objects</span><span class='lparen'>(</span><span class='id identifier rubyid_object_symbol'>object_symbol</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span>
+    <span class='op'>|</span><span class='id identifier rubyid_object'>object</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_object'>object</span> <span class='kw'>if</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_uuid'>uuid</span> <span class='op'>==</span> <span class='id identifier rubyid_object_uuid'>object_uuid</span>
+  <span class='kw'>end</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="persist_object-instance_method">
+  
+    - (<tt>Object</tt>) <strong>persist_object</strong>(object) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_persist_object'>persist_object</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_object_hash_update'>object_hash_update</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_to_hash'>to_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid__collection'>_collection</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid__persist_ctrl'>_persist_ctrl</span> <span class='op'>=</span> <span class='id identifier rubyid_persist_ctrl'>persist_ctrl</span>
+  <span class='id identifier rubyid_object'>object</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="teardown-instance_method">
+  
+    - (<tt>Object</tt>) <strong>teardown</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/common/rz_data.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_teardown'>teardown</span>
+  <span class='ivar'>@persist_ctrl</span><span class='period'>.</span><span class='id identifier rubyid_teardown'>teardown</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Fri Feb  3 14:03:03 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

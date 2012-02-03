@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'>
+<p>#### Razor</p>
+
+<p>####  Project description Razor a powerful deployment application for
+bare-metal and virtual servers.</p>
+
+<p>####  Prereqs GEMS: mongo(if using mongo) bson bson_ext rspec(if using unit
+tests) yaml syntax</p>
+
+<p>#### Environment variables needed RAZOR_HOME = root directory for Razor
+RAZOR_RSPEC_WEBPATH = local webserver path for writing Rspec HTML output
+(for unit testing). This is used by ‘./rspec/run_all_unit_tests_html.sh’</p>
+
+<p>#### Directory structure ./bin - control scripts ./conf - configuration
+YAML files ./images - default images directory ./install - installation
+bits ./lib - root library folder ./test_scripts - testing scripts ./rspec -
+unit tests (RSpec)</p>
+
+<p>####  Installation instructions</p>
+
+<p>#### Notes</p>
+
+<p># Using newest mongo driver build as there is a bug with connect_timeout
+scoping error that hasn’t been merged into available gem yet # Fix below is
+assuming RVM # If using global RVM gems make sure and ‘rvm use
+ruby-1.9.3@global’ before installing</p>
+
+<p>wget <a
+href="https://github.com/mongodb/mongo-ruby-driver/zipball/master">github.com/mongodb/mongo-ruby-driver/zipball/master</a>
+unzip master cd mongodb-mongo-ruby-driver-99d9dfd/ gem build mongo.gemspec
+gem install mongo-1.5.2.gem</p>
+
+<p>#### Misc Contributors: Tom McSweeney Nicholas Weaver</p>
+</div></div>
+    
+    <div id="footer">
+  Generated on Fri Feb  3 14:03:03 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
