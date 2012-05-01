@@ -34,7 +34,7 @@ As you can see from that output, the current default set includes the following 
 - **boot** &ndash;
 - **system** &ndash;
 
-As you can see from the output of the Razor command (shown above), it is relatively simple to use these slices from the command-line. You simply add a named slice after the razor command (and any additional switches) and you will execute the functionality of that slice.  Slices may also provide a web-based (RESTful services) interface that can be used to interact with that slice via HTTP/HTTPS. For the slices that do provide such an interface, the RESTful API will directly mimic the command-line interface (or CLI).
+As you can see from the output of the Razor command (shown above), it is relatively simple to use these slices from the command-line. You simply add a named slice after the razor command (after any switches that you might want to include, like "--verbose" or "--no-color-out") and you will execute the functionality of that slice.  Slices may also provide a web-based (RESTful services) interface that can be used to interact with that slice via HTTP/HTTPS. For the slices that do provide such an interface, the RESTful API will directly mimic the command-line interface (or CLI).
 
 As an example, here is the result of running the *razor config* command via the CLI:
 
