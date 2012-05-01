@@ -32,19 +32,19 @@ These components are specified in the form of a JSON-string that represents a ha
     </tr>
     <tr>
         <td>s</td>
-        <td>Seconds</td>
+        <td>seconds</td>
     </tr>
     <tr>
         <td>m</td>
-        <td>Minutes</td>
+        <td>minutes</td>
     </tr>
     <tr>
         <td>h</td>
-        <td>Hours</td>
+        <td>hours</td>
     </tr>
     <tr>
         <td>d</td>
-        <td>Days</td>
+        <td>days</td>
     </tr>
 </table>
 
