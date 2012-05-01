@@ -20,7 +20,7 @@ You may have noticed that in our two example commands that included a *filter* s
 - **log_level** &ndash; Used to filter the matching logfile lines based on the log-level of the message (ERROR, INFO, DEBUG, etc.)
 - **class_name** &ndash; Used to filter the matching logfile lines based on the name of the class where the line was logged from
 - **method_name** &ndash; Used to filter the matching logfile lines based on the name of the method where the line was logged from
-**elapsed_time** &ndash; Used to filter restrict the matching logfile lines to just those that were logged within the time window specified by this argument (see below for more information on the options supported for the format of this argument's value).
+- **elapsed_time** &ndash; Used to filter restrict the matching logfile lines to just those that were logged within the time window specified by this argument (see below for more information on the options supported for the format of this argument's value).
 - **log_message** &ndash; Used to filter the matching logfile lines based on the contents of the log message itself
 
 These components are specified in the form of a JSON-string that represents a hash-map of name/value pairs. The names are the component names shown above, while the values represent Ruby-style regular expressions that should be used to determine if a line matches or not. The only exception to this rule is that the value for the elapsed_time component is actually a string that defines a time window prior to the current time. This value consists of a number, possibly followed by a single-letter suffix that represents that units of time that should be used in defining a time window based on that number. The currently supported list of values are:
