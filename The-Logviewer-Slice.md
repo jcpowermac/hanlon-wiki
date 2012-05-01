@@ -105,7 +105,7 @@ As you can see, there has been no truncation of the output in this case, we've j
     D, [2012-05-01T11:03:53.560955 #18323] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:04:53.620811 #18337] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:05:53.732717 #18351] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
-D, [2012-05-01T11:06:53.745645 #18365] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
+    D, [2012-05-01T11:06:53.745645 #18365] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:07:53.790159 #18413] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:08:53.893051 #18428] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:09:53.958093 #18452] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
