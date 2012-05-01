@@ -1,1 +1,1 @@
-# The Razor *logviewer*
+# The Razor Logviewer Slice
