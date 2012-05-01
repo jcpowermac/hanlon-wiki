@@ -54,7 +54,7 @@ Just to show an example of how these components can be combined to form a filter
 
     razor logviewer filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
 
-It should be noted that if any of these components are not included in the filter specification, then it is as if a wildcard argument that matches any value was passed as the value for the corresponding component. If no filter specification is included, that is an error (and a usage line will be output to help the user with their syntax).
+It should be noted that if any of these components are not included in the filter specification, then it is as if a wildcard argument that matches any value was passed as the value for the corresponding component. If no filter specification is included as part of the *filter* sub-command, that is an error (and a usage line will be output to help the user with their syntax).
 
 ## Other Examples
 
