@@ -28,7 +28,7 @@ As you can see from that output, the current default set includes the following 
 - **imagesvc** &ndash; Used to load images into Razor and to use those images during the (iPXE) boot process
 - **tagrule** &ndash; Used to define tag rules
 - **tagmatcher** &ndash; Used to define rules that will match tags to nodes
-- **model** &ndash; A deployment template containing os image, answer file, and user supplied configuration. 
+- **model** &ndash; Used to govern the process of provisioning a node with an image; includes a deployment template containing os image, answer file, and user supplied configuration data. 
 - **policy** &ndash; Used to define policies that will map models to nodes based on tagrules
 - [**logviewer**](/lynxbat/Razor/wiki/The%20Logviewer%20Slice) &ndash; Used to view the Razor server's current logfile
 - **boot** &ndash;
