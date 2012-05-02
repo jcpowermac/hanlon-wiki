@@ -1,4 +1,4 @@
-# The Razor Logviewer Slice
+# The Razor Logviewer Slice - CLI
 
 As was stated previously, the *logviewer* slice is used to view the current Razor server logfile. It includes functionality that will allow the user to simply view the log file in its entirety (the default) or to tail or filter the log file by adding additional sub-commands to the basic `razor logviewer` command. In addition, these sub-commands can be chained (so that you can ask for a filtered tail of the current logfile or the tail of a filtered version of the logfile). We will provide more detail on the use of these sub-commands, below.
 
