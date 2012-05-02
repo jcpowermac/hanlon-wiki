@@ -1,4 +1,4 @@
-# Razor Slices
+# Razor Slices - CLI
 
 In Razor, a *Slice* represents a unit of functionality. There are a number of Slices that are automatically loaded into Razor when the server starts, and it is a relatively simple matter to determine what slices are available at any given time by simply running the *razor* command (with no additional arguments). Doing so will produce output that looks something like the following output:
 
