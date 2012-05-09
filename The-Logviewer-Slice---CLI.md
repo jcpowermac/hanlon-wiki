@@ -1,21 +1,21 @@
-# The Razor Logviewer Slice - CLI
+# The Razor Log Slice - CLI
 
-As was stated previously, the *logviewer* slice is used to view the current Razor server logfile. It includes functionality that will allow the user to simply view the log file in its entirety (the default) or to tail or filter the log file by adding additional sub-commands to the basic `razor logviewer` command. In addition, these sub-commands can be chained (so that you can ask for a filtered tail of the current logfile or the tail of a filtered version of the logfile). We will provide more detail on the use of these sub-commands, below.
+As was stated previously, the *log* slice is used to view the current Razor server logfile. It includes functionality that will allow the user to simply view the log file in its entirety (the default) or to tail or filter the log file by adding additional sub-commands to the basic `razor log` command. In addition, these sub-commands can be chained (so that you can ask for a filtered tail of the current logfile or the tail of a filtered version of the logfile). We will provide more detail on the use of these sub-commands, below.
 
-As is the case with most slices, adding the *help* sub-command to the basic `razor logviewer` command produces a usage line for the command:
+As is the case with most slices, adding the *help* sub-command to the basic `razor log` command produces a usage line for the command:
 
-    root@ubuntu-server:~# razor logviewer help
+    root@ubuntu-server:~# razor log help
     
-    Command help:  razor logviewer [tail [NLINES]] [filter EXPR]
+    Command help:  razor log [tail [NLINES]] [filter EXPR]
     root@ubuntu-server:~# 
 
-As you can see, the logviewer command supports two sub-commands as part of the slice. The *tail* sub-command will tail the current logfile (selecting NLINES from the end of the log). If the NLINES argument is not included in the command, then the logviewer will output the last 10 lines of the logfile (which is the same as the standard UNIX tail command). The *filter* sub-command can be used to filter the logfile, only selecting lines from the logfile that match the filter expression (which must be included as part of the filter sub-command). As was previously stated, these two sub-commands can be chained, but if they are chained the order in which they appear will likely be significant. Filtering the tail of a logfile, using a command like `razor logviewer tail 20 filter '{ ... }'`, will likely produce output that is quite different from tailing the filter of that same logfile, using a command like `razor logviewer filter '{ ... }' tail 20`. The reasoning behind the significance of order between these two sub-commands isn't really difficult to see once you think about it, but we felt that this fact needed to be emphasized.
+As you can see, the log command supports two sub-commands as part of the slice. The *tail* sub-command will tail the current logfile (selecting NLINES from the end of the log). If the NLINES argument is not included in the command, then the log will output the last 10 lines of the logfile (which is the same as the standard UNIX tail command). The *filter* sub-command can be used to filter the logfile, only selecting lines from the logfile that match the filter expression (which must be included as part of the filter sub-command). As was previously stated, these two sub-commands can be chained, but if they are chained the order in which they appear will likely be significant. Filtering the tail of a logfile, using a command like `razor log tail 20 filter '{ ... }'`, will likely produce output that is quite different from tailing the filter of that same logfile, using a command like `razor log filter '{ ... }' tail 20`. The reasoning behind the significance of order between these two sub-commands isn't really difficult to see once you think about it, but we felt that this fact needed to be emphasized.
 
-We also would like to emphasize here that the *logviewer* slice does not currently provide a RESTful API. It was our thought that an ATOM-feed sort of mechanism might actually make more sense (where changes are pushed to a listener rather than having the listener pull changes using a RESTful API). For this reason, we've chosen to leave the RESTful API for the *logviewer* slice unimplemented (at least for now). We may revisit this question at a later date.
+We also would like to emphasize here that the *log* slice does not currently provide a RESTful API. It was our thought that an ATOM-feed sort of mechanism might actually make more sense (where changes are pushed to a listener rather than having the listener pull changes using a RESTful API). For this reason, we've chosen to leave the RESTful API for the *log* slice unimplemented (at least for now). We may revisit this question at a later date.
 
 ## Filter Expressions
 
-You may have noticed that in our two example commands that included a *filter* subcommand (above), we left the filter expression out (replacing it with an ellipsis). This is because we felt that the filter expressions themselves deserved a bit of discussion/definition before we showed some real-world examples. The basic *logviewer* filter expression can include one or more of the following components:
+You may have noticed that in our two example commands that included a *filter* subcommand (above), we left the filter expression out (replacing it with an ellipsis). This is because we felt that the filter expressions themselves deserved a bit of discussion/definition before we showed some real-world examples. The basic *log* filter expression can include one or more of the following components:
 
 - **log_level** &ndash; Used to filter the matching logfile lines based on the log-level of the message (ERROR, INFO, DEBUG, etc.)
 - **class_name** &ndash; Used to filter the matching logfile lines based on the name of the class where the line was logged from
@@ -50,17 +50,17 @@ These components are specified in the form of a JSON-string that represents a ha
 
 If no suffix is included, the time units are assumed to be seconds. If this elapsed_time component is included in the filter specification, then the specified time is used to determine how far back into the past the time window extends, and only log lines that occur **after** that time will successfully pass through the filter represented by that filter specification. 
 
-Just to show an example of how these components can be combined to form a filter specification, here's an example *logviewer* command that will show all lines from the current Razor logfile that were output from the *mk_checkin* method of the *Engine* class that include the string *000C29291C95* as part of the log message and that were logged within the past 20 minutes.
+Just to show an example of how these components can be combined to form a filter specification, here's an example *log* command that will show all lines from the current Razor logfile that were output from the *mk_checkin* method of the *Engine* class that include the string *000C29291C95* as part of the log message and that were logged within the past 20 minutes.
 
-    razor logviewer filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
+    razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
 
 It should be noted that if any of these components are not included in the filter specification, then it is as if a wildcard argument that matches any value was passed as the value for the corresponding component. If no filter specification is included as part of the *filter* sub-command, that is an error (and a usage line will be output to help the user with their syntax).
 
 ## Other Examples
 
-To close out our discussion of the logviewer, we thought it might be helpful to show a few examples of commands (and their output). First, an example of viewing the entire logfile:
+To close out our discussion of the log, we thought it might be helpful to show a few examples of commands (and their output). First, an example of viewing the entire logfile:
 
-    root@ubuntu-server:~# razor logviewer 
+    root@ubuntu-server:~# razor log 
      ...
     D, [2012-05-01T11:07:43.222156 #18402] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(false)
     D, [2012-05-01T11:07:43.222184 #18402] DEBUG -- ProjectRazor::Persist::Controller#is_connected?: Checking connection (false)
@@ -74,9 +74,9 @@ To close out our discussion of the logviewer, we thought it might be helpful to 
     D, [2012-05-01T11:07:43.225226 #18402] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(true)
     root@ubuntu-server:~#
 
-Note, that we've truncated this output to keep things short and easy to read. The actual `razor logviewer` output was almost 2900 lines long in this case. As was stated previously, if we don't want to view all 2900 lines of that file, we could simply tail the output as follows:
+Note, that we've truncated this output to keep things short and easy to read. The actual `razor log` output was almost 2900 lines long in this case. As was stated previously, if we don't want to view all 2900 lines of that file, we could simply tail the output as follows:
 
-    root@ubuntu-server:~# razor logviewer tail 10
+    root@ubuntu-server:~# razor log tail 10
     D, [2012-05-01T11:11:03.013335 #18479] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(false)
     D, [2012-05-01T11:11:03.013364 #18479] DEBUG -- ProjectRazor::Persist::Controller#is_connected?: Checking connection (false)
     D, [2012-05-01T11:11:03.013418 #18479] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(false)
@@ -91,7 +91,7 @@ Note, that we've truncated this output to keep things short and easy to read. Th
 
 As you can see, there has been no truncation of the output in this case, we've just selected the last 10 lines of this logfile using the *tail* command. We could also use a filter expression to create a shorter output. In this case, let's use the expression we showed when we were discussing the format of these filter expressions (above):
 
-    root@ubuntu-server:~# razor logviewer filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
+    root@ubuntu-server:~# razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
     D, [2012-05-01T10:53:52.930492 #18183] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T10:54:53.021584 #18197] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T10:55:53.048763 #18211] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -116,7 +116,7 @@ As you can see, there has been no truncation of the output in this case, we've j
 
 As you can see, above, this expression actually matched 20 lines in this case, one for each checkin made by the node with a UUID of 000C29291C95 (in this case). We could tail this and get only the last 10 lines, regardless of how many matched a particular expression. An example of this is something like the following:
 
-    root@ubuntu-server:~# razor logviewer filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}' tail 10
+    root@ubuntu-server:~# razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}' tail 10
     D, [2012-05-01T11:06:53.745645 #18365] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:07:53.790159 #18413] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:09:53.958093 #18452] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -131,7 +131,7 @@ As you can see, above, this expression actually matched 20 lines in this case, o
 
 in this case, we selected the last 10 lines from the output shown previously. If we reverse the order of these two "chained sub-commands", we'll see a much different output:
 
-    root@ubuntu-server:~# razor logviewer tail 500 filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
+    root@ubuntu-server:~# razor log tail 500 filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
     D, [2012-05-01T11:16:54.411133 #18582] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:17:54.465077 #18609] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     D, [2012-05-01T11:18:54.751716 #18623] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -139,7 +139,7 @@ in this case, we selected the last 10 lines from the output shown previously. If
 
 As you can see, this only gives us three matching lines from the logfile, in spite of the fact that we've increased the number of lines included in the tail part of the command from 10 to 500. This is because, in the second command we're tailing the last 500 lines of the logfile and then searching for matching lines in the result, whereas in the first command we filtered the entire logfile to find the lines that matched, then selected the last 10 lines from that filtered set (actually it's more complicated than that, but you can think of it that way...if you are curious, see the note, below, on how we efficiently tail this filtered set of lines).
 
-So, that shows all of the possibilities for the logviewer slice, from viewing the entire log file (the default), to tailing the logfile, to filtering the logfile, to tailing the filtered logfile, to filtering the tailed logfile. All are possible using the *logviewer* slice's CLI.
+So, that shows all of the possibilities for the log slice, from viewing the entire log file (the default), to tailing the logfile, to filtering the logfile, to tailing the filtered logfile, to filtering the tailed logfile. All are possible using the *log* slice's CLI.
 
 ### On efficiency in tailing a filtered logfile:
 
