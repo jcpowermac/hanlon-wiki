@@ -23,17 +23,17 @@ In Razor, a *Slice* represents a unit of functionality. Slices are automatically
 
 The following slices are available in a default Razor installation:
 
-- **bmc** &ndash; interact with the Baseboard Management Controllers (BMC) installed on the hardware nodes.
-- **boot** &ndash;
-- **broker** &ndash; manages remote broker plugin and broker target such as Puppet and ESX.
-- **config** &ndash; display and manage the current Razor configuration.
-- **image** &ndash; manage and load images into Razor which are used during the (iPXE) boot process.
-- [**log**](/lynxbat/Razor/wiki/The%20Logviewer%20Slice) &ndash; view and filter the Razor server's logfiles.
-- **model** &ndash; Used to govern the process of provisioning a node with an image; includes a deployment template containing os image, answer file, and user supplied configuration data. 
-- **node** &ndash; display node information such as meta-data, last checkin time, current state, associated tags, etc.
-- **policy** &ndash; Used to define policies that will map models to nodes based on tagrules
-- **tagrule** &ndash; Used to define tag rules.
-- **tagmatcher** &ndash; Used to define rules that will match tags to nodes.
+- [**bmc**](./slice-bmc) &ndash; interact with the Baseboard Management Controllers (BMC) installed on the hardware nodes.
+- [**boot**](./slice-boot) &ndash;
+- [**broker**](./slice-broker) &ndash; manages remote broker plugin and broker target such as Puppet and ESX.
+- [**config**](./slice-config) &ndash; display and manage the current Razor configuration.
+- [**image**](./slice-image) &ndash; manage and load images into Razor which are used during the (iPXE) boot process.
+- [**log**](./slice-log) &ndash; view and filter the Razor server's logfiles.
+- [**model**](./slice-model) &ndash; Used to govern the process of provisioning a node with an image; includes a deployment template containing os image, answer file, and user supplied configuration data.
+- [**node**](./slice-node) &ndash; display node information such as meta-data, last checkin time, current state, associated tags, etc.
+- [**policy**](./slice-policy) &ndash; Used to define policies that will map models to nodes based on tagrules.
+- [**tagrule**](./slice-tagrule) &ndash; Used to define tag rules.
+- [**tagmatcher**](./slice-tagmatcher) &ndash; Used to define rules that will match tags to nodes.
 
 As you can see from the output of the Razor command (shown above), it is relatively simple to use these slices from the command-line. You simply add a named slice after the razor command (after any switches that you might want to include, like "--verbose" or "--no-color-out") and you will execute the functionality of that slice.  Slices may also provide a web-based (RESTful services) interface that can be used to interact with that slice via HTTP/HTTPS. For the slices that do provide such an interface, the RESTful API will directly mimic the command-line interface (or CLI).
 
