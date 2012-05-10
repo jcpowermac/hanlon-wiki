@@ -49,5 +49,3 @@ Razor will maintain a record of all nodes checked into the system. Nodes with an
     000C29C952BA  20s           [cpus_1,IntelCorporation,memsize_1,nics_1,physical]
     000C29AD19C3  14s           [cpus_2,IntelCorporation,memsize_1,nics_1,vmware_vm]
     000C292F835C  45s           [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
-
-In the list of nodes 

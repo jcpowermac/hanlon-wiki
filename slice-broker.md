@@ -35,7 +35,15 @@ The example below creates a new broker target named demo_master which installs p
      Servers =>  [demo_puppet.puppetlabs.lan]
      UUID =>  3bqEiiwDhhChrdGeJmAEtW
 
-Once a broker target is specified, it can be specified in a razor policy. The policy have the flexibility to specify different OS model for provisioning in combinations with different puppet broker target for system handoff for different environments. The example below shows two policy applying the same model, but specifying different broker target for two different environments.
+Once a broker target is no longer required in razor, it can be removed, and remove all will purge all broker target specified in razor:
+
+   $ razor broker remove 3bqEiiwDhhChrdGeJmAEtW
+   Broker remove success
+
+   $ razor broker remove all
+   Broker success
+
+Once a broker target is created, it can be specified in a razor policy. The policy have the flexibility to specify different OS model for provisioning in combinations with different puppet broker target for system handoff for different environments. The example below shows two policy applying the same model, but specifying different broker target for two different environments.
 
     $ razor policy
     Policies
