@@ -15,7 +15,7 @@ razor broker get plugins provide a list of plugins available that provides hando
 
     $ razor broker get plugins
     
-    Possible Broker Plugins:
+    Available Broker Plugins:
      Plugin =>  puppet
      Description =>  PuppetLabs PuppetMaster
 
