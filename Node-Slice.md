@@ -1,6 +1,6 @@
 # Node Slice
 
-The *node* slice is used to view the servers managed by Razor. Systems with recent checkin below the mk_checkin_interval interval are running the microkernel, while nodes with a long checkin time are running an active model which is bound to the system and are currently not actively checking into razor.
+The *node* slice is used to view the servers managed by Razor. Systems with recent check in below the mk_checkin_interval are running the microkernel, while nodes with a long check in time are running an active model which is bound to the system and are currently not actively checking into razor.
 
     $ razor node
     Discovered Nodes
@@ -8,7 +8,7 @@ The *node* slice is used to view the servers managed by Razor. Systems with rece
     000C291BD3B1  42256.6 min   [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
     000C29C952BA  20s           [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
 
-Razor provides the node UUID, last system checkin time and a list of tags which are applicable to the system. To obtain more information about the node, specify the system UUID:
+Razor provides the node UUID, last system check in time and a list of tags which are associated with the system. To obtain more information about the node, specify the system UUID:
 
     $ razor node get 63XAZ7brS9gXUoL6PSz2wk
     UUID =>  63XAZ7brS9gXUoL6PSz2wk
@@ -112,4 +112,4 @@ For additional metadata including facter data collected from the node specify:
       mk_hw_lscpu_BogoMIPS      5311.25                        
       ipaddress_lo              127.0.0.1                      
 
-The metadata provide here can be used to tag nodes for identification at a later point.
+The metadata provide here can be used in tag rules or tag matches to identify nodes.
