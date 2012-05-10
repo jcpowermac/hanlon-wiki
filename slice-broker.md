@@ -1,6 +1,6 @@
 # Broker Slice
 
-The *broker* slice is used specify handoff of node to external broker target. There are two types of broker plugin, agent and proxy. An agent broker will interact directly with the node, such as the puppet plugin, which installs a puppet agent and connects the node to a puppetmaster. An proxy broker will interact with a third party, such as the ESX plugin, which interacts with vCenter system to attach the ESX node. The broker target is a specific instances of broker plugin with all configuration settings specified. By default razor broker will provide a list of configured broker targets:
+The *broker* slice is used specify handoff of node to external broker target. There are two types of broker plugin, agent and proxy. An agent broker will interact directly with the node, such as the puppet plugin, which installs a puppet agent and connects the node to a puppetmaster. An proxy broker will interact with a third party, such as the ESX plugin, which interacts with vCenter system to attach the ESX node. The broker target is a specific instances of broker plugin with all configuration settings specified. By default razor broker will provide a list of all configured broker targets:
 
     $ razor broker
     Broker Target
@@ -10,6 +10,21 @@ The *broker* slice is used specify handoff of node to external broker target. Th
 
 
 ## Broker Plugin and Broker Target
+
+razor broker get all|[uuid] provide a list of configured broker on the system:
+
+    $ razor broker get all
+    Broker Target
+       Name            Description         Plugin            Servers                      UUID
+    prod_master  Production Puppet Master  puppet  [master.puppetlabs.lan]       3bqEiiwDhhChrdGeJmAEtW
+    test_master  Test Puppet Master        puppet  [test_puppet.puppetlabs.lan]  4KHNmp0KxqeSfHLar7kw94
+
+    $ razor broker get 1bh2qyvF9eu0y8xeJMMZyM
+     Name =>  prod_puppet
+     Description =>  Production Puppet Server.
+     Plugin =>  puppet
+     Servers =>  [master.puppetlabs.lan]
+     UUID =>  3bqEiiwDhhChrdGeJmAEtW
 
 razor broker get plugins provide a list of plugins available that provides handoff of node to with a third party.
 
