@@ -53,3 +53,17 @@ The razor configuration supports the following settings:
 * persist_timeout: database timeout.
 * register_timeout: registration timeout.
 * force_mk_uuid: 
+
+## Debug Level
+
+To modify debug level, set environment variable RAZOR_LOG_LEVEL.
+
+export $RAZOR_LOG_LEVEL=3
+
+The log level value corresponds with Ruby Logger class:
+
+* 0: Logger::DEBUG
+* 1: Logger::INFO
+* 2: Logger::WARN
+* 3: Logger::ERROR
+* 4: Logger::FATAL

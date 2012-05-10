@@ -1,55 +1,115 @@
-# Config Slice
+# Node Slice
 
-The *config* slice is used to view the current Razor server configuration.
+The *node* slice is used to view the servers managed by Razor. Systems with recent checkin below the mk_checkin_interval interval are running the microkernel, while nodes with a long checkin time are running an active model which is bound to the system and are currently not actively checking into razor.
 
-    root@ubuntu-server:~# razor config
-    ProjectRazor Config:
-        admin_port: 8025
-        api_port: 8026
-        default_ipmi_password: ipmi_password
-        default_ipmi_power_state: off
-        default_ipmi_username: ipmi_user
-        force_mk_uuid:
-        image_svc_host: 192.168.5.2
-        image_svc_path: /root/Razor/image
-        image_svc_port: 8027
-        mk_checkin_interval: 60
-        mk_checkin_path: /razor/api/node/checkin
-        mk_checkin_skew: 5
-        mk_fact_excl_pattern: (^facter.*$)|(^id$)|(^kernel.*$)|(^memoryfree$)|(^operating.*$)|(^osfamily$)|(^path$)|(^ps$)|(^ruby.*$)|(^selinux$)|(^ssh.*$)|(^swap.*$)|(^timezone$)|(^uniqueid$)|(^uptime.*$)|(.*json_str$)
-        mk_log_level: Logger::DEBUG
-        mk_register_path: /razor/api/node/register
-        mk_uri: http://192.168.5.2:8026
-        persist_host: 127.0.0.1
-        persist_mode: mongo
-        persist_port: 27017
-        persist_timeout: 10
-        register_timeout: 120
+    $ razor node
+    Discovered Nodes
+        UUID      Last Checkin                          Tags
+    000C291BD3B1  42256.6 min   [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
+    000C29C952BA  20s           [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
 
-If the configuration file does not exists, razor will generate a default configuration during intial startup. The configuration settings are stored in razor installation directory conf/razor_server.conf.
+Razor provides the node UUID, last system checkin time and a list of tags which are applicable to the system. To obtain more information about the node, specify the system UUID:
 
-## Settings
+    $ razor node get 63XAZ7brS9gXUoL6PSz2wk
+    UUID =>  63XAZ7brS9gXUoL6PSz2wk
+    Last Checkin =>  05-09-12 16:44:13
+    Tags =>  [cpus_2,IntelCorporation,memsize_2,nics_1,vmware_vm]
+    Hardware IDs =>  [000C29C952BA]
 
-The razor configuration supports the following settings:
+For additional metadata including facter data collected from the node specify:
 
-* admin_port: razor admin management port.
-* api_port: razor slice rest api port.
-* default_ipmi_power_state: bmc ipmi default power state.
-* default_ipmi_username: bmc ipmi login username.
-* default_ipmi_password: bmc ipmi login password.
-* image_svc_host: razor image service server ip.
-* image_svc_port: razor image service server port.
-* image_svc_path: image service ISO storage path.
-* mk_checkin_interval: microkernel checkin frequency in seconds.
-* mk_checkin_skew: microkernel checkin splay time in seconds.
-* mk_uri: microkernel checkin ipaddress and port.
-* mk_register_path: microkernel registration api url.
-* mk_checkin_path: microkernel checkin api url.
-* mk_fact_excl_pattern: microkernel facts excluded from meta-data collection.
-* mk_log_level: microkernel log level.
-* persist_mode: backend database, currently uses mongodb.
-* persist_host: database host.
-* persist_port: database port.
-* persist_timeout: database timeout.
-* register_timeout: registration timeout.
-* force_mk_uuid: 
+    $ razor node get attrib 63XAZ7brS9gXUoL6PSz2wk
+    Node Attributes:
+                Name                        Value              
+      mk_hw_nic_count           1                              
+      mk_hw_cpu0_version        6.7.10                         
+      mk_hw_fw_date             06/02/2011                     
+      memorytotal               1.97 GB                        
+      mk_hw_lscpu_Vendor_ID     GenuineIntel                   
+      mk_hw_cpu1_slot           CPU socket #1                  
+      mk_hw_bus_physical_id     0                              
+      virtual                   vmware                         
+      mk_hw_cpu0_description    CPU                            
+      mk_hw_nic0_width          64 bits                        
+      mk_hw_cpu1_vendor         Intel Corp.                    
+      domain                    localdomain                    
+      mk_hw_disk0_physical_id   0.0.0                          
+      hardwaremodel             i686                           
+      network_lo                127.0.0.0                      
+      fqdn                      mk000C29C952BA.localdomain     
+      mk_hw_bus_description     Motherboard                    
+      mk_hw_nic0_logical_name   eth0                           
+      mk_hw_cpu0_capacity       4230MHz                        
+      netmask_eth0              255.255.255.0                  
+      mk_hw_mem_physical_id     e2                             
+      mk_hw_lscpu_CPU_MHz       2654.521                       
+      mk_hw_cpu0_bus_info       cpu@0                          
+      macaddress_dummy0         86:A8:D2:81:26:65              
+      ipaddress                 192.168.232.135                
+      mk_hw_fw_version          6.00                           
+      processorcount            2                              
+      mk_hw_lscpu_CPU_sockets   2                              
+      mk_hw_cpu1_serial         0001-067A-0000-0000-0000-0000  
+      mk_hw_bus_serial          None                           
+      is_virtual                true                           
+      mk_hw_cpu_count           2                              
+      mk_hw_nic0_capacity       1Gbit/s                        
+      mk_hw_lscpu_L2_cache      3072K                          
+      netmask_lo                255.0.0.0                      
+      mk_hw_disk0_description   SCSI Disk                      
+      network_eth0              192.168.232.0                  
+      mk_hw_nic0_bus_info       pci@0000:02:01.0               
+      mk_hw_cpu0_size           2667MHz                        
+      mk_hw_lscpu_Stepping      10                             
+      macaddress_eth0           00:0C:29:C9:52:BA              
+      mk_hw_mem_description     System Memory                  
+      mk_hw_cpu1_width          64 bits                        
+      mk_hw_cpu0_physical_id    4                              
+      mk_hw_fw_physical_id      0                              
+      mk_hw_lscpu_Byte_Order    Little Endian                  
+      mk_hw_cpu1_version        6.7.10                         
+      mk_hw_bus_version         None                           
+      mk_hw_disk0_size          40GiB (42GB)                   
+      mk_hw_nic0_size           1Gbit/s                        
+      mk_hw_cpu1_description    CPU                            
+      mk_hw_lscpu_L1i_cache     32K                            
+      mk_hw_disk_count          1                              
+      architecture              i386                           
+      mk_hw_nic0_physical_id    1                              
+      mk_hw_cpu0_slot           CPU socket #0                  
+      mk_hw_lscpu_Model         23                             
+      netmask                   255.255.255.0                  
+      mk_hw_cpu1_capacity       4230MHz                        
+      mk_hw_cpu0_vendor         Intel Corp.                    
+      mk_hw_fw_vendor           Phoenix Technologies LTD       
+      mk_hw_cpu1_bus_info       cpu@1                          
+      mk_hw_disk0_logical_name  /dev/sda                       
+      hardwareisa               unknown                        
+      mk_hw_bus_vendor          Intel Corporation              
+      mk_hw_nic0_serial         00:0c:29:c9:52:ba              
+      mk_hw_mem_size            2GiB                           
+      mk_hw_lscpu_L1d_cache     32K                            
+      mk_hw_nic0_description    Ethernet interface             
+      mk_hw_cpu0_serial         0001-067A-0000-0000-0000-0000  
+      mk_hw_lscpu_CPU_family    6                              
+      physicalprocessorcount    2                              
+      ipaddress_eth0            192.168.232.135                
+      macaddress                86:A8:D2:81:26:65              
+      mk_hw_fw_size             87KiB                          
+      mk_hw_cpu1_size           2667MHz                        
+      mk_hw_lscpu_Architecture  i686                           
+      interfaces                dummy0,eth0,lo                 
+      mk_hw_fw_description      BIOS                           
+      memorysize                1.97 GB                        
+      mk_hw_lscpu_CPU_op-modes  32-bit, 64-bit                 
+      mk_hw_nic0_clock          66MHz                          
+      mk_hw_cpu1_physical_id    5                              
+      mk_hw_disk0_bus_info      scsi@2:0.0.0                   
+      hostname                  mk000C29C952BA                 
+      mk_hw_nic0_version        01                             
+      mk_hw_cpu0_width          64 bits                        
+      mk_hw_mem_slot            System board or motherboard    
+      mk_hw_lscpu_BogoMIPS      5311.25                        
+      ipaddress_lo              127.0.0.1                      
+
+The metadata provide here can be used to tag nodes for identification at a later point.

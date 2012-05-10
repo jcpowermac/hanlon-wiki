@@ -24,8 +24,7 @@ List image is the default action for the image slice:
       Version: 0.6.4.0
       Build Time: 2012-04-20 17:45:53 -0700
 
-
-## Add Images
+## Adding MK Images
 
 Add image requires a valid image type. Current razor supports mk, esxi, and os images:
 
@@ -48,7 +47,7 @@ Add image requires a valid image type. Current razor supports mk, esxi, and os i
     
     To add a new microkernel, download the image and install it:
 
-If multiple microkernels are loaded, razor will automatically use the latest MK kernel avaliable.
+Razor will detect the MK version and build time automatically. If multiple microkernels are loaded, razor will automatically use the latest MK kernel avaliable.
 
     $ razor image add mk ../rz_mk_dev-image.0.7.2.iso
     
@@ -66,7 +65,52 @@ If multiple microkernels are loaded, razor will automatically use the latest MK 
       Version: 0.7.2.0
       Build Time: 2012-05-02 13:47:47 -0700
 
-Images by default will be loaded in the image_svc_path:
+## Adding OS Images
+
+Razor supports loading of any operating system installation media via ISO images.
+
+    $ razor image add os ../ubuntu-11.10-server-amd64.iso 
+    
+    Available commands for [Image]:
+    [add] [get] [remove] [path] 
+    
+    [Image] [add] <-MissingOSName
+    
+    Command syntax: image add os ../ubuntu-11.10-server-amd64.iso (OS Name) (OS Version)
+
+Razor currently does not detect information regarding the OS ISO. In addition to the path to the ISO images, user must also supply an OS name, and OS version:
+
+    $ razor image add os ../ubuntu-11.10-server-amd64.iso ubuntu 11.10
+    Attempting to add, please wait...
+    
+    New image added successfully
+    
+    Images:
+      UUID: nVe9chgnS26gYdmCf4NW  
+      Type: OS Install  
+      ISO Filename: ubuntu-11.10-server-amd64.iso  
+      Path: /mnt/nfs/Razor/image/os/nVe9chgnS26gYdmCf4NW  
+      Status: Valid   
+      OS Name: ubuntu  
+      OS Version: 11.10  
+
+## Adding ESXi Images
+
+Similar to MK images, Razor only require the image path, and will automatically determine the version of ESXi installation media.
+
+## Remove Image
+
+Images that are no longer required can be removed by specifying the image UUID:
+
+    $ razor image remove 0115f790628c012f1c14000c29a694fa
+    
+    Image remove success
+    
+    Image: 0115f790628c012f1c14000c29a694fa removed successfully
+
+## Image Storage
+
+Images will be stored in the image_svc_path under the image type (mk, os, esxi), and image uuid:
 
     $ tree image
     image
@@ -113,15 +157,13 @@ Images by default will be loaded in the image_svc_path:
     │       └── iso-metadata.yaml
     └── README
 
-Do not modify files in the image_svc_path.
+Do not modify files in the image_svc_path, manual changes will resuilt in broken images:
 
-## Remove Image
-
-Images that are no longer required can be removed by specifying the image UUID:
-
-    $ razor image remove 0115f790628c012f1c14000c29a694fa
-    
-    Image remove success
-    
-    Image: 0115f790628c012f1c14000c29a694fa removed successfully
+    UUID: nVe9chgnS26gYdmCf4NW
+    Type: OS Install
+    ISO Filename: ubuntu-11.10-server-amd64.iso
+    Path: /mnt/nfs/Razor/image/os/nVe9chgnS26gYdmCf4NW
+    Status: Broken/Missing
+    OS Name: ubuntu
+    OS Version: 11.10
 
