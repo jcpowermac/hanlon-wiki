@@ -49,6 +49,7 @@ For now, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key, w
     linux_deploy       Policy for deploying a Linux-based operating system. Compatible with Linux operating system Models  
 
     $ razor policy add (policy templates) (Name) (Model Config UUID) [none|(Broker Target UUID)] (tag{,tag,tag})
+
     $ razor policy add vmware_hypervisor esxi_policy 3FzmV4X8l53CWHu3iZC0DQ none vmware_vm
      UUID =>  2znLG5mHt6cIsh4nVzGcfQ
      Line Number =>  2
