@@ -39,7 +39,7 @@ For now, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key, w
        Label: esxi_model  Type: vmware_esxi5_simple  Description: VMware ESXi 5 Simple Deployment
       Model UUID: 3FzmV4X8l53CWHu3iZC0DQ  Image UUID: 4fhYStNwgcjUMKHvFIChSy
 
-### Create a policy that connects tags and the model.
+### Create a policy that connects tags with the model.
 
     $ razor policy get template
 
@@ -50,5 +50,13 @@ For now, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key, w
 
     $ razor policy add (policy templates) (Name) (Model Config UUID) [none|(Broker Target UUID)] (tag{,tag,tag})
     $ razor policy add vmware_hypervisor esxi_policy 3FzmV4X8l53CWHu3iZC0DQ none vmware_vm
-
+     UUID =>  2znLG5mHt6cIsh4nVzGcfQ
+     Line Number =>  2
+     Label =>  esxi_policy
+     Template =>  vmware_hypervisor
+     Description =>  Policy for deploying a VMware hypervisor. Compatible with VMware hypervisor Model Configs
+     Tags =>  [vmware_vm]
+     Model Label =>  esxi
+     Broker Target =>  none
+     Bound Count =>  0
 
