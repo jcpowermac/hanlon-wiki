@@ -58,7 +58,7 @@ The razor configuration supports the following settings:
 
 To modify debug level, set environment variable RAZOR_LOG_LEVEL.
 
-export $RAZOR_LOG_LEVEL=3
+export RAZOR_LOG_LEVEL=3; start_node.sh
 
 The log level value corresponds with Ruby Logger class:
 
