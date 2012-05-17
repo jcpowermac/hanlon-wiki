@@ -67,3 +67,23 @@ The list of comma seperated tags, is the criteria which razor identifies nodes t
      Model Label =>  ubuntu
      Broker Target =>  none
      Bound Count =>  0
+
+To find out the current state of active models bound to nodes, check the policy active state:
+
+    razor policy active
+    Active Models:
+         Label          State           Node UUID            System      Bind #           UUID           
+    centos_install   init         6ifxsUY43FZWuykB0tlrA2  none           1       6ph1ArWrUa2RPbBlXDRNtq  
+    centos_install   init         49ZAUZJmQLDyQxLd6ZhEE6  none           2       4GZwgJ4xaVvGHUW0qHjIhW  
+    install_precise  postinstall  7l4hBeHQOEioBMzglVrnFi  none           1       5LR9QOvX0wj47oKlt29UJm  
+    esx_install      postinstall  YDLLKKJ9u3RS3QEcqdwx0   puppet_master  2       fvIBp22fNXlAoeMQdyilO   
+    esx_install      init         2AiYujFMynjiLS4URaeoKw  puppet_master  1       2HPrdJ0ctz7A8Z5NLvzYwU  
+
+The active model can be reviewed to find out what action the node is currently in and what state it has transitioned through to get to the current state:
+
+    razor policy active log fvIBp22fNXlAoeMQdyilO
+          State            Action      Result    Time     Last     Total           Node           
+    init               mk_call         n/a     14:49:32  0 sec    0 sec    YDLLKKJ9u3RS3QEcqdwx0  
+    init               boot_call       n/a     14:50:02  30 sec   30 sec   YDLLKKJ9u3RS3QEcqdwx0  
+    init               kickstart_file  n/a     14:51:59  1.9 min  2.5 min  YDLLKKJ9u3RS3QEcqdwx0  
+    init=>postinstall  kickstart_end   n/a     14:52:00  1 sec    2.5 min  YDLLKKJ9u3RS3QEcqdwx0  
