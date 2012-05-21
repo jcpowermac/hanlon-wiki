@@ -1,6 +1,6 @@
-# Use Razor to Provision ESXi 
+# Using Razor to Provision ESXi 
 
-### Make sure that VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso is loaded into Razor image service.
+### Load the VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso into Razor image service.
     $ razor image add [os|mk|esxi] (PATH TO ISO)
 
     $ razor image add esxi VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso
@@ -16,9 +16,9 @@
             Status: Valid   
             Version: VMware ESXi 5.0 GA
 
-### Create a model that's associated with the image.
+### Create a new model using the esxi template and associate it with the image.
 
-For now, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key, when asked.
+When asked, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key.
 
     $ bin/razor model get template
     Valid Model Templates:
@@ -39,7 +39,7 @@ For now, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key, w
        Label: esxi_model  Type: vmware_esxi5_simple  Description: VMware ESXi 5 Simple Deployment
       Model UUID: 3FzmV4X8l53CWHu3iZC0DQ  Image UUID: 4fhYStNwgcjUMKHvFIChSy
 
-### Create a policy that connects tags with the model.
+### Use the `vmware_hypervisor` template to create a policy that connects tags with the model.
 
     $ razor policy get template
 
