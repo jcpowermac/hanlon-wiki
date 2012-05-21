@@ -1,6 +1,6 @@
-Razor is an advanced provisioning application, which can deploy both bare-metal and virtual systems. It's aimed at solving the problem of how to bring new metal into a state where your existing DevOps/configuration management workflows can take it over.
+Razor is an advanced provisioning application which can deploy both bare-metal and virtual systems. It's aimed at solving the problem of how to bring new metal into a state where your existing DevOps/configuration management workflows can take it over.
 
-Newly added machines in a Razor deployment will PXE-boot from a special microkernel image, then check in, provide Razor with inventory information, and wait for further instructions. Razor will consult user-created policy rules to choose which preconfigured model to apply to a new node, and the node will begin to follow the model's directions, giving feedback to Razor as it completes various steps. Models can include a handoff to a configuration management system, or to some other system able to take control of the node (such as a vCenter server able to take possession of ESX systems). 
+Newly added machines in a Razor deployment will PXE-boot from a special microkernel image, then check in, provide Razor with inventory information, and wait for further instructions. Razor will consult user-created policy rules to choose which preconfigured model to apply to a new node, which will begin to follow the model's directions, giving feedback to Razor as it completes various steps. Models can include a handoff to a configuration management system or to another system capable of controlling the node (such as a vCenter server taking possession of ESX systems). 
 
 Using Razor
 -----
