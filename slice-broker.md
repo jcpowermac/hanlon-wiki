@@ -64,8 +64,8 @@ Once a broker target is created, it can be referred to in a Razor policy. The po
 
 Once a broker target is no longer required, it can be removed; `remove all` will purge all broker targets specified in Razor:
 
-   $ razor broker remove 3bqEiiwDhhChrdGeJmAEtW
-   Broker remove success
+    $ razor broker remove 3bqEiiwDhhChrdGeJmAEtW
+    Broker remove success
 
-   $ razor broker remove all
-   Broker success
+    $ razor broker remove all
+    Broker success
