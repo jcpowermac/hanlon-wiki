@@ -1,6 +1,6 @@
 # Config Slice
 
-The *config* slice is used to view the current Razor server configuration.
+The `config` slice is used to view the current configuration of the Razor server.
 
     root@ubuntu-server:~# razor config
     ProjectRazor Config:
@@ -26,11 +26,11 @@ The *config* slice is used to view the current Razor server configuration.
         persist_timeout: 10
         register_timeout: 120
 
-If the configuration file does not exists, razor will generate a default configuration during intial startup. The configuration settings are stored in razor installation directory conf/razor_server.conf.
+If the configuration file does not exist, Razor will generate a default configuration during intial startup. The configuration settings are stored in the Razor installation directory: conf/razor_server.conf.
 
 ## Settings
 
-The razor configuration supports the following settings:
+The Razor configuration slice reports on the following settings:
 
 * admin_port: razor admin management port.
 * api_port: razor slice rest api port.
@@ -56,11 +56,11 @@ The razor configuration supports the following settings:
 
 ## Debug Level
 
-To modify debug level, set environment variable RAZOR_LOG_LEVEL.
+To modify the debug level, set the environment variable `RAZOR_LOG_LEVEL`.
 
-export RAZOR_LOG_LEVEL=3; start_node.sh
+    export RAZOR_LOG_LEVEL=3; start_node.sh
 
-The log level value corresponds with Ruby Logger class:
+The log level value corresponds to the Ruby Logger class:
 
 * 0: Logger::DEBUG
 * 1: Logger::INFO
