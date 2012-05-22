@@ -1,6 +1,6 @@
 # Node Slice
 
-The *node* slice is used to view the servers managed by Razor. Systems with recent check in below the mk_checkin_interval are running the microkernel, while nodes with a long check in time are running an active model which is bound to the system and are currently not actively checking into razor.
+The `node` slice is used to view the servers being managed by Razor. Systems with a recent check-in below the mk_checkin_interval are running the microkernel, while nodes with a long check-in time are busy running an active model which is bound to the Razor system and so are currently not actively checking into Razor.
 
     $ razor node
     Discovered Nodes
@@ -8,7 +8,7 @@ The *node* slice is used to view the servers managed by Razor. Systems with rece
     000C291BD3B1  42256.6 min   [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
     000C29C952BA  20s           [cpus_1,IntelCorporation,memsize_1,nics_1,vmware_vm]
 
-Razor provides the node UUID, last system check in time and a list of tags which are associated with the system. To obtain more information about the node, specify the system UUID:
+Razor provides the node UUID, last system check-in time, and a list of tags which are associated with the system. To obtain more information about the node, specify the system UUID:
 
     $ razor node get 63XAZ7brS9gXUoL6PSz2wk
     UUID =>  63XAZ7brS9gXUoL6PSz2wk
@@ -16,7 +16,7 @@ Razor provides the node UUID, last system check in time and a list of tags which
     Tags =>  [cpus_2,IntelCorporation,memsize_2,nics_1,vmware_vm]
     Hardware IDs =>  [000C29C952BA]
 
-For additional metadata including facter and mk hardware data collected from the node specify:
+For additional metadata, including facter and mk hardware data collected from the node, specify:
 
     $ razor node get attrib 63XAZ7brS9gXUoL6PSz2wk
     Node Attributes:
@@ -112,4 +112,4 @@ For additional metadata including facter and mk hardware data collected from the
     processorcount            2                              
     virtual                   vmware                         
 
-Facter data will be filtered based on mk_fact_excl_pattern configuration. Facter facts regarding the MK OS, such as operating system are not gathered, nor are changing values such as memory free. This prevents constant updates to the metadata that are typically not relavant for node identification. The metadata provide here can be used in tag rules or tag matches to identify nodes.
+Facter data will be filtered based on `mk_fact_excl_pattern configuration`. Facter facts regarding the MK OS, such as operating system, are not gathered, nor are changing values such as free memory. This prevents constant updates to the metadata (which are typically not relavant for node identification). The metadata provide here can be used in tag rules or tag matches to identify nodes.
