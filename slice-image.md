@@ -1,10 +1,10 @@
 # Image Slice
 
-The *image* slice is used to list, add, delete images to the image service.
+The *image* slice is used to list, add, and delete .iso images on the image service.
 
 ## List Images
 
-List image is the default action for the image slice:
+The default action for the image slice is list:
 
     $ razor image
     Images:
@@ -26,7 +26,7 @@ List image is the default action for the image slice:
 
 ## Adding MK Images
 
-Add image requires a valid image type. Current razor supports mk, esxi, and os images:
+Adding an image requires a valid image type. Currently Razor supports mk, esxi, and os images:
 
     $ razor image add
     
@@ -43,11 +43,11 @@ Add image requires a valid image type. Current razor supports mk, esxi, and os i
     
     Command syntax: image add [esxi|os|mk] (PATH TO ISO)
     
-    Currently images are availalbe at:https://github.com/lynxbat/Razor/downloads
+    Currently images are available at:https://github.com/lynxbat/Razor/downloads
     
     To add a new microkernel, download the image and install it:
 
-Razor will detect the MK version and build time automatically. If multiple microkernels are loaded, razor will automatically use the latest MK kernel avaliable.
+Razor will automatically detect the MK version and build time. If multiple microkernels are loaded, Razor will automatically use the latest MK kernel avaliable.
 
     $ razor image add mk ../rz_mk_dev-image.0.7.2.iso
     
@@ -67,7 +67,7 @@ Razor will detect the MK version and build time automatically. If multiple micro
 
 ## Adding OS Images
 
-Razor supports loading of any operating system installation media via ISO images.
+Razor can load any operating system's installation packages via ISO images.
 
     $ razor image add os ../ubuntu-11.10-server-amd64.iso 
     
@@ -78,7 +78,7 @@ Razor supports loading of any operating system installation media via ISO images
     
     Command syntax: image add os ../ubuntu-11.10-server-amd64.iso (OS Name) (OS Version)
 
-Razor currently does not detect information regarding the OS ISO. In addition to the path to the ISO images, user must also supply an OS name, and OS version:
+Razor currently does not detect information regarding the OS ISO. Consequently, in addition to the path to ISO images, users must also supply an OS name and OS version as follows:
 
     $ razor image add os ../ubuntu-11.10-server-amd64.iso ubuntu 11.10
     Attempting to add, please wait...
@@ -96,11 +96,11 @@ Razor currently does not detect information regarding the OS ISO. In addition to
 
 ## Adding ESXi Images
 
-Similar to MK images, Razor only require the image path, and will automatically determine the version of ESXi installation media.
+As with MK images, Razor only requires the image's path and will automatically determine the version of ESXi installation packages.
 
 ## Remove Image
 
-Images that are no longer required can be removed by specifying the image UUID:
+Images that are no longer required can be removed by specifying the image's UUID:
 
     $ razor image remove 0115f790628c012f1c14000c29a694fa
     
@@ -110,7 +110,7 @@ Images that are no longer required can be removed by specifying the image UUID:
 
 ## Image Storage
 
-Images will be stored in the image_svc_path under the image type (mk, os, esxi), and image uuid:
+Images will be stored in image_svc_path by image type (mk, os, esxi), and image uuid:
 
     $ tree image
     image
@@ -157,7 +157,7 @@ Images will be stored in the image_svc_path under the image type (mk, os, esxi),
     │       └── iso-metadata.yaml
     └── README
 
-Do not modify files in the image_svc_path, manual changes will resuilt in broken images:
+Do not modify files in the image_svc_path, manual changes will result in broken images:
 
     UUID: nVe9chgnS26gYdmCf4NW
     Type: OS Install
