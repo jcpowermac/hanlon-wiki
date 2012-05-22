@@ -1,6 +1,6 @@
 # Razor Slices - CLI
 
-In Razor, a *slice* is a unit of functionality. Slices are automatically loaded into Razor when the server starts. To view the available slices, run the *razor* command with no additional arguments. The command will return a list of currently loaded slices:
+In Razor, a *slice* is a unit of functionality. Slices are automatically loaded into Razor when the server starts. To view the available slices, run the `razor` command with no additional arguments. The command will return a list of currently loaded slices:
 
     root@ubuntu-server:~# razor
     
@@ -21,7 +21,7 @@ In Razor, a *slice* is a unit of functionality. Slices are automatically loaded 
 
 ## Default Slices
 
-A default Razor installation will have the following slices:
+A default Razor installation includes the following slices:
 
 - [**bmc**](./slice-bmc) &ndash; interact with Baseboard Management Controllers (BMC) installed on the hardware nodes.
 - [**boot**](./slice-boot) &ndash;
@@ -35,7 +35,7 @@ A default Razor installation will have the following slices:
 - [**tagrule**](./slice-tagrule) &ndash; define tag rules.
 - [**tagmatcher**](./slice-tagmatcher) &ndash; define rules that will match tags to nodes.
 
-As you can see from the output of the Razor command (shown above), these slices are relatively simple to use from the command-line. You simply add a named slice after the razor command (after any switches that you might want to include, like "--verbose" or "--no-color-out") and the slice will execute its functions.  Some slices also provide a web-based (RESTful services) interface that can be used to interact with the slice via HTTP/HTTPS. For slices that do provide such an interface, the RESTful API will directly mimic the command-line interface (or CLI).
+As you can see from the output of the `razor` command (shown above), these slices are relatively simple to use from the command-line. You simply add a named slice after the `razor` command (after any switches that you might want to include, like "--verbose" or "--no-color-out") and the slice will execute its functions.  Some slices also provide a web-based (RESTful services) interface that can be used to interact with the slice via HTTP/HTTPS. For slices that do provide such an interface, the RESTful API will directly mimic the command-line interface (or CLI).
 
 ## CLI and REST interface
 
@@ -70,4 +70,4 @@ A Razor slice may provide CLI and/or REST API interfaces. Here is the result of 
     $ curl http://localhost:8026/razor/api/config
     {"@image_svc_host":"192.168.232.141","@persist_mode":"mongo","@persist_host":"127.0.0.1","@persist_port":27017,"@persist_timeout":10,"@admin_port":8025,"@api_port":8026,"@image_svc_port":8027,"@mk_checkin_interval":60,"@mk_checkin_skew":5,"@mk_uri":"http://192.168.232.141:8026","@mk_register_path":"/razor/api/node/register","@mk_checkin_path":"/razor/api/node/checkin","@mk_fact_excl_pattern":"(^facter.*$)|(^id$)|(^kernel.*$)|(^memoryfree$)|(^operating.*$)|(^osfamily$)|(^path$)|(^ps$)|(^ruby.*$)|(^selinux$)|(^ssh.*$)|(^swap.*$)|(^timezone$)|(^uniqueid$)|(^uptime.*$)|(.*json_str$)","@mk_log_level":"Logger::ERROR","@image_svc_path":"/mnt/nfs/Razor/image","@register_timeout":120,"@force_mk_uuid":"","@default_ipmi_power_state":"off","@default_ipmi_username":"ipmi_user","@default_ipmi_password":"ipmi_password"}
 
-When invoking the config slice via CLI, Razor returns a hash of server configuration in name/value pair. When invoking the config slice via the REST API,Rrazor presents the same data as the CLI, but the server configuration hash is returned in JSON format instead. This data format is used for all slices that provide both a CLI and a REST interface.
+When invoking the config slice via CLI, Razor returns a hash of server configuration in name/value pairs. When invoking the config slice via the REST API, Razor presents the same data as the CLI, but the server configuration hash is returned in JSON format instead. This data format is used for all slices that provide both a CLI and a REST interface.
