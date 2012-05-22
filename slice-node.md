@@ -112,4 +112,4 @@ For additional metadata, including facter and mk hardware data collected from th
     processorcount            2                              
     virtual                   vmware                         
 
-Facter data will be filtered based on `mk_fact_excl_pattern configuration`. Facter facts regarding the MK OS, such as operating system, are not gathered, nor are changing values such as free memory. This prevents constant updates to the metadata (which are typically not relavant for node identification). The metadata provide here can be used in tag rules or tag matches to identify nodes.
+Facter data will be filtered based on `mk_fact_excl_pattern configuration`. Facter facts regarding the MK OS, such as operating system, are not gathered, nor are changing values such as free memory. This prevents constant updates to the metadata (which are typically not relevant for node identification). The metadata provide here can be used in tag rules or tag matches to identify nodes.
