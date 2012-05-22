@@ -15,15 +15,15 @@ It should be noted that the `log` slice does not currently provide a RESTful API
 
 ## Filter Expressions
 
-You may have noticed that in our two example commands that included a *filter* subcommand (above), we left the filter expression out (replacing it with an ellipsis). This is because we felt that the filter expressions themselves deserved a bit of discussion/definition before we showed some real-world examples. The basic *log* filter expression can include one or more of the following components:
+The above example commands that included a `filter` subcommand (above) left out the filter expression (replacing it with an ellipsis). This is because the filter expressions themselves require some discussion and definition before real-world examples can be useful. To begin with, the basic `log` filter expression can include one or more of the following components:
 
-- **log_level** &ndash; Used to filter the matching logfile lines based on the log-level of the message (ERROR, INFO, DEBUG, etc.)
-- **class_name** &ndash; Used to filter the matching logfile lines based on the name of the class where the line was logged from
-- **method_name** &ndash; Used to filter the matching logfile lines based on the name of the method where the line was logged from
-- **elapsed_time** &ndash; Used to filter restrict the matching logfile lines to just those that were logged within the time window specified by this argument (see below for more information on the options supported for the format of this argument's value).
-- **log_message** &ndash; Used to filter the matching logfile lines based on the contents of the log message itself
+- `**log_level**` &ndash; filters the matching logfile lines based on the log-level of the message (ERROR, INFO, DEBUG, etc.)
+- `**class_name**` &ndash; filters the matching logfile lines based on the name of the class where the line was logged from
+- `**method_name**` &ndash; filters the matching logfile lines based on the name of the method where the line was logged from
+- `**elapsed_time**` &ndash; restricts the matching logfile lines to just those that were logged within the time window specified by this argument (see below for more information on the format options for this argument's value).
+- `**log_message**` &ndash; filters the matching logfile lines based on the contents of the log message itself
 
-These components are specified in the form of a JSON-string that represents a hash-map of name/value pairs. The names are the component names shown above, while the values represent Ruby-style regular expressions that should be used to determine if a line matches or not. The only exception to this rule is that the value for the elapsed_time component is actually a string that defines a time window prior to the current time. This value consists of a number, possibly followed by a single-letter suffix that represents that units of time that should be used in defining a time window based on that number. The currently supported list of values are:
+These components are specified using a JSON-string that represents a hash-map of name/value pairs. The names are the component names shown above, while the values represent Ruby-style regular expressions that should be used to determine if a line matches or not. The only exception to this rule is that the value for the `elapsed_time` component is actually a string that defines a time window prior to the current time. This value consists of a number, possibly followed by a single-letter suffix that represents the units of time to be used in defining the desired time window. The currently supported list of values are:
 
 <table>
     <tr>
@@ -48,17 +48,17 @@ These components are specified in the form of a JSON-string that represents a ha
     </tr>
 </table>
 
-If no suffix is included, the time units are assumed to be seconds. If this elapsed_time component is included in the filter specification, then the specified time is used to determine how far back into the past the time window extends, and only log lines that occur **after** that time will successfully pass through the filter represented by that filter specification. 
+If no suffix is included, the time unit defaults to seconds. If the `elapsed_time` component is included in the filter criteria, then the specified time is used to determine how far back into the past the time window extends, and only log lines that occur **after** that time will successfully pass through the filter. 
 
-Just to show an example of how these components can be combined to form a filter specification, here's an example *log* command that will show all lines from the current Razor logfile that were output from the *mk_checkin* method of the *Engine* class that include the string *000C29291C95* as part of the log message and that were logged within the past 20 minutes.
+As an example of how these components can be combined to form filter criteria, here's an example *log* command that will show all lines from the current Razor logfile that were output from the *mk_checkin* method of the *Engine* class that include the string *000C29291C95* as part of the log message and that were logged within the past 20 minutes.
 
     razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
 
-It should be noted that if any of these components are not included in the filter specification, then it is as if a wildcard argument that matches any value was passed as the value for the corresponding component. If no filter specification is included as part of the *filter* sub-command, that is an error (and a usage line will be output to help the user with their syntax).
+It should be noted that if any of these components are not included in the filter criteria, the slice will treat that component as a wildcard. If no filter criteria at all are included as part of the *filter* sub-command, an error will be returned (and a usage line will be output to help the user with their syntax).
 
 ## Other Examples
 
-To close out our discussion of the log, we thought it might be helpful to show a few examples of commands (and their output). First, an example of viewing the entire logfile:
+Lastly, it might be helpful to show a few examples of `log` commands (and their output). First, an example showing the entire logfile:
 
     root@ubuntu-server:~# razor log 
      ...
@@ -74,7 +74,7 @@ To close out our discussion of the log, we thought it might be helpful to show a
     D, [2012-05-01T11:07:43.225226 #18402] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(true)
     root@ubuntu-server:~#
 
-Note, that we've truncated this output to keep things short and easy to read. The actual `razor log` output was almost 2900 lines long in this case. As was stated previously, if we don't want to view all 2900 lines of that file, we could simply tail the output as follows:
+Note, that this output is truncated this output to keep things short and easy to read. The actual `razor log` output was almost 2900 lines long in this case. If you don't wish to view all 2900 lines of that file, simply tail the output as follows:
 
     root@ubuntu-server:~# razor log tail 10
     D, [2012-05-01T11:11:03.013335 #18479] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(false)
@@ -89,7 +89,7 @@ Note, that we've truncated this output to keep things short and easy to read. Th
     D, [2012-05-01T11:11:03.016390 #18479] DEBUG -- ProjectRazor::Persist::MongoPlugin#is_db_selected?: Is ProjectRazor DB selected?(true)
     root@ubuntu-server:~#
 
-As you can see, there has been no truncation of the output in this case, we've just selected the last 10 lines of this logfile using the *tail* command. We could also use a filter expression to create a shorter output. In this case, let's use the expression we showed when we were discussing the format of these filter expressions (above):
+In this case, using the `tail` command has just selected the last 10 lines of this logfile. A filter expression could be used to create even shorter output. For example, using the expression shown above returns:
 
     root@ubuntu-server:~# razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
     D, [2012-05-01T10:53:52.930492 #18183] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -114,7 +114,7 @@ As you can see, there has been no truncation of the output in this case, we've j
     D, [2012-05-01T11:12:54.121999 #18504] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     root@ubuntu-server:~# 
 
-As you can see, above, this expression actually matched 20 lines in this case, one for each checkin made by the node with a UUID of 000C29291C95 (in this case). We could tail this and get only the last 10 lines, regardless of how many matched a particular expression. An example of this is something like the following:
+As you can see, this expression actually matched 20 lines, one for each checkin made by the node with a UUID of 000C29291C95. This expression could be tailed to return only the last 10 lines, regardless of how many matched a particular expression:
 
     root@ubuntu-server:~# razor log filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}' tail 10
     D, [2012-05-01T11:06:53.745645 #18365] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -129,7 +129,7 @@ As you can see, above, this expression actually matched 20 lines in this case, o
     D, [2012-05-01T11:16:54.411133 #18582] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     root@ubuntu-server:~#
 
-in this case, we selected the last 10 lines from the output shown previously. If we reverse the order of these two "chained sub-commands", we'll see a much different output:
+In this case, only the last 10 lines of the previous output are shown. If the order of these two "chained sub-commands" is reversed, the resulting output is quite different:
 
     root@ubuntu-server:~# razor log tail 500 filter '{"class_name":"Engine", "method_name":"mk_checkin", "log_message":"000C29291C95", "elapsed_time":"20m"}'
     D, [2012-05-01T11:16:54.411133 #18582] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
@@ -137,24 +137,22 @@ in this case, we selected the last 10 lines from the output shown previously. If
     D, [2012-05-01T11:18:54.751716 #18623] DEBUG -- ProjectRazor::Engine#mk_checkin: Node 000C29291C95 checkin accepted
     root@ubuntu-server:~#
 
-As you can see, this only gives us three matching lines from the logfile, in spite of the fact that we've increased the number of lines included in the tail part of the command from 10 to 500. This is because, in the second command we're tailing the last 500 lines of the logfile and then searching for matching lines in the result, whereas in the first command we filtered the entire logfile to find the lines that matched, then selected the last 10 lines from that filtered set (actually it's more complicated than that, but you can think of it that way...if you are curious, see the note, below, on how we efficiently tail this filtered set of lines).
+This returns only three matching lines from the logfile, in spite of the fact that the number of lines included in the tail part of the command increased from 10 to 500. This is because the second command tails the last 500 lines of the logfile and then searches those lines for matches, whereas the first command initially filters the entire logfile to find matches, then selected the last 10 lines from those matches (the process is actually a little more complicated, see the note below on how to efficiently tail this filtered set of lines).
 
-So, that shows all of the possibilities for the log slice, from viewing the entire log file (the default), to tailing the logfile, to filtering the logfile, to tailing the filtered logfile, to filtering the tailed logfile. All are possible using the *log* slice's CLI.
+### On Efficiency in Tailing a Filtered Logfile:
 
-### On efficiency in tailing a filtered logfile:
+At first glance it may seem that the easiest way to tail a filtered logfile would be as (simplistically) described in the examples above. However, there is no immediate way to know to the size of the logfile in question. If it is large, loading all of the matching lines into memory and then tailing the result of that set of lines is not a very efficient (or even reasonable) approach to this problem.
 
-It might seem at first glance, that the easiest way to perform this operation would be as we (simplistically) described it in our examples, above. Unfortunately, we have no assurance as to the size of the logfile in question (it could be quite large), so loading all of the matching lines into memory and then tailing the result of that set of lines really isn't a very efficient (or even reasonable) approach to this problem.
+Keeping that in mind, the method used to tail the logfile efficiently must be revised. Rather than read the entire file, we "seek" to the end of the file, then read the file backwards in chunks (in this case 4096 bytes) and concatenate the chunks that are read together until the resulting (larger, typically) concatenated chunk of data has (at least) enough lines to satisfy the user's request. Once this many lines are found, the result is parsed (converting the chunk that has been read into lines) and then tailed to return the last NLINES lines from that chunk (returning it as an array to the caller, where it is printed out to the command line).
 
-Keeping that in mind, we adapted the method that we use to tail the logfile efficiently in order to get a tail of the lines that match a given filter specification. In the case of tailing the logfile, we actually don't read the entire file. Instead, we "seek" to the end of the file, then read the file backwards in chunks (4096 byte chunks on our case) and concatenate the chunks that are read together until the resulting (larger, typically) concatenated chunk of data has (at least) enough lines to satisfy the user's request. Once this many lines are found, we parse the result (converting the chunk that has been read into lines) and then grab the last NLINES lines from that chunk (returning it as an array to the caller, where it is printed out to the command line). This mechanism was actually quite easy to adapt to our use.
-
-For the tail of the filtered log, we simply insert a filter operation in the middle of the process we just described. As is the case with the tail of the logfile, we start by seeking to the end of the file and reading backwards in chunks from the end of the file. Also, as was the case with tailing the logfile, we continue to concatentate the chunks we read together until we get enough lines to satisfy the user's request. Once we've read that many lines, we parse the resulting concatenated chunk of data (converting it into lines), and then apply our filter to the resulting array. The lines that match are "pre-pended" to a "matching_lines" array which will be returned to the caller. If the number of lines is still insufficient, we adjust how many lines we are still looking for and re-start the process of reading backwards through the logfile in chunks.
+For the tail of the filtered log, a filter operation is inserted into the middle of the process just described. As with the tail of the logfile, the process starts by seeking to the end of the file and then reading backwards in chunks. Similarly, the read chunks are concatenated until there are enough lines to satisfy the user's request. Once that many lines have been read, the resulting concatenated chunk of data is parsed (converting it into lines) The desired filter is then applied to the resulting array. The lines that match are "pre-pended" to a "matching_lines" array which will be returned to the caller. If the number of lines is still insufficient, the number of lines desired is adusted and the process of reading backwards through the logfile in chunks starts again.
 
 This process stops when one of the following criteria are met:
 
-- we find enough matching lines to satisfy the user's request, **or**
-- we find a chunk who's first line is prior to the defined time window (if any), **or**
-- we reach the start of the file
+1. enough matching lines are found to satisfy the user's request, **or**
+2. a chunk is found whose first line is prior to the defined time window (if any), **or**
+3. the start of the file is reached
 
-In the second or third cases (where we find a chunk who's first line is outside of the defined time window or where we reach the start of the file), we continue to process the chunks that have been read (so far), and return whatever results we have (which may be fewer lines than were requested in the *tail* subcommand.
+In the second or third cases, the chunks that have been read (so far) continue to be processed, and then return whatever results exist (which may be fewer lines than were requested in the *tail* subcommand).
 
-Obviously, the worst-case scenario for this approach is if we have to read the entire file to find enough lines to satisfy the user's request (in that case, reading from the beginning might have been more efficient), but that's typically not the way that this command will be used, so we've chosen to make the process of filtering, then tailing the results to obtain a small number of matching lines more efficient. If the other case (tailing a lot of lines from the filtered result) is more to the user's liking, then just filtering the logfile and piping that output to the UNIX tail (or head) commands may make more sense.
+Obviously, the worst-case scenario for this approach is if the entire file needs to be read in order to find enough lines to satisfy the user's request. In that case, reading from the beginning might have been more efficient, but that's typically not the way this command will be used. Consequently, the process of filtering, then tailing the results to obtain a small number of matching lines has been made more efficient. If the other case (tailing a lot of lines from the filtered result) better suits the user's needs, then just filtering the logfile and piping that output to the UNIX tail (or head) commands may be more useful.
