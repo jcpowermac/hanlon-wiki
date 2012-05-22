@@ -1,17 +1,17 @@
 # The Razor Log Slice - CLI
 
-As was stated previously, the *log* slice is used to view the current Razor server logfile. It includes functionality that will allow the user to simply view the log file in its entirety (the default) or to tail or filter the log file by adding additional sub-commands to the basic `razor log` command. In addition, these sub-commands can be chained (so that you can ask for a filtered tail of the current logfile or the tail of a filtered version of the logfile). We will provide more detail on the use of these sub-commands, below.
+The *log* slice is used to view the current Razor server's logfile. It allows the user to simply view the log file in its entirety (the default) or to tail or filter the log file by adding additional sub-commands to the `razor log` command. In addition, these sub-commands can be chained (for example, a user can ask for a filtered tail of the current logfile or the tail of a filtered version of the logfile). See below for more detail on the use of these sub-commands.
 
-As is the case with most slices, adding the *help* sub-command to the basic `razor log` command produces a usage line for the command:
+As with most slices, adding the `help` sub-command to `razor log` produces a usage line for the command:
 
     root@ubuntu-server:~# razor log help
     
     Command help:  razor log [tail [NLINES]] [filter EXPR]
     root@ubuntu-server:~# 
 
-As you can see, the log command supports two sub-commands as part of the slice. The *tail* sub-command will tail the current logfile (selecting NLINES from the end of the log). If the NLINES argument is not included in the command, then the log will output the last 10 lines of the logfile (which is the same as the standard UNIX tail command). The *filter* sub-command can be used to filter the logfile, only selecting lines from the logfile that match the filter expression (which must be included as part of the filter sub-command). As was previously stated, these two sub-commands can be chained, but if they are chained the order in which they appear will likely be significant. Filtering the tail of a logfile, using a command like `razor log tail 20 filter '{ ... }'`, will likely produce output that is quite different from tailing the filter of that same logfile, using a command like `razor log filter '{ ... }' tail 20`. The reasoning behind the significance of order between these two sub-commands isn't really difficult to see once you think about it, but we felt that this fact needed to be emphasized.
+As you can see, the `log` command supports two sub-commands as part of the slice. The `tail` sub-command will tail the current logfile (selecting NLINES from the end of the log). If the NLINES argument is not included in the command, then the log will output the last 10 lines of the logfile (as in the standard UNIX `tail` command). The `filter` sub-command can be used to filter the logfile, only selecting lines from the logfile that match the filter expression (which must be included as part of the filter sub-command). These two sub-commands can be chained, but if they are chained the order in which they appear will likely be significant. Logically enough, filtering the tail of a logfile, using a command like `razor log tail 20 filter '{ ... }'`, will likely produce output that is quite different from tailing the filter of that same logfile, using a command like `razor log filter '{ ... }' tail 20`.
 
-We also would like to emphasize here that the *log* slice does not currently provide a RESTful API. It was our thought that an ATOM-feed sort of mechanism might actually make more sense (where changes are pushed to a listener rather than having the listener pull changes using a RESTful API). For this reason, we've chosen to leave the RESTful API for the *log* slice unimplemented (at least for now). We may revisit this question at a later date.
+It should be noted that the `log` slice does not currently provide a RESTful API. The reasoning is that an ATOM-feed sort of mechanism makes more sense (where changes are pushed to a listener rather than having the listener pull changes using a RESTful API). Consequently, the RESTful API for the *log* slice is not implemented (at least for now).
 
 ## Filter Expressions
 
