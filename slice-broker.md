@@ -1,8 +1,8 @@
 # Broker Slice
 
-The *broker* slice is used to specify the handoff of a node to a external tool such as puppet for system management. Third party software can create broker plugins to support Razor node handoff and will assume management of the system after Razor completes the intial provisioning process. The broker target is an instance of a plugin targeting a specific third party server instance.
+The *broker* slice is used to specify the handoff of a node to an external tool (e.g., Puppet) for system management. Third party software like Puppet can create broker plugins to support Razor node handoff which will assume management of the system after Razor completes the intial provisioning. The "broker target" is an instance of a plugin which points to a specified third party system management server.
 
-The broker supports two types of interactions with nodes for the system handoff process: agent and proxy. An agent based handoff will interact and manage the node directly. For example, the puppet plugin's agent handoff process will install the puppet agent software on the node and connect the system to a puppetmaster for configuration management. On the other hand, the puppet plugin's proxy handoff process manages nodes that doesn't run puppet agent software such as ESX. In the second case, Puppet manages the ESX systems indirectly without a client software running on the system.
+For system handoff, the broker supports two types of interactions with nodes: agent and proxy. An agent-based handoff will interact and manage the node directly. For example, the puppet plugin's agent handoff process will install the puppet agent software on the node and connect the system to a puppetmaster for configuration management. On the other hand, the puppet plugin's proxy handoff process manages nodes that doesn't run puppet agent software such as ESX. In the second case, Puppet manages the ESX systems indirectly without a client software running on the system.
 
 By default `razor broker` will provide a list of all configured broker targets:
 
