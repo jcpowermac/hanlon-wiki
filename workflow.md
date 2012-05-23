@@ -1,26 +1,26 @@
 # Razor Workflow
 
-This document describes a common workflow for using Razor to:
+This document describes common workflows for using Razor to:
 
-* Specify policy to provision new OS.
-* Specify policy to provision ESXi.
+* Specify policy to provision a new OS.
+* Specify policy to provision an ESXi instance.
 
-## Provision new OS.
+## Provision a New OS.
 
-To provision a new OS, Razor requires the following resource to be avaiable:
+To provision a new OS, Razor uses the following resources:
 
 * OS ISO loaded into Razor image service.
-* Suitable target nodes that does not have an active model bound to the system.
-* Appropriate tag rules/matcher to identify and classify target nodes.
+* Suitable target nodes that do not have an active model bound to the system.
+* Appropriate tag rules/matches to identify and classify target nodes.
 * A model specifying the ISO and completed model template for deployment.
-* Optionally specify a broker to handoff node after razor active model execution.
+* Optionally, a broker to handoff the node after the Razor active model executes.
 * A policy to bind nodes with specific tags to an active model.
 
-The document will describe the general commands, and provide an Ubuntu provision example.
+The general commands and an Ubuntu provisioning example are shown below:
 
 ### Importing OS Images
 
-The razor image command will provide a list of images available on the Razor system. If the image is not present, add it to the razor system via the following commands:
+The `razor image` command will provide a list of images available on the Razor system. If the desired image is not present, add it to the Razor system as follows:
 
     $ razor image add {iso_image_path} {os_name} {os_version}
     
@@ -40,7 +40,7 @@ The razor image command will provide a list of images available on the Razor sys
 
 ### Select Nodes
 
-Razor will maintain a record of all nodes checked into the system. Nodes with an active policy typically will not actively checkin with razor. They can be rebound to other policies, but this section will focus on assigning nodes that does not yet have an active policy:
+Razor will maintain a record of all nodes checked into the system. Nodes with an active policy typically will not actively check-in with Razor. They can be rebound to other policies, but this section will focus on assigning nodes that do not yet have an active policy:
 
     $ razor node
     Discovered Nodes
