@@ -9,18 +9,18 @@ When Razor is initially installed there are no images loaded in the system. A mi
 * Download a microkernel from the project: https://github.com/puppetlabs/Razor/downloads
 * Load microkernel via razor image command:
 
-    $ razor image add mk ./rz_mk_dev-image.0.8.8.0.iso
-     
-    Attempting to add, please wait...
-    New image added successfully
-    Images:
-    UUID: 1nnkuB5BiH1C93HOO0PTFi
-    Type: MicroKernel Image
-    ISO Filename: rz_mk_dev-image.0.8.8.0.iso
-    Path: /opt/razor/image/mk/1nnkuB5BiH1C93HOO0PTFi
-    Status: Valid
-    Version: 0.8.9.0
-    Build Time: 2012-05-09 13:11:01 -0700
+        $ razor image add mk ./rz_mk_dev-image.0.8.8.0.iso
+         
+        Attempting to add, please wait...
+        New image added successfully
+        Images:
+        UUID: 1nnkuB5BiH1C93HOO0PTFi
+        Type: MicroKernel Image
+        ISO Filename: rz_mk_dev-image.0.8.8.0.iso
+        Path: /opt/razor/image/mk/1nnkuB5BiH1C93HOO0PTFi
+        Status: Valid
+        Version: 0.8.9.0
+        Build Time: 2012-05-09 13:11:01 -0700
 
 Razor will automatically use the newest MK image available in the image service.
 
