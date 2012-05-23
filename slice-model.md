@@ -1,47 +1,41 @@
-    $ razor model add ubuntu_oneiric_min ubuntu
-    
-    Available commands for [Model]:
-    [get] [add] [remove] 
-    
-    [Model] [add_cli_with_image] <-ImageUUIDToBindMissing
-    
-    Command syntax: razor model add (model_template) (model name) {image uuid}
-    Images:
-      UUID: nVe9chgnS26gYdmCf4NW  
-      Type: OS Install  
-      ISO Filename: ubuntu-11.10-server-amd64.iso  
-      Path: /mnt/nfs/Razor/image/os/nVe9chgnS26gYdmCf4NW  
-      Status: Valid   
-      OS Name: ubuntu  
-      OS Version: 11.10  
-    
-    
-    
+# Model Slice
 
-    $ razor model add ubuntu_oneiric_min ubuntu nVe9chgnS26gYdmCf4NW
+The *model* slice is used to manage OS deployment profiles. Each operating system have a model template consist of two parts. First, the common installation settings such as kernel args, kickstart/autoyast/preseed answer files, and postinstall scripts. Second, a list of OS installation settings that requires user input such as hostname, username, password which will be prompted during the creation of a new model.
+
+## Model Templates
+
+Current razor ships with the following model templates:
+
+    $ razor model get template
     
-    --- Building Model Config(ubuntu_oneiric_min): 
-    
-    
-    Please enter node hostname prefix (will append node number (example: node}) 
+    Model Templates:
+    Template Name         Description         
+    centos_6        CentOS 6 Model            
+    debian_wheezy   Debian Wheezy Model       
+    opensuse_12     OpenSuSE Suse 12 Model    
+    ubuntu_oneiric  Ubuntu Oneiric Model      
+    ubuntu_precise  Ubuntu Precise Model      
+    vmware_esxi_5   VMware ESXi 5 Deployment  
+
+## Add Model
+
+Once an operatings system ISO is loaded into the image service, we can selet from the list of existing templates on the system for deployment.
+
+When creating a new model, any model template metadata requiring use input will be prompted for the appropriate setting:
+
+    $ razor model add template=ubuntu_precise label=install_precise image_uuid=274HnNlQF5jvbo0y6U0aok
+    --- Building Model (ubuntu_precise):
+    Please enter node hostname prefix (will append node number) (example: node)
     default: node
     (QUIT to cancel)
-     > example.vm
-    
-    Please enter root password (> 8 characters) (example: P@ssword!}) 
-    default: test123
+    > ubuntu
+    Please enter root password (> 8 characters) (example: P@ssword!)
+    default: test1234
     (QUIT to cancel)
-     > test12345
-    Model Configs:
-       Label: ubuntu  Type: ubuntu_oneiric_min  Description: Ubuntu Oneiric 11.10 Minimal
-      Model UUID: 5SL6gy6V1OXzFKWOfgsqxG  Image UUID: nVe9chgnS26gYdmCf4NW
-    
-    $ razor model 
-    Models
-     Label =>  ubuntu
-     Template =>  linux_deploy
-     Description =>  Ubuntu Oneiric 11.10 Minimal
-     UUID =>  5SL6gy6V1OXzFKWOfgsqxG
-    
-    
-    
+    > testEnvPass!
+    Model created
+    Label =>  install_precise
+    Template =>  linux_deploy
+    Description =>  Ubuntu Precise Model
+    UUID =>  3LCN86Cpx0Te3Of5WbORkQ
+    Image UUID =>  274HnNlQF5jvbo0y6U0aokI

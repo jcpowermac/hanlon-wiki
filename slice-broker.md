@@ -1,8 +1,8 @@
 # Broker Slice
 
-The *broker* slice is used specify the handoff of a node to a third-party broker target for post-provisioning configuration. The broker slice uses a plug-in to define an instance of the desired target. The broker target is a specific instance of a broker plugin with all configuration settings specified. 
+The *broker* slice is used to specify the handoff of a node to a external tool such as puppet for system management. Third party software can create broker plugins to support Razor node handoff and will assume management of the system after Razor completes the intial provisioning process. The broker target is an instance of a plugin targeting a specific third party server instance.
 
-There are two types of broker plugin: agent and proxy. An agent plug-in (such as the puppet plugin) will interact directly with the node. For example, the puppet plugin will install a puppet agent on the node and connect the node to a puppetmaster for further configuration of the node. On the other hand, a proxy broker plugin (such as the ESX plugin) will point to a third party for processing and configuration. The ESX broker plugin, for example, defines the vCenter system as the target which in turn will interact with the ESX node and attach it to vCenter. 
+The broker supports two types of interactions with nodes for the system handoff process: agent and proxy. An agent based handoff will interact and manage the node directly. For example, the puppet plugin's agent handoff process will install the puppet agent software on the node and connect the system to a puppetmaster for configuration management. On the other hand, the puppet plugin's proxy handoff process manages nodes that doesn't run puppet agent software such as ESX. In the second case, Puppet manages the ESX systems indirectly without a client software running on the system.
 
 By default `razor broker` will provide a list of all configured broker targets:
 
