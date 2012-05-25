@@ -45,17 +45,15 @@ Additional policy templates can be loaded into the system to extend Razor's func
        tags:        At least one tag to trigger the Policy. Comma delimited
        enabled:     Whether the Policy is enabled or not. Optional and defaults to false
 
-In additional to a policy template, a model uuid must be provided indicating which model to bind to the applicable nodes. If a specific uuid isn't provided, Razor will provide a list of suitable policies:
+In additional to a policy template, a model uuid must be provided indicating which model to bind to the applicable nodes. To obtain a list of of available model uuid run 'razor model' command:
 
-    $razor policy add linux_deploy install_linux
-    [Policy] [add] <-Must Provide Model Config UUID [model_config]
-    
-    Command help:  razor policy add (policy templates) (Name) (Model Config UUID) [none|(Broker Target UUID)] (tag{,tag,tag})
-    Valid Models for (linux_deploy)
-     Label =>  ubuntu
-     Template =>  linux_deploy
-     Description =>  Ubuntu Oneiric 11.10 Minimal
-     UUID =>  5SL6gy6V1OXzFKWOfgsqxG
+    $ razor model
+    Models
+         Label           Template             Description                  UUID
+    install_suse     linux_deploy       OpenSuSE Suse 12 Model    5o4bzesGjyvvFA0goT79jO
+    install_centos   linux_deploy       CentOS 6 Model            zBvnTS4Sv9eI6x6ZBPwMs
+    install_precise  linux_deploy       Ubuntu Precise Model      3LCN86Cpx0Te3Of5WbORkQ
+    install_esx      vmware_hypervisor  VMware ESXi 5 Deployment  1Xcc78Ag3Aq9zXNSMHPpXe
 
 Optional brokers can also be specified to trigger a node handoff to external systems after the active model is applied. For example a puppet broker plugin will install puppet on the target system and connect the node to an appropriate puppet master. If no such broker is selected, Razor will not initiate any handoff process after binding an active model to the node.
 
@@ -95,9 +93,9 @@ The list of comma seperated tags are the criteria by which Razor identifies node
      Broker Target =>  puppet
      Bound Count =>  0
 
-To find out the current state of active models bound to nodes, use `policy active`:
+To find out the current state of active models bound to nodes, use 'razor policy active':
 
-    razor policy active
+    $ razor policy active
     Active Models:
          Label          State           Node UUID            System      Bind #           UUID
     centos_install   init         6ifxsUY43FZWuykB0tlrA2  none           1       6ph1ArWrUa2RPbBlXDRNtq
@@ -106,9 +104,9 @@ To find out the current state of active models bound to nodes, use `policy activ
     esx_install      postinstall  YDLLKKJ9u3RS3QEcqdwx0   puppet_master  2       fvIBp22fNXlAoeMQdyilO
     esx_install      init         2AiYujFMynjiLS4URaeoKw  puppet_master  1       2HPrdJ0ctz7A8Z5NLvzYwU
 
-The active model can be reviewed to find out what action the node is currently performing and what state it has transitioned through to get to the current state:
+A specific node's active model can be reviewed in further deatils to find out what's the last action the node performed and a history of the node state.
 
-    razor policy active log fvIBp22fNXlAoeMQdyilO
+    $ razor policy active log fvIBp22fNXlAoeMQdyilO
           State            Action      Result    Time     Last     Total           Node
     init               mk_call         n/a     14:49:32  0 sec    0 sec    YDLLKKJ9u3RS3QEcqdwx0
     init               boot_call       n/a     14:50:02  30 sec   30 sec   YDLLKKJ9u3RS3QEcqdwx0
