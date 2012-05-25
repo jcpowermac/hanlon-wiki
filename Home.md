@@ -20,4 +20,11 @@ See below for a list of slices and their individual usage:
 * [[slice node]]
 * [[slice policy]]
 
+Alternative configuration and support
+-----
+
+* [[Alternate Pre boot Options for Compatibility]]
+
+
+
 And see here for a general overview of Razor's [[workflow]]

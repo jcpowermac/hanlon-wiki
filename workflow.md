@@ -1,44 +1,44 @@
 # Razor Workflow
 
-This document describes the workflows in Razor for provisioning a new operating system.
+This page describes typical workflows in Razor for provisioning a new operating system.
 
 ## Add MicroKernel
 
-When Razor is initially installed there are no images loaded in the system. A microkernel image is require to perform the initial inventory discovery process as system connects to Razor.
+When Razor is initially installed there are no images loaded in the system. A microkernel image is required to perform the initial inventory discovery process as a system connects to Razor.
 
-* Download a microkernel from the project: https://github.com/puppetlabs/Razor/downloads
-* Load microkernel via razor image command:
+* Download a microkernel (MK) from the project site: https://github.com/puppetlabs/Razor/downloads
+* Load the microkernel via the `razor image` command:
 
-    $ razor image add mk ./rz_mk_dev-image.0.8.8.0.iso
-     
-    Attempting to add, please wait...
-    New image added successfully
-    Images:
-    UUID: 1nnkuB5BiH1C93HOO0PTFi
-    Type: MicroKernel Image
-    ISO Filename: rz_mk_dev-image.0.8.8.0.iso
-    Path: /opt/razor/image/mk/1nnkuB5BiH1C93HOO0PTFi
-    Status: Valid
-    Version: 0.8.9.0
-    Build Time: 2012-05-09 13:11:01 -0700
+        $ razor image add mk ./rz_mk_dev-image.0.8.8.0.iso
+         
+        Attempting to add, please wait...
+        New image added successfully
+        Images:
+        UUID: 1nnkuB5BiH1C93HOO0PTFi
+        Type: MicroKernel Image
+        ISO Filename: rz_mk_dev-image.0.8.8.0.iso
+        Path: /opt/razor/image/mk/1nnkuB5BiH1C93HOO0PTFi
+        Status: Valid
+        Version: 0.8.9.0
+        Build Time: 2012-05-09 13:11:01 -0700
 
 Razor will automatically use the newest MK image available in the image service.
 
 ## Provision a New OS.
 
-To provision a new OS, Razor requires the following steps
+To provision a new OS, Razor requires the following:
 
-* Add installation ISO to Razor image service.
-* Specify model containing the Operating System model template and settings.
-* Optionally, a broker for node handoff after provisioning.
-* Policy which specify rules to bind nodes to an active model.
-* Available system matching all tag rules specified in policy.
+* The installation ISO is available Razor image service.
+* The model containing the Operating System model template and settings is specified.
+* Optionally, a broker for node handoff after provisioning is specified.
+* A Policy which specifies rules to bind nodes to an active model is selected.
+* A system matching all tag rules as specified in policy is available.
 
-The commands and process for provisioning an Ubuntu server is provided below.
+The commands and process for taking these steps to provision an Ubuntu server are shown below.
 
 ### Importing OS Images
 
-The `razor image` command will provide a list of images available on the Razor system. If the desired image is not present, add it to the Razor system as follows:
+The `razor image` command will provide a list of images available on the Razor system. If the desired image is not present, it can be added to the Razor system as follows:
 
     $ razor image add os ../ubuntu-12.04-server-amd64.iso ubuntu_precise 12.04
     
@@ -55,7 +55,7 @@ The `razor image` command will provide a list of images available on the Razor s
 
 ### Create OS Deployment Model
 
-The `razor model get template` command will provide a list of OS templates available in the system. These templates a builtin deployment models that can be used for installing an operating system:
+The `razor model get template` command will provide a list of the OS templates available in the system. These templates provide built-in deployment models that can be used for installing an operating system:
 
     $ razor model get template
     
@@ -68,7 +68,7 @@ The `razor model get template` command will provide a list of OS templates avail
     ubuntu_precise  Ubuntu Precise Model      
     vmware_esxi_5   VMware ESXi 5 Deployment  
 
-Once the suitable template is selected, associate the appropriate OS image for software installation, and provide the necessary data for system configuration:
+Once the desired template is available, associate the appropriate OS image for software installation, and provide the necessary data for system configuration:
 
     $ razor model add template=ubuntu_precise label=install_precise image_uuid=274HnNlQF5jvbo0y6U0aok
     --- Building Model (ubuntu_precise):
@@ -89,7 +89,7 @@ Once the suitable template is selected, associate the appropriate OS image for s
 
 ### Create Policy
 
-With the appropriate OS ISO loaded into the image service and matching OS model created, we can specify a policy to deploy this operating system against all nodes that match a specific policy.
+With the appropriate OS ISO loaded into the image service and a matching OS model created, a policy can be created to deploy this operating system to all nodes that match the policy.
 
     $ razor policy add template=linux_deploy label=precise model_uuid=3LCN86Cpx0Te3Of5WbORkQ broker_uuid=none tags=memsize_4GiB,vmware_vm enabled=true
     Policy created
@@ -104,7 +104,7 @@ With the appropriate OS ISO loaded into the image service and matching OS model 
     Broker Target =>  none
     Bound Count =>  0
 
-After the initial policy create we have a single rule which can be enabled/disabled. When multiple rules exists in Razor, the first rule that matches is applied similar to how firewall rules behave:
+The initial policy creates a single rule which can be enabled/disabled. When multiple rules exists in Razor, the first rule that matches is applied in a manner similar to how firewall rules behave:
 
     $ razor policy
     Policies
