@@ -2,6 +2,10 @@ Because of the nature of different servers and compatibility with PXE and iPXE y
 
 The examples below are using ISC DHCP.
 
+## Optional Configuration - Skip PXE Menu
+
+---
+
 Most installations of Razor will use the direct PXE loading hook with Razor. This method involves setting the next-server and filename DHCP options to point to your Razor server and the 'pxelinux.0' file respectively.
 
 This process uses the burned-in PXE command code to load Razor's SYSLINUX pxeconfig.0 code which in turn presents a menu. This menu is set to boot to Razor by default but allows the option to bypass Razor completely. If Razor is booted then an iPXE kernel is loaded (ipxe.lkrn) and then hooks into the Razor API for further instructions.
@@ -42,4 +46,11 @@ subnet 192.168.99.0 netmask 255.255.255.0 {
 }
 ```
 
-This should work to fix most issues. A last resort option may be to burn iPXE kernel directly to your network cards. See the instructions here on the iPXE documentation: http://ipxe.org/howto/romburning
+This should help only if multiple chain loading issues are a problem
+
+Optional Configuration - Support for Older Cards
+
+---
+
+
+A last resort option may be to burn iPXE kernel directly to your network cards. See the instructions here on the iPXE documentation: http://ipxe.org/howto/romburning
