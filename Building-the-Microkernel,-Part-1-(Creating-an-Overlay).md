@@ -103,7 +103,7 @@ RubyGems, available [here](http://rubygems.org/), is used to install a number of
 
 1. and, once that command is completed successfully, we can remove the files we created
     
-        cd .. 
+        cd ..
         rm -rf rubygems-1.8.15.tgz rubygems-1.8.15
     
 With RubyGems installed, we are almost done configuring our new Microkernel instance. We will complete the installation and configuration of the extensions and dependencies that we need to add by installing (and configuring) the OpenSSH extension (below), although this step is actually left as an optional last step (rather than including it in the list of 'standard' extensions that were installed previously) because this last step may or may not be performed (the OpenSSH extension is probably only needed in development systems).
