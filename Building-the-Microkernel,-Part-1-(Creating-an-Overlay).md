@@ -143,4 +143,4 @@ Note that in this set of commands, we've created a gzipped tarfile containing ou
 
 ## Summary
 
-By following the procedure outlined, above, we were able to create an 'overlay' that can be used to add a number of extensions to the default TCL Core distribution. In the next part of this process (Part 2), we will use this overlay (along with code from the Razor Microkernel project) to build an instance of the Microkernel ISO from the standard TCL Core distribution.
+By following the procedure outlined, above, we were able to create an 'overlay' that can be used to add a number of extensions to the default TCL Core distribution. In the next part of this process, [Building the Microkernel, Part 2 (Remastering the Core)](Building-the-Microkernel,-Part-2-%28Remastering-the-Core%29), we will use this overlay (along with code from the Razor Microkernel project) to build an instance of the Microkernel ISO from the standard TCL Core distribution.
