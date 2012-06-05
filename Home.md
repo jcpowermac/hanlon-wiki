@@ -25,6 +25,10 @@ Alternative configuration and support
 
 * [[Alternate Pre boot Options for Compatibility]]
 
+API Documentation
 
+----
+
+* [[Razor API Overview]]
 
 And see here for a general overview of Razor's [[workflow]]
