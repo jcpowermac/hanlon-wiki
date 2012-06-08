@@ -2,7 +2,7 @@ The Microkernel used by Razor is actually a variant of the Tiny Core Linux (TCL)
 
 This manual process was fairly tedious and somewhat prone to error. Not only that, but the process was difficult (if not impossible) to automate. As such, we decided to take a different approach to building the Razor Microkernel ISO. This new approach uses a bash script (which is part of the Razor-Microcore project itself) to create a single gzipped tarfile that contains an 'overlay file' (another gzipped tarfile), along with the scripts and dependencies are needed to merge that overlay file with the 'standard' TCL Core ISO (also part of the same 'bundle') and build a Razor Microkernel ISO. The components for this overlay file (and the dependencies that it needs) are all either copied over from the Razor-Microkernel project or downloaded from online sources to local directories (if they are not part of the Razor-Microkernel project). Below, we will outline the procedure followed by this script, and in a follow-on page we will describe how the gzipped tarfile (the 'bundle') that is built by this new bash script can be used to easily build your own Razor Microkernel ISO.
 
-## Installation (and Configuration) of the Standard TCL Extensions
+## Building a Razor Microkernel ISO 'Bundle'
 
 The script that is used for this process (the `build-dependency-files.sh` script) can be found in the top-level directory of the Razor-Microkernel project itself. The script is assumed to be run from that directory, and it will first create a directory structure that looks something like the following:
 
