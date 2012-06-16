@@ -94,7 +94,7 @@ The list of comma seperated tags are the criteria by which Razor identifies node
 
 ### Active Model
 
-Once a node matches a policy rule, a razor model (i.e. OS/ESX installation) will be bound and activated against this node. This active model is activated, and the node no longer evaluates against any policy, and it's bound to specific OS. To find out the current state of active models bound to nodes, use 'razor policy active'. The active model UUID is not the same as the Policy UUID because changes to any policy does not affect the node. 
+Once a node matches a policy rule, a razor model (i.e. OS/ESX installation) will be bound and activated against this node. This active model is now assigned, and the node no longer evaluates against any policy. To find out the current state of active models bound to nodes, use 'razor policy active'. The active model UUID is not the same as the Policy UUID because changes to any policy does not affect the node. 
 
     $ razor policy active
     Active Models:
