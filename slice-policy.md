@@ -2,7 +2,6 @@
 
 The `policy` slice is used to create policy rules that bind nodes to specific models based on tags that describe the nodes. Multiple policies are filtered top down in a way similar to firewall rules where the first suitable applicable policy will be applied. Generic policy should be specified last, while specific policy should be specified first.
 
-
 ## Managing Policy
 
 By default, `razor policy` will provide a list of active policies:
@@ -93,7 +92,9 @@ The list of comma seperated tags are the criteria by which Razor identifies node
      Broker Target =>  puppet
      Bound Count =>  0
 
-To find out the current state of active models bound to nodes, use 'razor policy active':
+### Active Model
+
+Once a node matches a policy rule, a razor model (i.e. OS/ESX installation) will be bound and activated against this node. This active model is activated, and the node no longer evaluates against any policy, and it's bound to specific OS. To find out the current state of active models bound to nodes, use 'razor policy active'. The active model UUID is not the same as the Policy UUID because changes to any policy does not affect the node. 
 
     $ razor policy active
     Active Models:
@@ -112,3 +113,41 @@ A specific node's active model can be reviewed in further deatils to find out wh
     init               boot_call       n/a     14:50:02  30 sec   30 sec   YDLLKKJ9u3RS3QEcqdwx0
     init               kickstart_file  n/a     14:51:59  1.9 min  2.5 min  YDLLKKJ9u3RS3QEcqdwx0
     init=>postinstall  kickstart_end   n/a     14:52:00  1 sec    2.5 min  YDLLKKJ9u3RS3QEcqdwx0
+
+### Reprovision Node
+
+Once a node have been bound to an active model, it will no longer be in the pool of available systems, therefor it will not be evaluated by any razor policy. Once the node completed it's lifecycle under a specific active model, it can be removed to allow the system to be recycled into the pool of available servers and be re-provisioned by Razor for another purpose:
+
+1. identify the node you want to unbind from the list of active models.
+
+        $ razor policy active
+        Active Models:
+            Label          State           Node UUID         System  Bind #           UUID
+        install_centos  os_complete  74hlvTYRrBtwtEuZXnHXkg  puppet  2       7HmohnvcR4lxFOakxoukqg
+        install_centos  os_complete  XNnfl9IzvB0FUfnjryGbq   puppet  3       fktzuQfL8o8oVeoj7ciLK
+        install_centos  postinstall  3qBqWhuIXh8gEMHz7aBK7m  puppet  1       41ecNNJzSvlI5MhdRhoa1i
+
+2. verify this is indeed the node you want to unbind.
+
+        $ razor node 3qBqWhuIXh8gEMHz7aBK7m
+         UUID =>  3qBqWhuIXh8gEMHz7aBK7m
+         Last Checkin =>  05-31-12 13:32:25
+         Status =>  bound
+         Tags =>  [cpus_1,IntelCorporation,memsize_1GiB,nics_1,vmware_vm]
+         Hardware IDs =>  [000C29AD79F0]
+
+3. remove the node's active model (which was bound by policy rules):
+
+        $ razor policy remove active 41ecNNJzSvlI5MhdRhoa1i
+        Policy remove_active
+         Active Model [41ecNNJzSvlI5MhdRhoa1i] removed
+
+4. this node will no longer show up under razor policy active
+
+        $ razor policy active
+        Active Models:
+            Label          State           Node UUID         System  Bind #           UUID
+        install_centos  broker_fail  74hlvTYRrBtwtEuZXnHXkg  puppet  2       7HmohnvcR4lxFOakxoukqg
+        install_centos  broker_fail  XNnfl9IzvB0FUfnjryGbq   puppet  3       fktzuQfL8o8oVeoj7ciLK
+
+At this point, reboot the node, it will reregister and razor will provision the system based on your current active policy.
