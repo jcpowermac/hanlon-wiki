@@ -70,7 +70,7 @@ The `razor model get template` command will provide a list of the OS templates a
 
 Once the desired template is available, associate the appropriate OS image for software installation, and provide the necessary data for system configuration:
 
-    $ razor model add template=ubuntu_precise label=install_precise image_uuid=274HnNlQF5jvbo0y6U0aok
+    $ razor model add --template=ubuntu_precise --label=install_precise --image_uuid=274HnNlQF5jvbo0y6U0aok
     --- Building Model (ubuntu_precise):
     Please enter node hostname prefix (will append node number) (example: node)
     default: node
