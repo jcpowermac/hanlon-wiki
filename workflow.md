@@ -91,7 +91,7 @@ Once the desired template is available, associate the appropriate OS image for s
 
 With the appropriate OS ISO loaded into the image service and a matching OS model created, a policy can be created to deploy this operating system to all nodes that match the policy.
 
-    $ razor policy add --template=linux_deploy --label=precise --model_uuid=3LCN86Cpx0Te3Of5WbORkQ --broker_uuid=none --tags=memsize_4GiB,vmware_vm --enabled=true
+    $ razor policy add --template=linux_deploy --label=precise --model_uuid=3LCN86Cpx0Te3Of5WbORkQ --broker_uuid=none --tags=memsize_4GiB,vmware_vm --enabled
     Policy created
     UUID =>  41o1z77j2R4ZsgjD9KTpPe
     Line Number =>  2
