@@ -11,6 +11,7 @@ See here for [[Razor Slices Command Line Usage]].
 
 See below for a list of slices and their individual usage:
 
+* [[slice active model]]
 * [[slice bmc]]
 * [[slice broker]]
 * [[slice config]]
