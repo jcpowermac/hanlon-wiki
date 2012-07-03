@@ -1,1 +1,325 @@
-# Policy Slice> This syntax is for the current version of Razor. Please be sure you have the most current updates as the Policy Slice changed recently.The `policy` slice is used to view, remove, update, and create Policy rules that bind Nodes to specific Models based on tags that describe the Nodes. Multiple Policies are filtered top down in a way similar to firewall rules where the first suitable applicable Policy will be applied. A good pattern to is to have specific Policy specified first and generic Policy be specified last.## Operations supported1. [Viewing Policies](#viewing)2. [Creating Policies](#creating)3. [Removing Policies](#removing)4. [Updating Policies](#updating)5. [Listing Templates](#listingtemplates)6. [Policy Binding](#policybinding)<a id="viewing"></a>## Viewing Policies----By default, `razor policy` will provide a list of current policies:    $ razor policy    Policies    #  Enabled       Label            Tags              Model Label         #/Max  Counter           UUID               0  true     ESX_Cluster01  [physical,clus01]      ESXi5_Cluster01       8/16   8        1lNXNs8V9X3yjVwMrXHfOw    1  true     ESX_Cluster02  [physical,clus02]      ESXi5_Cluster02       8/16   8        JNFKjnfiKJnk883Jjndknj    2  false    AppSvr         [vmware_vm,app_svr]    Centos6               5/-   12        KKnf98snjb9BKDbbjkb998    3  true     WebFarm01      [vmware_vm,webfarm01]  UbuntuPrecise01       17/32   17      Jfks88d78skKDjbkfkni89    4  true     WebFarm02      [vmware_vm,webfarm02]  UbuntuPrecise02       24/32   24      Kfjknka8d98yFjnkjnf9jb    5  false    Default        [vmware_vm]            UbuntuPreciseDefault  0/-   56        KDKjbn98fkslbfpijfmJDFPolicies are arranged in order from highest priority __(0)__ to lowest __(5)__. Each column provides a different piece of information about the Policy:* __'#'__   * This is the line number for the Policy. When Nodes are evaluated against Policies it happens from the top of this list down. From 0 to the highest line number in the list.* __'Enabled'__   * Whether the Policy is enabled or not. A disabled Policy is skipped when evaluated against a Node.* __'Label'__   * User defined label for the Policy.* __'Tags'__   * Collection of tags that a Node must have to match the Policy. A Node must have the tags that are defined here to match the Policy. It can have more than these. Example: _Node tags = [physical,clus01,large_server,dev]_ would match _Policy tags = [physical,clus01]_ * __'Model Label'__   * User defined label for the Model attached to this Policy.* __'#/Max'__   * The current count of actively bound Nodes to this Policy (#) and the maximum allowed (Max). If a Policy has reached the maximum it will be skipped when Nodes are evaluated versus Policies. Removing a Node's Active Model will reduce this number for the associated Policy. A value of '-' for (Max) means no maximum is set.* __'Counter'__   * The cumulative sum of Nodes that have been bound from this Policy. This number doesn't no go down when an Active Model is removed from a Node. This is the counter for the number of bindings for the lifetime of this Policy.* __'UUID'__   * The unique ID for the Policy. Used to update or remove this Policy is other commands.<a id="creating"></a>## Creating Policy----Creating a Razor Policy is done with the command `razor policy add`.To see the help run the command `razor policy add --help` (see below).```razor policy add [options...]    -p, --template TEMPLATE_NAME     The policy template name to use.  - required    -l, --label POLICY_LABEL         A label to name this policy.  - required    -m, --model-uuid MODEL_UUID      The model to attach to the policy.  - required    -b, --broker-uuid BROKER_UUID    The broker to attach to the policy [default: none].     -t, --tags TAG{,TAG,TAG}         Policy tags. Comma delimited.  - required    -e, --enabled                    Sets the policy to enabled on creation.     -x, --maximum MAXIMUM_COUNT      Sets the policy maximum count for nodes [default: 0].     -h, --help                       Display this screen.```Explanation of options:* __'-p, --template TEMPLATE_NAME'__ - _required_   * The Policy Template to use. See [Listing Templates](#listingtemplates).* __'-l, --label POLICY_LABEL'__ - _required_   * The label you want for this Policy.* __'-m, --model-uuid MODEL_UUID'__ - _required_   * The UUID of the Model you want ot have attached to this Policy. You can list models with `razor model`. The Model must be of types that support the Policy Template above.* __'-b, --broker-uuid BROKER_UUID'__ - _optional_   * The UUID of the Broker you wish a Node to be handed off to when provisioning is complete. You can list or create Brokers with the `razor broker` slice. This is optional and without this switch Broker is set to _none_.* __'-t, --tags TAG{,TAG,TAG}'__ - _required_   * Comma delimited list of tags to set with the Policy. These tags must match a Node for this Policy to bind to a Node.* __'-e, --enabled'__ - _optional_   * Whether to enable this Policy on creation. Omitting this switch creates the Policy but sets it to disabled.* __'-x, --maximum MAXIMUM_COUNT'__ - _optional_   * Sets the maximum active Nodes value for a Policy. This restricts the number of active bindings to Node at any one time. Omitting this sets no maximum on Policy creation.* __'-h, --help'__ - _optional_   * Prints the help text above.   #### _Note:_    Any optional and most required switches above can be changed later using the `razor update` command after Policy creation. See [Updating Policy](#updating). #### ExamplesFirst we need to get our Policy Template. We run `razor policy template`. See [Listing Templates](#listingtemplate).```Policy Templates:    Template                           Description                       linux_deploy       Policy for deploying a Linux-based operating system.  vmware_hypervisor  Policy for deploying a VMware hypervisor.```We want to deploy an Ubuntu Precise VM. So we will use the `linux_deploy` template type.---Next we need the Model UUID to attach to our Policy. We get a list of Models by running `razor model`.```Models         Label           Template             Description                  UUID    install_suse     linux_deploy       OpenSuSE Suse 12 Model    5o4bzesGjyvvFA0goT79jO    install_centos   linux_deploy       CentOS 6 Model            zBvnTS4Sv9eI6x6ZBPwMs    install_precise  linux_deploy       Ubuntu Precise Model      3LCN86Cpx0Te3Of5WbORkQ    install_esx      vmware_hypervisor  VMware ESXi 5 Deployment  1Xcc78Ag3Aq9zXNSMHPpXe```Our Model UUID is '3LCN86Cpx0Te3Of5WbORkQ' for our Ubuntu Precise Model.---We want to hand this Node off to a PuppetLabs Puppet Master for further configuration. To do that we need a Broker Target UUID for our Puppet Master. We get this with `razor broker`. Optionally you can omit this or supply 'none' to the switch.```Broker Targets:     Name =>  puppet     Description =>  Puppet agent handoff.     Plugin =>  puppet     Servers =>  [master.puppetlabs.lan]     UUID =>  7S18suoe7ZsT9hv0ARUDW6```Our Puppet Master Broker Target UUID is '7S18suoe7ZsT9hv0ARUDW6'--- Now we use this information to create our Policy:```razor policy add --template linux_deploy --label 'Precise'  --model 3LCN86Cpx0Te3Of5WbORkQ --broker 7S18suoe7ZsT9hv0ARUDW6 --tags vmware_vm,small_vm,webfarm --enabled --maximum 10 ```We are asking Razor to create a 'linux_deploy' Policy with the label 'Precise' using our Ubuntu Precise Model, our PuppetLabs Broker Target, enabled on creation, with a maximum of 10, and with tags: [vmware_vm,small_vm,webfarm]. This command will create the Policy and add it as the last item in the existing Policy table. The output will show our new Policy details:``` UUID =>  1lNXNs8V9X3yjVwMrXHfOw Line Number =>  6 Label =>  Precise Enabled =>  true Template =>  linux_deploy Description =>  Policy for deploying a Linux-based operating system. Tags =>  [vmware_vm,small_vm,webfarm] Model Label =>   Ubuntu Precise Model Broker Target =>  puppet Currently Bound =>  0 Maximum Bound =>  10 Bound Counter =>  0```We can also do this with shorter switches and ommitting optional arguments:```razor policy add -p linux_deploy -l 'Precise'  -m 3LCN86Cpx0Te3Of5WbORkQ -t vmware_vm,small_vm,webfarm```This creates a Policy without an attached Broker Target, disabled on creation, and with no maximum. Output is:``` UUID =>  1lNXNs8V9X3yjVwMrXHfOw Line Number =>  6 Label =>  Precise Enabled =>  false Template =>  linux_deploy Description =>  Policy for deploying a Linux-based operating system. Tags =>  [vmware_vm,small_vm,webfarm] Model Label =>   Ubuntu Precise Model Broker Target =>  none Currently Bound =>  0 Maximum Bound =>  0 Bound Counter =>  0```<a id="removing"></a>## Removing Policy----Removing Policies is done with the `razor remove` command. You can remove a single policy or completely clear all Policies.To remove a single Policy you need the Policy UUID. We get this with `razor policy` command that lists all Policies:```$ razor policyPolicies#  Enabled       Label            Tags              Model Label         #/Max  Counter           UUID           0  true     ESX_Cluster01  [physical,clus01]      ESXi5_Cluster01       8/16   8        1lNXNs8V9X3yjVwMrXHfOw1  true     ESX_Cluster02  [physical,clus02]      ESXi5_Cluster02       8/16   8        JNFKjnfiKJnk883Jjndknj2  false    AppSvr         [vmware_vm,app_svr]    Centos6               5/-   12        KKnf98snjb9BKDbbjkb9983  true     WebFarm01      [vmware_vm,webfarm01]  UbuntuPrecise01       17/32   17      Jfks88d78skKDjbkfkni894  true     WebFarm02      [vmware_vm,webfarm02]  UbuntuPrecise02       24/32   24      Kfjknka8d98yFjnkjnf9jb5  false    Default        [vmware_vm]            UbuntuPreciseDefault  0/-   56        KDKjbn98fkslbfpijfmJDF```Let's remove our last Policy with the UUID '1lNXNs8V9X3yjVwMrXHfOw'.```razor remove 1lNXNs8V9X3yjVwMrXHfOwPolicy remove_policy Active policy [1lNXNs8V9X3yjVwMrXHfOw] removed```To remove all Policies run:```razor remove allPolicy remove_policy_all All Active policy removed```<a id="updating"></a>## Updating Policy----Updating/changing a Razor Policy is done with the command `razor policy update`.To see the help run the command `razor policy update --help` (see below).```Command help:Description: Updates a Razor Policy propertiesrazor policy update (policy uuid) [options...]    -l, --label POLICY_LABEL         A label to name this policy.     -m, --model-uuid MODEL_UUID      The model to attached to the policy.     -b, --broker-uuid BROKER_UUID    The broker attached to the policy.     -t, --tags TAG{,TAG,TAG}         Policy tags. Comma delimited.     -e, --enable                     Enables policy.     -d, --disable                    Disables policy.     -x, --maximum MAXIMUM_COUNT      Sets the policy maximum count for nodes.     -u, --move-priority-higher       Move policy up in priority.     -w, --move-priority-lower        Move policy down in priority.     -h, --help                       Display this screen.```Explanation of options:* __'-l, --label POLICY_LABEL'__   * Changes the Policy label* __'-m, --model-uuid MODEL_UUID'__   * Changes Model for the Policy. Model must be of a type that supports the Policy Template.* __'-b, --broker-uuid BROKER_UUID'__   * Change the Broker Target attached to Policy. To remove the Broker Target use 'none' as the argument.* __'-t, --tags TAG{,TAG,TAG}'__   * Change the tags set for this Policy.* __'-e, --enable'__   * Enable the Policy. Cannot be provided at the same time as '-d, --disable'.* __'-d, --disable'__   * Disable the Policy. Cannot be provided at the same time as '-e, --enable'.* __'-x, --maximum MAXIMUM_COUNT'__   * Sets the maximum for the Policy. Provide '0' as the argument to set without a maximum.* __'-u, --move-priority-higher'__   * Move the Policy one level higher in priority.* __'-w, --move-priority-lower'__   * Move the Policy one level lower in priority. * __'-h, --help'__   * Print the command help.      #### ExamplesIn these examples the Policy UUID in question is '1lNXNs8V9X3yjVwMrXHfOw'.To enable a disabled Policy:    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --enable         To disable an enabled Policy:        razor policy update 1lNXNs8V9X3yjVwMrXHfOw --disable    To set the maximum for the Policy to 32:             razor policy update 1lNXNs8V9X3yjVwMrXHfOw --maximum 32    To clear the attached Broker and move priority down one level:    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --move-priority-higher --broker-uuid none             To change the label and tags on a Policy:    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --tags de01,vmware_vm --label Dev01Policy        <a id="listingtemplates"></a>## Listing Templates----To create a Policy you need to provide the Policy Template to use. To see the possible Templates use `razor policy template`.```Policy Templates:    Template                           Description                       linux_deploy       Policy for deploying a Linux-based operating system.  vmware_hypervisor  Policy for deploying a VMware hypervisor.```Models are supported by specific Policy Templates. Linux Models support the 'linux_deploy' Template. VMware ESXi Models support the 'vmware_hypervisor' Template. You can see what Policy Template is supported by looking at your Models with `razor model`.```Models    Label        Template        Description                UUID           UbuntuPrecise  linux_deploy  Ubuntu Precise Model  3nrBjspaxmRoGJCgGSXl8o```As we see above, our UbuntuPrecise Model uses a 'linux_deploy' Policy Template.                        <a id="policybinding"></a>## Policy Binding----When a Node matches a Policy it is bound to it creating an Active Model assigned to that Node. The '#/Max' column when using `razor policy` displays the number of Active Models and the maximum allowed.To control and view the Active Models use the `razor active_model` command or see the [Active Model](slice active_model) page.
+# Policy Slice
+
+> This syntax is for the current version of Razor. Please be sure you have the most current updates as the Policy Slice changed recently.
+
+The `policy` slice is used to view, remove, update, and create Policy rules that bind Nodes to specific Models based on tags that describe the Nodes. Multiple Policies are filtered top down in a way similar to firewall rules where the first suitable applicable Policy will be applied. A good pattern to is to have specific Policy specified first and generic Policy be specified last.
+
+## Operations supported
+
+1. [Viewing Policies](#viewing)
+2. [Creating Policies](#creating)
+3. [Removing Policies](#removing)
+4. [Updating Policies](#updating)
+5. [Listing Templates](#listingtemplates)
+6. [Policy Binding](#policybinding)
+
+
+<a id="viewing"></a>
+## Viewing Policies
+----
+By default, `razor policy` will provide a list of current policies:
+
+    $ razor policy
+    Policies
+    #  Enabled       Label            Tags              Model Label         #/Max  Counter           UUID           
+    0  true     ESX_Cluster01  [physical,clus01]      ESXi5_Cluster01       8/16   8        1lNXNs8V9X3yjVwMrXHfOw
+    1  true     ESX_Cluster02  [physical,clus02]      ESXi5_Cluster02       8/16   8        JNFKjnfiKJnk883Jjndknj
+    2  false    AppSvr         [vmware_vm,app_svr]    Centos6               5/-   12        KKnf98snjb9BKDbbjkb998
+    3  true     WebFarm01      [vmware_vm,webfarm01]  UbuntuPrecise01       17/32   17      Jfks88d78skKDjbkfkni89
+    4  true     WebFarm02      [vmware_vm,webfarm02]  UbuntuPrecise02       24/32   24      Kfjknka8d98yFjnkjnf9jb
+    5  false    Default        [vmware_vm]            UbuntuPreciseDefault  0/-   56        KDKjbn98fkslbfpijfmJDF
+
+Policies are arranged in order from highest priority __(0)__ to lowest __(5)__. Each column provides a different piece of information about the Policy:
+
+* __'#'__
+   * This is the line number for the Policy. When Nodes are evaluated against Policies it happens from the top of this list down. From 0 to the highest line number in the list.
+* __'Enabled'__
+   * Whether the Policy is enabled or not. A disabled Policy is skipped when evaluated against a Node.
+* __'Label'__
+   * User defined label for the Policy.
+* __'Tags'__
+   * Collection of tags that a Node must have to match the Policy. A Node must have the tags that are defined here to match the Policy. It can have more than these. Example: _Node tags = [physical,clus01,large_server,dev]_ would match _Policy tags = [physical,clus01]_ 
+* __'Model Label'__
+   * User defined label for the Model attached to this Policy.
+* __'#/Max'__
+   * The current count of actively bound Nodes to this Policy (#) and the maximum allowed (Max). If a Policy has reached the maximum it will be skipped when Nodes are evaluated versus Policies. Removing a Node's Active Model will reduce this number for the associated Policy. A value of '-' for (Max) means no maximum is set.
+* __'Counter'__
+   * The cumulative sum of Nodes that have been bound from this Policy. This number doesn't no go down when an Active Model is removed from a Node. This is the counter for the number of bindings for the lifetime of this Policy.
+* __'UUID'__
+   * The unique ID for the Policy. Used to update or remove this Policy is other commands.
+
+<a id="creating"></a>
+## Creating Policy
+----
+Creating a Razor Policy is done with the command `razor policy add`.
+
+To see the help run the command `razor policy add --help` (see below).
+
+```
+razor policy add [options...]
+    -p, --template TEMPLATE_NAME     The policy template name to use.  - required
+    -l, --label POLICY_LABEL         A label to name this policy.  - required
+    -m, --model-uuid MODEL_UUID      The model to attach to the policy.  - required
+    -b, --broker-uuid BROKER_UUID    The broker to attach to the policy [default: none]. 
+    -t, --tags TAG{,TAG,TAG}         Policy tags. Comma delimited.  - required
+    -e, --enabled                    Sets the policy to enabled on creation. 
+    -x, --maximum MAXIMUM_COUNT      Sets the policy maximum count for nodes [default: 0]. 
+    -h, --help                       Display this screen.
+```
+
+Explanation of options:
+
+* __'-p, --template TEMPLATE_NAME'__ - _required_
+   * The Policy Template to use. See [Listing Templates](#listingtemplates).
+* __'-l, --label POLICY_LABEL'__ - _required_
+   * The label you want for this Policy.
+* __'-m, --model-uuid MODEL_UUID'__ - _required_
+   * The UUID of the Model you want ot have attached to this Policy. You can list models with `razor model`. The Model must be of types that support the Policy Template above.
+* __'-b, --broker-uuid BROKER_UUID'__ - _optional_
+   * The UUID of the Broker you wish a Node to be handed off to when provisioning is complete. You can list or create Brokers with the `razor broker` slice. This is optional and without this switch Broker is set to _none_.
+* __'-t, --tags TAG{,TAG,TAG}'__ - _required_
+   * Comma delimited list of tags to set with the Policy. These tags must match a Node for this Policy to bind to a Node.
+* __'-e, --enabled'__ - _optional_
+   * Whether to enable this Policy on creation. Omitting this switch creates the Policy but sets it to disabled.
+* __'-x, --maximum MAXIMUM_COUNT'__ - _optional_
+   * Sets the maximum active Nodes value for a Policy. This restricts the number of active bindings to Node at any one time. Omitting this sets no maximum on Policy creation.
+* __'-h, --help'__ - _optional_
+   * Prints the help text above.
+   
+#### _Note:_ 
+   Any optional and most required switches above can be changed later using the `razor update` command after Policy creation. See [Updating Policy](#updating). 
+
+#### Examples
+
+First we need to get our Policy Template. We run `razor policy template`. See [Listing Templates](#listingtemplates).
+
+```
+Policy Templates:
+    Template                           Description                       
+linux_deploy       Policy for deploying a Linux-based operating system.  
+vmware_hypervisor  Policy for deploying a VMware hypervisor.
+```
+
+We want to deploy an Ubuntu Precise VM. So we will use the `linux_deploy` template type.
+
+---
+
+Next we need the Model UUID to attach to our Policy. We get a list of Models by running `razor model`.
+
+```
+Models
+         Label           Template             Description                  UUID
+    install_suse     linux_deploy       OpenSuSE Suse 12 Model    5o4bzesGjyvvFA0goT79jO
+    install_centos   linux_deploy       CentOS 6 Model            zBvnTS4Sv9eI6x6ZBPwMs
+    install_precise  linux_deploy       Ubuntu Precise Model      3LCN86Cpx0Te3Of5WbORkQ
+    install_esx      vmware_hypervisor  VMware ESXi 5 Deployment  1Xcc78Ag3Aq9zXNSMHPpXe
+
+```
+
+Our Model UUID is '3LCN86Cpx0Te3Of5WbORkQ' for our Ubuntu Precise Model.
+
+---
+
+We want to hand this Node off to a PuppetLabs Puppet Master for further configuration. To do that we need a Broker Target UUID for our Puppet Master. We get this with `razor broker`. Optionally you can omit this or supply 'none' to the switch.
+
+```
+Broker Targets:
+     Name =>  puppet
+     Description =>  Puppet agent handoff.
+     Plugin =>  puppet
+     Servers =>  [master.puppetlabs.lan]
+     UUID =>  7S18suoe7ZsT9hv0ARUDW6
+```
+
+Our Puppet Master Broker Target UUID is '7S18suoe7ZsT9hv0ARUDW6'
+
+---
+ 
+Now we use this information to create our Policy:
+
+```
+razor policy add --template linux_deploy --label 'Precise'  --model 3LCN86Cpx0Te3Of5WbORkQ --broker 7S18suoe7ZsT9hv0ARUDW6 --tags vmware_vm,small_vm,webfarm --enabled --maximum 10 
+```
+
+We are asking Razor to create a 'linux_deploy' Policy with the label 'Precise' using our Ubuntu Precise Model, our PuppetLabs Broker Target, enabled on creation, with a maximum of 10, and with tags: [vmware_vm,small_vm,webfarm]. 
+
+This command will create the Policy and add it as the last item in the existing Policy table. The output will show our new Policy details:
+
+```
+ UUID =>  1lNXNs8V9X3yjVwMrXHfOw
+ Line Number =>  6
+ Label =>  Precise
+ Enabled =>  true
+ Template =>  linux_deploy
+ Description =>  Policy for deploying a Linux-based operating system.
+ Tags =>  [vmware_vm,small_vm,webfarm]
+ Model Label =>   Ubuntu Precise Model
+ Broker Target =>  puppet
+ Currently Bound =>  0
+ Maximum Bound =>  10
+ Bound Counter =>  0
+```
+
+We can also do this with shorter switches and ommitting optional arguments:
+
+```
+razor policy add -p linux_deploy -l 'Precise'  -m 3LCN86Cpx0Te3Of5WbORkQ -t vmware_vm,small_vm,webfarm
+```
+
+This creates a Policy without an attached Broker Target, disabled on creation, and with no maximum. Output is:
+
+```
+ UUID =>  1lNXNs8V9X3yjVwMrXHfOw
+ Line Number =>  6
+ Label =>  Precise
+ Enabled =>  false
+ Template =>  linux_deploy
+ Description =>  Policy for deploying a Linux-based operating system.
+ Tags =>  [vmware_vm,small_vm,webfarm]
+ Model Label =>   Ubuntu Precise Model
+ Broker Target =>  none
+ Currently Bound =>  0
+ Maximum Bound =>  0
+ Bound Counter =>  0
+```
+
+
+<a id="removing"></a>
+## Removing Policy
+----
+Removing Policies is done with the `razor remove` command. You can remove a single policy or completely clear all Policies.
+
+To remove a single Policy you need the Policy UUID. We get this with `razor policy` command that lists all Policies:
+
+```
+$ razor policy
+Policies
+#  Enabled       Label            Tags              Model Label         #/Max  Counter           UUID           
+0  true     ESX_Cluster01  [physical,clus01]      ESXi5_Cluster01       8/16   8        1lNXNs8V9X3yjVwMrXHfOw
+1  true     ESX_Cluster02  [physical,clus02]      ESXi5_Cluster02       8/16   8        JNFKjnfiKJnk883Jjndknj
+2  false    AppSvr         [vmware_vm,app_svr]    Centos6               5/-   12        KKnf98snjb9BKDbbjkb998
+3  true     WebFarm01      [vmware_vm,webfarm01]  UbuntuPrecise01       17/32   17      Jfks88d78skKDjbkfkni89
+4  true     WebFarm02      [vmware_vm,webfarm02]  UbuntuPrecise02       24/32   24      Kfjknka8d98yFjnkjnf9jb
+5  false    Default        [vmware_vm]            UbuntuPreciseDefault  0/-   56        KDKjbn98fkslbfpijfmJDF
+```
+
+Let's remove our last Policy with the UUID '1lNXNs8V9X3yjVwMrXHfOw'.
+
+```
+razor remove 1lNXNs8V9X3yjVwMrXHfOw
+Policy remove_policy
+ Active policy [1lNXNs8V9X3yjVwMrXHfOw] removed
+```
+
+To remove all Policies run:
+
+```
+razor remove all
+Policy remove_policy_all
+ All Active policy removed
+```
+
+<a id="updating"></a>
+## Updating Policy
+----
+Updating/changing a Razor Policy is done with the command `razor policy update`.
+
+To see the help run the command `razor policy update --help` (see below).
+
+```
+Command help:
+Description: Updates a Razor Policy properties
+razor policy update (policy uuid) [options...]
+    -l, --label POLICY_LABEL         A label to name this policy. 
+    -m, --model-uuid MODEL_UUID      The model to attached to the policy. 
+    -b, --broker-uuid BROKER_UUID    The broker attached to the policy. 
+    -t, --tags TAG{,TAG,TAG}         Policy tags. Comma delimited. 
+    -e, --enable                     Enables policy. 
+    -d, --disable                    Disables policy. 
+    -x, --maximum MAXIMUM_COUNT      Sets the policy maximum count for nodes. 
+    -u, --move-priority-higher       Move policy up in priority. 
+    -w, --move-priority-lower        Move policy down in priority. 
+    -h, --help                       Display this screen.
+
+```
+
+Explanation of options:
+
+* __'-l, --label POLICY_LABEL'__
+   * Changes the Policy label
+* __'-m, --model-uuid MODEL_UUID'__
+   * Changes Model for the Policy. Model must be of a type that supports the Policy Template.
+* __'-b, --broker-uuid BROKER_UUID'__
+   * Change the Broker Target attached to Policy. To remove the Broker Target use 'none' as the argument.
+* __'-t, --tags TAG{,TAG,TAG}'__
+   * Change the tags set for this Policy.
+* __'-e, --enable'__
+   * Enable the Policy. Cannot be provided at the same time as '-d, --disable'.
+* __'-d, --disable'__
+   * Disable the Policy. Cannot be provided at the same time as '-e, --enable'.
+* __'-x, --maximum MAXIMUM_COUNT'__
+   * Sets the maximum for the Policy. Provide '0' as the argument to set without a maximum.
+* __'-u, --move-priority-higher'__
+   * Move the Policy one level higher in priority.
+* __'-w, --move-priority-lower'__
+   * Move the Policy one level lower in priority. 
+* __'-h, --help'__
+   * Print the command help.   
+   
+#### Examples
+In these examples the Policy UUID in question is '1lNXNs8V9X3yjVwMrXHfOw'.
+
+To enable a disabled Policy:
+
+    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --enable     
+    
+To disable an enabled Policy:    
+
+    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --disable
+    
+To set the maximum for the Policy to 32:         
+
+    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --maximum 32
+    
+To clear the attached Broker and move priority down one level:
+
+    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --move-priority-higher --broker-uuid none
+             
+To change the label and tags on a Policy:
+
+    razor policy update 1lNXNs8V9X3yjVwMrXHfOw --tags de01,vmware_vm --label Dev01Policy
+    
+    
+<a id="listingtemplates"></a>
+## Listing Templates
+----
+To create a Policy you need to provide the Policy Template to use. To see the possible Templates use `razor policy template`.
+
+```
+Policy Templates:
+    Template                           Description                       
+linux_deploy       Policy for deploying a Linux-based operating system.  
+vmware_hypervisor  Policy for deploying a VMware hypervisor.
+
+```
+
+Models are supported by specific Policy Templates. Linux Models support the 'linux_deploy' Template. VMware ESXi Models support the 'vmware_hypervisor' Template. You can see what Policy Template is supported by looking at your Models with `razor model`.
+
+```
+Models
+    Label        Template        Description                UUID           
+UbuntuPrecise  linux_deploy  Ubuntu Precise Model  3nrBjspaxmRoGJCgGSXl8o
+```
+
+As we see above, our UbuntuPrecise Model uses a 'linux_deploy' Policy Template.
+            
+            
+<a id="policybinding"></a>
+## Policy Binding
+----
+
+When a Node matches a Policy it is bound to it creating an Active Model assigned to that Node. The '#/Max' column when using `razor policy` displays the number of Active Models and the maximum allowed.
+
+To control and view the Active Models use the `razor active_model` command or see the [Active Model](slice active_model) page.
+
+
