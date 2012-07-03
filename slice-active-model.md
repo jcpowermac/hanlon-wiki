@@ -116,6 +116,7 @@ postinstall              apt_upgrade_ok      n/a                            13:4
 postinstall              apt_update_ok       n/a                            13:45:04  1.3 min  9.9 min  3iMAFTzmTF1R1CaOu6dEmM
 ```
 
+<a id="removing"></a>
  ## Removing Active Models
 ----   
 Removing an Active Model frees a Node from its binding to Policy and Model. This means the next time a Node boots into Razor it will reevaluate against the Policy rules and reprovision. This can be useful for reseting Nodes or reprovisioning Nodes with new Models.
@@ -124,11 +125,10 @@ To remove an specific active model use the command `razor active_model remove <U
 
 Example:
 
-```
-# razor active_model remove 3oKM2hxcVfZmh3CDBB5UPe
-Active_model remove_active_model_by_uuid
- Active model 3oKM2hxcVfZmh3CDBB5UPe removed
-```         
+    # razor active_model remove 3oKM2hxcVfZmh3CDBB5UPe
+    Active_model remove_active_model_by_uuid
+     Active model 3oKM2hxcVfZmh3CDBB5UPe removed
+
   
 To remove all Active Models use the command `razor active_model remove all`.
 
@@ -138,7 +138,4 @@ Example:
 razor active_model remove all
 Active_model remove_active_model_all
  All active models removed 
-```   
-
-
-
+```
