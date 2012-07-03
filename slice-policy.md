@@ -320,6 +320,6 @@ As we see above, our UbuntuPrecise Model uses a 'linux_deploy' Policy Template.
 
 When a Node matches a Policy it is bound to it creating an Active Model assigned to that Node. The '#/Max' column when using `razor policy` displays the number of Active Models and the maximum allowed.
 
-To control and view the Active Models use the `razor active_model` command or see the [Active Model](slice active_model) page.
+To control and view the Active Models use the `razor active_model` command or see the [Active Model](slice-active-model) page.
 
 
