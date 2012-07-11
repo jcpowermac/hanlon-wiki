@@ -13,6 +13,9 @@ This process uses the burned-in PXE command code to load Razor's SYSLINUX pxecon
 This process does 2 chain loads. One from burned in PXE to Razor's PXELINUX. And then from PXELINUX to iPXE. For some network cards this causes issues.
 
 You can reduce this to 1 chain load by removing the PXE bypass menu and directly loading into Razor.
+
+You will need to obtain the undionly.kpxe file, which can be downloaded [directly from ipxe.org](http://boot.ipxe.org/undionly.kpxe).  Place this file in the /var/lib/tftpboot folder of your Razor server.
+
 The example below is an ISC DHCP config uses the default method:
 
 ## Default Config
