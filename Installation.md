@@ -117,11 +117,26 @@ If Puppet is running in a standalone environment without a Puppet master server,
 
     puppet apply /etc/puppet/modules/razor/tests/init.pp --verbose
 
+After puppet deploys razor on the target system, the razor service should be online and listening on port 8027 and 8026 and a Razor MicoKernel image should be loaded and ready to use:
+
+    $ /opt/razor/bin/razor_daemon.rb status
+    razor_daemon: running [pid 26016]
+
+    $ /opt/razor/bin/razor image get
+    Images
+     UUID =>  1hRa8hLfDOt1ugMptM7aWh
+     Type =>  MicroKernel Image
+     ISO Filename =>  rz_mk_prod-image.0.9.0.4.iso
+     Path =>  /opt/razor/image/mk/1hRa8hLfDOt1ugMptM7aWh
+     Status =>  Valid
+     Version =>  0.9.0.4
+     Built Time =>  Tue Jul 03 17:49:49 -0500 2012
+
 Note: installation issues with the puppet module should be filed in the [puppetlabs-razor project](https://github.com/puppetlabs/puppetlabs-razor/issues).
 
 ### Manual Installation
 
-Manual installation is documented below for environments that does not support puppet:
+Manual installation is documented below for environments that does not use puppet:
 
 Razor software dependencies:
 
