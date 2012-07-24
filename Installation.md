@@ -23,7 +23,7 @@ Install Puppet Enterprise or Puppet open source.
 
 Puppet Enterprise installation documentation: http://docs.puppetlabs.com/pe/2.5/install_basic.html
 
-Open Source Puppet installation sample script: https://gist.github.com/3170626
+Open Source Puppet installation example script: https://gist.github.com/3170626
 
 ## DHCP Service
 
@@ -48,7 +48,7 @@ DHCP configuration should configure the boot filename to 'pxelinux.0' and set ne
 
 ## TFTP Service
 
-The puppetlabs-razor module will install the TFTP service and support files. Puppet users can skip ahead to the Razor installation instructions.
+The puppetlabs-razor module will install the TFTP service and all support files listed below. Puppet users can skip ahead to the Razor installation instructions.
 
 The TFTP service requires the following files in the tftp directory:
 
@@ -62,7 +62,7 @@ The TFTP service requires the following files in the tftp directory:
     ├── razor.ipxe
     └── undionly.kpxe
 
-undionly.kpxe is only required for [compatibility](https://github.com/puppetlabs/Razor/wiki/Alternate-Pre-boot-Options-for-Compatibility) with certain network cards. See [alternate preboot doc](https://github.com/puppetlabs/Razor/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
+undionly.kpxe is only required for compatibility with certain network cards, such as Broadcoms. See [alternate preboot doc](https://github.com/puppetlabs/Razor/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
 
 The ipxe and pxelinux files can be obtained from:
 
@@ -77,10 +77,11 @@ The razor ipxe file can be generated via the following command:
 
 ### Puppet Installation
 
-[puppetlabs-razor module](https://github.com/puppetlabs/puppetlabs-razor) supports Razor installation for the following platforms (Debian and Fedora should work, but are untested):
+[puppetlabs-razor module](https://github.com/puppetlabs/puppetlabs-razor) supports Razor installation for the following platforms (Debian and Fedora should also work, but not verified):
 
 * Ubuntu Precise
 * RHEL 6
+* CentOS 6
 
 The puppet module tool will install puppetlabs-razor module from [forge](forge.puppetlabs.com) and automatically resolve all dependencies:
 
@@ -115,3 +116,6 @@ On the puppet master assign the razor class to the appropriate node, and trigger
 If Puppet is running in a standalone environment without a Puppet master server, simply apply the tests manifests to install razor:
 
     puppet apply /etc/puppet/modules/razor/tests/init.pp --verbose
+
+Note: installation issues with the puppet module should be filed in the [puppetlabs-razor project](https://github.com/puppetlabs/puppetlabs-razor/issues).
+
