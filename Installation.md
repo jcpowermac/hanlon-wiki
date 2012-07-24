@@ -77,7 +77,7 @@ The razor ipxe file can be generated via the following command:
 
 ### Puppet Installation
 
-[puppetlabs-razor module](https://github.com/puppetlabs/puppetlabs-razor) supports Razor installation for the following platforms:
+[puppetlabs-razor module](https://github.com/puppetlabs/puppetlabs-razor) supports Razor installation for the following platforms (Debian and Fedora should work, but are untested):
 
 * Ubuntu Precise
 * RHEL 6
