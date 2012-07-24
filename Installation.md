@@ -119,3 +119,29 @@ If Puppet is running in a standalone environment without a Puppet master server,
 
 Note: installation issues with the puppet module should be filed in the [puppetlabs-razor project](https://github.com/puppetlabs/puppetlabs-razor/issues).
 
+### Manual Installation
+
+Manual installation is documented below for environments that does not support puppet:
+
+Razor software dependencies:
+
+* Ruby (1.8.7 or 1.9.3) and Rubygems
+
+        apt-get install ruby rubygems
+        yum install ruby rubygems
+
+    On RedHat platforms rubygems-update should be installed and update_rubygems should be executed to update gem version.
+* git and make
+* MongoDB installation: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/
+* NodeJS installation: https://github.com/joyent/node/wiki/Installation
+* NPM installation: http://npmjs.org/
+
+Once the dependencies have been satisfied, razor can be installed from source:
+
+    mkdir /opt/razor
+    cd /opt/razor
+    gem install autotest base62 bson bson_ext colored daemons json logger macaddr mocha mongo net-ssh require_all syntax uuid
+    npm install express
+    npm install mime
+    git clone https://github.com/puppetlabs/Razor.git
+    /opt/razor/bin/razor_daemon.rb start
