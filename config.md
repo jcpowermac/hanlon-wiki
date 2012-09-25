@@ -29,7 +29,6 @@ ProjectRazor Config:
         daemon_min_cycle_time: 30 
         node_expire_timeout: 900 
         rz_mk_boot_debug_level:  
-root@ubuntu-server:~# 
 ```
 If the configuration file does not exist, Razor will generate a default configuration during intial startup. The configuration settings are stored in the Razor installation directory: conf/razor_server.conf.
 
