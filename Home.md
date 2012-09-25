@@ -93,7 +93,7 @@ With those conventions in mind, the following pages describe the detailed docume
 
 ## Alternative configuration and support
 
-* [[Alternate Pre boot Options for Compatibility]]
+* [[Alternate Pre boot Options]]
 
 ## API Documentation
 
