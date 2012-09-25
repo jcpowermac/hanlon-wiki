@@ -1,169 +1,32 @@
-# Image Slice
+The Image slice is used to add new images to the Razor system. These images can (currently) be one of three types:
 
-The *image* slice is used to list, add, and delete .iso images on the image service.
+* **mk** -- a Microkernel image; this type of image is used by Razor as a standin for a full operating system image in order to accomplish some task. Currently the only Microkernel images that are defined/used within Razor are “discovery” Microkernels (which are used to discover node properties and whether or not there is a defined policy that can be mapped to the node), but in the future other Microkernel types might be defined (eg. a Microkernel that performs a boot-nuke or a system audit once booted)
+* **os** -- OS images are used by Razor to install an operating system on a node. The source ISO for these images is the same ISO that would be used to install the corresponding OS from an operating system distributor (eg. Redhat, SUSE or Canonical).
+* **esxi** -- ESXi images are used to install a VMware ESXi hypervisor onto a node. Like the OS images, the source ISOs for these images are the same ISOs that you would download directly from VMware.
 
-## List Images
+Since there are significant differences between the typical OS image and an ESXi image (especially in terms of the models that are constructed using these images), they are separated out logically here into two different image types. These two image types are meant to be used to construct models (see the model image slice description, below) that can then be used to deploy the corresponding OS (or hypervisor instance) to individual nodes being managed by Razor.
 
-The default action for the image slice is list:
+## The image CLI
 
-    $ razor image
-    Images:
-      UUID: 0115f790628c012f1c14000c29a694fa
-      Type: MicroKernel Image
-      ISO Filename: rz_mk_dev-image.0.3.1.0.iso
-      Path: /mnt/nfs/Razor/image/mk/0115f790628c012f1c14000c29a694fa
-      Status: ^[[AValid
-      Version: 0.3.1.0
-      Build Time: 2012-03-20 23:13:09 -0700
-    
-      UUID: f10af5e063da012f1d7a000c29a694fa
-      Type: MicroKernel Image
-      ISO Filename: rz_mk_dev-image.0.6.4.0.iso
-      Path: /mnt/nfs/Razor/image/mk/f10af5e063da012f1d7a000c29a694fa
-      Status: Valid
-      Version: 0.6.4.0
-      Build Time: 2012-04-20 17:45:53 -0700
+The image CLI provides users with the ability to add new images to the system, view the details of the images that have been added to the system, and remove images from the system. Note that there is no ability to update an image provided via the image CLI. Here is a high-level summary of the commands that are available via the image CLI:
+```bash
+razor image [get] [all]         View all images (detailed list)
+razor image [get] (UUID)        View details of specified image
+razor image add (options...)    Add a new image to the system
+razor image remove (UUID)       Remove existing image from the system
+```
+There are options that are required when adding a new image (of any type) to the system using the “image add” command. Those options are shown below:
+```bash
+Usage: razor image add (options...)
+   -t, --type TYPE             The type of image (mk, os, or esxi)
+   -p, --path PATH             The local path to the image ISO
+   -n, --name OS_NAME          The logical name to use (os images only)
+   -v, --version OS_VERSION    The version to use (os images only)
+```
+In this command, the TYPE  that is included in the command must be one of the aforementioned image types (mk, os, or esxi) and the PATH that is included is the (local, perhaps even relative) path to the image ISO being added. The OS_NAME and OS_VERSION are strings that are required, but only when adding an OS image to the system. For the MK and ESXi image types these two parameters are not required (and are silently ignored if they are included as part of the “razor image add” command).
 
-## Adding MK Images
+Note that when it comes to these last two parameters (OS_NAME and OS_VERSION), care should be taken by the user to ensure that these strings correspond to the name and version for the OS instance being added (for example, one could use “ubuntu-amd64” and “11.10” for these two values when adding a 64-bit Ubuntu Oneiric ISO to the system).
 
-Adding an image requires a valid image type. Currently Razor supports mk, esxi, and os images:
+## The image RESTful API
 
-    $ razor image add
-    
-    Please select a valid image type.
-    Valid types are:
-      [esxi] - VMware Hypervisor Install
-      [os] - OS Install
-      [mk] - MicroKernel Image
-    
-    Available commands for [Image]:
-    [add] [get] [remove] [path]
-    
-    [Image] [add] <-InvalidImageType
-    
-    Command syntax: image add [esxi|os|mk] (PATH TO ISO)
-    
-    Currently images are available at:https://github.com/lynxbat/Razor/downloads
-    
-    To add a new microkernel, download the image and install it:
-
-Razor will automatically detect the MK version and build time. If multiple microkernels are loaded, Razor will automatically use the latest MK kernel avaliable.
-
-    $ razor image add mk ../rz_mk_dev-image.0.7.2.iso
-    
-    razor image add mk ../rz_mk_dev-image.0.7.2.0.iso
-    Attempting to add, please wait...
-    
-    New image added successfully
-    
-    Images:
-      UUID: 5dH0ZpO91rBQRVWSvGgpq6
-      Type: MicroKernel Image
-      ISO Filename: rz_mk_dev-image.0.7.2.0.iso
-      Path: /mnt/nfs/Razor/image/mk/5dH0ZpO91rBQRVWSvGgpq6
-      Status: Valid
-      Version: 0.7.2.0
-      Build Time: 2012-05-02 13:47:47 -0700
-
-## Adding OS Images
-
-Razor can load any operating system's installation packages via ISO images.
-
-    $ razor image add os ../ubuntu-11.10-server-amd64.iso 
-    
-    Available commands for [Image]:
-    [add] [get] [remove] [path] 
-    
-    [Image] [add] <-MissingOSName
-    
-    Command syntax: image add os ../ubuntu-11.10-server-amd64.iso (OS Name) (OS Version)
-
-Razor currently does not detect information regarding the OS ISO. Consequently, in addition to the path to ISO images, users must also supply an OS name and OS version as follows:
-
-    $ razor image add os ../ubuntu-11.10-server-amd64.iso ubuntu 11.10
-    Attempting to add, please wait...
-    
-    New image added successfully
-    
-    Images:
-      UUID: nVe9chgnS26gYdmCf4NW  
-      Type: OS Install  
-      ISO Filename: ubuntu-11.10-server-amd64.iso  
-      Path: /mnt/nfs/Razor/image/os/nVe9chgnS26gYdmCf4NW  
-      Status: Valid   
-      OS Name: ubuntu  
-      OS Version: 11.10  
-
-## Adding ESXi Images
-
-As with MK images, Razor only requires the image's path and will automatically determine the version of ESXi installation packages.
-
-## Remove Image
-
-Images that are no longer required can be removed by specifying the image's UUID:
-
-    $ razor image remove 0115f790628c012f1c14000c29a694fa
-    
-    Image remove success
-    
-    Image: 0115f790628c012f1c14000c29a694fa removed successfully
-
-## Image Storage
-
-Images will be stored in image_svc_path by image type (mk, os, esxi), and image uuid:
-
-    $ tree image
-    image
-    ├── esxi
-    ├── mk
-    │   ├── 0115f790628c012f1c14000c29a694fa
-    │   │   ├── boot
-    │   │   │   ├── core.gz
-    │   │   │   ├── isolinux
-    │   │   │   │   ├── boot.cat
-    │   │   │   │   ├── boot.msg
-    │   │   │   │   ├── f2
-    │   │   │   │   ├── f3
-    │   │   │   │   ├── f4
-    │   │   │   │   ├── isolinux.bin
-    │   │   │   │   └── isolinux.cfg
-    │   │   │   └── vmlinuz
-    │   │   └── iso-metadata.yaml
-    │   ├── 5dH0ZpO91rBQRVWSvGgpq6
-    │   │   ├── boot
-    │   │   │   ├── core.gz
-    │   │   │   ├── isolinux
-    │   │   │   │   ├── boot.cat
-    │   │   │   │   ├── boot.msg
-    │   │   │   │   ├── f2
-    │   │   │   │   ├── f3
-    │   │   │   │   ├── f4
-    │   │   │   │   ├── isolinux.bin
-    │   │   │   │   └── isolinux.cfg
-    │   │   │   └── vmlinuz
-    │   │   └── iso-metadata.yaml
-    │   └── f10af5e063da012f1d7a000c29a694fa
-    │       ├── boot
-    │       │   ├── core.gz
-    │       │   ├── isolinux
-    │       │   │   ├── boot.cat
-    │       │   │   ├── boot.msg
-    │       │   │   ├── f2
-    │       │   │   ├── f3
-    │       │   │   ├── f4
-    │       │   │   ├── isolinux.bin
-    │       │   │   └── isolinux.cfg
-    │       │   └── vmlinuz
-    │       └── iso-metadata.yaml
-    └── README
-
-Do not modify files in the image_svc_path, manual changes will result in broken images:
-
-    UUID: nVe9chgnS26gYdmCf4NW
-    Type: OS Install
-    ISO Filename: ubuntu-11.10-server-amd64.iso
-    Path: /mnt/nfs/Razor/image/os/nVe9chgnS26gYdmCf4NW
-    Status: Broken/Missing
-    OS Name: ubuntu
-    OS Version: 11.10
-
+The image slice does not support a RESTful API other than a fairly low-level RESTful resource model that is used during the iPXE boot process (and the OS provisioning process) to obtain the local path to resources that are needed during those two processes. Any attempts to access resources from this slice via REST will result in a “ProjectRazor::Error::Slice::NotImplemented” error being thrown (this error is mapped into an HTTP 403 error code).
