@@ -3,7 +3,7 @@ As was described previously, the active_model slice is primarily used to view in
 ## The active_model CLI
 
 The active_model CLI provides users with commands to get a list of the active_model instances in the system, get the details of a specific active_model instance, view the logs for a specific active_model instance, print an aggregate view of the logs of all of the active_model instances in the system to the shell/console being used, or remove active_model instances from the system (either one by one or all at once).  The usage for the active_model CLI is as follows:
-```
+```bash
 razor active_model [get] [all]          View all active models
 razor active_model [get] (UUID) [logs]  View specific active model (log)
 razor active_model logview              Prints an aggregate log view
