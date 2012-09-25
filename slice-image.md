@@ -1,6 +1,6 @@
 The Image slice is used to add new images to the Razor system. These images can (currently) be one of three types:
 
-* **mk** -- a Microkernel image; this type of image is used by Razor as a standin for a full operating system image in order to accomplish some task. Currently the only Microkernel images that are defined/used within Razor are “discovery” Microkernels (which are used to discover node properties and whether or not there is a defined policy that can be mapped to the node), but in the future other Microkernel types might be defined (eg. a Microkernel that performs a boot-nuke or a system audit once booted)
+* **mk** -- a Microkernel image; this type of image is used by Razor as a standin for a full operating system image in order to accomplish some task. Currently the only Microkernel images that are defined/used within Razor are 'discovery' Microkernels (which are used to discover node properties and whether or not there is a defined policy that can be mapped to the node), but in the future other Microkernel types might be defined (eg. a Microkernel that performs a boot-nuke or a system audit once booted)
 * **os** -- OS images are used by Razor to install an operating system on a node. The source ISO for these images is the same ISO that would be used to install the corresponding OS from an operating system distributor (eg. Redhat, SUSE or Canonical).
 * **esxi** -- ESXi images are used to install a VMware ESXi hypervisor onto a node. Like the OS images, the source ISOs for these images are the same ISOs that you would download directly from VMware.
 
@@ -15,7 +15,7 @@ razor image [get] (UUID)        View details of specified image
 razor image add (options...)    Add a new image to the system
 razor image remove (UUID)       Remove existing image from the system
 ```
-There are options that are required when adding a new image (of any type) to the system using the “image add” command. Those options are shown below:
+There are options that are required when adding a new image (of any type) to the system using the 'image add' command. Those options are shown below:
 ```bash
 Usage: razor image add (options...)
    -t, --type TYPE             The type of image (mk, os, or esxi)
@@ -23,10 +23,10 @@ Usage: razor image add (options...)
    -n, --name OS_NAME          The logical name to use (os images only)
    -v, --version OS_VERSION    The version to use (os images only)
 ```
-In this command, the TYPE  that is included in the command must be one of the aforementioned image types (mk, os, or esxi) and the PATH that is included is the (local, perhaps even relative) path to the image ISO being added. The OS_NAME and OS_VERSION are strings that are required, but only when adding an OS image to the system. For the MK and ESXi image types these two parameters are not required (and are silently ignored if they are included as part of the “razor image add” command).
+In this command, the TYPE  that is included in the command must be one of the aforementioned image types (mk, os, or esxi) and the PATH that is included is the (local, perhaps even relative) path to the image ISO being added. The OS_NAME and OS_VERSION are strings that are required, but only when adding an OS image to the system. For the MK and ESXi image types these two parameters are not required (and are silently ignored if they are included as part of the 'razor image add' command).
 
-Note that when it comes to these last two parameters (OS_NAME and OS_VERSION), care should be taken by the user to ensure that these strings correspond to the name and version for the OS instance being added (for example, one could use “ubuntu-amd64” and “11.10” for these two values when adding a 64-bit Ubuntu Oneiric ISO to the system).
+Note that when it comes to these last two parameters (OS_NAME and OS_VERSION), care should be taken by the user to ensure that these strings correspond to the name and version for the OS instance being added (for example, one could use 'ubuntu-amd64' and '11.10' for these two values when adding a 64-bit Ubuntu Oneiric ISO to the system).
 
 ## The image RESTful API
 
-The image slice does not support a RESTful API other than a fairly low-level RESTful resource model that is used during the iPXE boot process (and the OS provisioning process) to obtain the local path to resources that are needed during those two processes. Any attempts to access resources from this slice via REST will result in a “ProjectRazor::Error::Slice::NotImplemented” error being thrown (this error is mapped into an HTTP 403 error code).
+The image slice does not support a RESTful API other than a fairly low-level RESTful resource model that is used during the iPXE boot process (and the OS provisioning process) to obtain the local path to resources that are needed during those two processes. Any attempts to access resources from this slice via REST will result in a 'ProjectRazor::Error::Slice::NotImplemented' error being thrown (this error is mapped into an HTTP 403 error code).
