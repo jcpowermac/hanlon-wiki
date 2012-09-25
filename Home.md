@@ -82,7 +82,7 @@ With those conventions in mind, the following pages describe the detailed docume
 
 * [[active_model]]
 * [[bmc]]
-* [[slice broker]]
+* [[broker]]
 * [[slice config]]
 * [[slice image]]
 * [[slice log]]
@@ -92,7 +92,7 @@ With those conventions in mind, the following pages describe the detailed docume
 
 ## Alternative configuration and support
 
-* [[Alternate Pre boot Options]]
+* [[Alternate iPXE boot Options]]
 
 ## API Documentation
 
