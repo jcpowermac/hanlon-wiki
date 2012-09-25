@@ -1,6 +1,4 @@
-# Razor API Overview Guide
-
-## Guide Summary
+# Razor API Overview
 
 This guide is intended to be a quickstart for using the Razor REST API. This is not meant to be a comprehensive guide as Razor is still in beta and API elements may change.
 
