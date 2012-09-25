@@ -85,8 +85,8 @@ With those conventions in mind, the following pages describe the detailed docume
 * [[broker]]
 * [[config]]
 * [[image]]
-* [[slice log]]
-* [[slice model]]
+* [[log]]
+* [[model]]
 * [[slice node]]
 * [[slice policy]]
 
