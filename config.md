@@ -36,34 +36,34 @@ If the configuration file does not exist, Razor will generate a default configur
 
 The Razor configuration slice reports on the following settings:
 
-* admin_port: razor admin management port.
-* api_port: razor slice RESTful api port.
-* daemon_min_cycle_time: the minimum cycle time for the razor daemon (in seconds).
-* default_ipmi_username: username for the node BMCs.
-* default_ipmi_password: password for the node BMCs.
-* default_ipmi_power_state: default power state for the node BMCs.
-* image_svc_host: razor image service IP address.
-* image_svc_port: razor image service port.
-* image_svc_path: local image service ISO storage path.
-* mk_uri: URI to use for microkernel checkin/register requests.
-* mk_checkin_path: path to use for microkernel checkin requests (appended to mk_uri, above).
-* mk_checkin_interval: microkernel checkin interval (in seconds).
-* mk_checkin_skew: maximum initial microkernel checkin splay time (in seconds).
-* mk_register_path: path to use for microkernel registration requests (appended to mk_uri, above).
-* mk_fact_excl_pattern: pattern defining facts that should not be excluded from all registration requests sent to the razor server.
-* mk_tce_mirror_uri: mirror to use when downloading microkernel extensions.
-* mk_tce_mirror_port: port to use when downloading microkernel extensions.
-* mk_tce_install_list_uri: URI for the list of microkernel extensions to install during boot process.
-* mk_kmod_install_list_uri: URI for the list of kernel modules to load during the boot process.
-* mk_log_level: microkernel log level.
-* node_expire_timeout: node expiration timeout (in seconds)
-* persist_host: database host.
-* persist_port: database port.
-* persist_mode: backend database (currently uses mongodb).
-* persist_timeout: database persistence timeout.
-* register_timeout: microkernel registration timeout.
-* rz_mk_boot_debug_level: microkernel debug level (for initial boot); defaults to the same value as the mk_log_level (above) if not specified.
-* force_mk_uuid: (currently unused?) 
+* **admin_port**: razor admin management port.
+* **api_port**: razor slice RESTful api port.
+* **daemon_min_cycle_time**: the minimum cycle time for the razor daemon (in seconds).
+* **default_ipmi_username**: username for the node BMCs.
+* **default_ipmi_password**: password for the node BMCs.
+* **default_ipmi_power_state**: default power state for the node BMCs.
+* **image_svc_host**: razor image service IP address.
+* **image_svc_port**: razor image service port.
+* **image_svc_path**: local image service ISO storage path.
+* **mk_uri**: URI to use for microkernel checkin/register requests.
+* **mk_checkin_path**: path to use for microkernel checkin requests (appended to mk_uri, above).
+* **mk_checkin_interval**: microkernel checkin interval (in seconds).
+* **mk_checkin_skew**: maximum initial microkernel checkin splay time (in seconds).
+* **mk_register_path**: path to use for microkernel registration requests (appended to mk_uri, above).
+* **mk_fact_excl_pattern**: pattern defining facts that should not be excluded from all registration requests sent to the razor server.
+* **mk_tce_mirror_uri**: mirror to use when downloading microkernel extensions.
+* **mk_tce_mirror_port**: port to use when downloading microkernel extensions.
+* **mk_tce_install_list_uri**: URI for the list of microkernel extensions to install during boot process.
+* **mk_kmod_install_list_uri**: URI for the list of kernel modules to load during the boot process.
+* **mk_log_level**: microkernel log level.
+* **node_expire_timeout**: node expiration timeout (in seconds)
+* **persist_host**: database host.
+* **persist_port**: database port.
+* **persist_mode**: backend database (currently uses mongodb).
+* **persist_timeout**: database persistence timeout.
+* **register_timeout**: microkernel registration timeout.
+* **rz_mk_boot_debug_level**: microkernel debug level (for initial boot); defaults to the same value as the mk_log_level (above) if not specified.
+* **force_mk_uuid**: (currently unused?) 
 
 ## Setting the Razor Server Debug Level
 
@@ -73,8 +73,8 @@ To modify the debug level, set the environment variable `RAZOR_LOG_LEVEL`.
 
 The log level value corresponds to the Ruby Logger class:
 
-* 0: Logger::DEBUG
-* 1: Logger::INFO
-* 2: Logger::WARN
-* 3: Logger::ERROR
-* 4: Logger::FATAL
+* **0**: Logger::DEBUG
+* **1**: Logger::INFO
+* **2**: Logger::WARN
+* **3**: Logger::ERROR
+* **4**: Logger::FATAL
