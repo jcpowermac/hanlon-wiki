@@ -87,7 +87,7 @@ With those conventions in mind, the following pages describe the detailed docume
 * [[image]]
 * [[log]]
 * [[model]]
-* [[slice node]]
+* [[node]]
 * [[slice policy]]
 
 ## Alternative configuration and support
