@@ -89,6 +89,7 @@ With those conventions in mind, the following pages describe the detailed docume
 * [[model]]
 * [[node]]
 * [[policy]]
+* [[tag]]
 
 ## Alternative configuration and support
 
