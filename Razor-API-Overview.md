@@ -1,7 +1,5 @@
 # Razor API Overview Guide
 
----
-
 ## Guide Summary
 
 This guide is intended to be a quickstart for using the Razor REST API. This is not meant to be a comprehensive guide as Razor is still in beta and API elements may change.
@@ -9,7 +7,6 @@ This guide is intended to be a quickstart for using the Razor REST API. This is 
 
 ## Razor API & REST
 
----
 Razor provides the ability to expose a [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API through each Slice. Many of the existing Slices provide API access for controlling Razor and its objects.
 
 Razor uses JSON to represent objects rather than XML. At this time XML is not supported.
@@ -17,21 +14,15 @@ Razor uses JSON to represent objects rather than XML. At this time XML is not su
 
 ## HTTP Commands
 
----
 In REST-style API interfaces: HTTP commands determine the actions performed. Razor's API follows this standard with the following commands:
 
-1. GET  -  Retrieves an object or set of objects
-
-2. POST - Creates an object or performs a command call
-
-3. PUT - Updates an existing object
-
-4. DELETE - Removes an object
-
+1. GET -  Retrieves an object or set of objects
+1. POST - Creates an object or performs a command call
+1. PUT - Updates an existing object
+1. DELETE - Removes an object
 
 ## API URI Path
 
----
 The URI for an API element follows this format:
 
 http://**{RAZOR API IP}**:**{API PORT}**/razor/api/**{SLICE NAME}**/**{COMMAND}**/**{COMMAND}**/...
@@ -45,11 +36,10 @@ Where:
 
 ## JSON Response
 
----
-
 The format of an API response is consistent between most Slices. An example JSON response for getting all nodes looks like:
 
-```json
+```
+json
 {
     "resource": "ProjectRazor::Slice::Node",
     "command": "nodes_query_all",
@@ -99,7 +89,8 @@ In a case like above where more than one object is returned. Razor will provide 
 
 The response would look like (truncated for size):
 
-```json
+```
+json
 {
     "resource": "ProjectRazor::Slice::Node",
     "command": "get_node_with_uuid",
@@ -231,7 +222,6 @@ A HTTP GET to an object's URI will yield the full object details.
 
 ## API Examples
 
----
 The following sections will illustrate how to call the Razor API using the above HTTP commands. Some of the examples include JSON parsing and some do not.
 
 ## GET
