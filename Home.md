@@ -5,21 +5,20 @@ Newly added machines in a Razor deployment will PXE-boot from a special Razor Mi
 ## Overview of the Razor CLI
 
 The Razor CLI allows the user to interact with a local Razor server instance via a login/shell prompt. The typical Razor CLI command can most easily be seen by running the "razor" command from the login/shell prompt on the Razor server (with no additional arguments):
+```bash
+razor [switches] [slice_name] [slice_operation] [UUID] [operation_flags] ...
 
-    razor [switches] [slice_name] [slice_operation] [UUID] [operation_flags] ...
-    
-    Switches
-       -v, --verbose           Enables verbose object printing
-       -d, --debug             Enables printing proper Ruby stacktrac
-       -w, --webcommand        Accepts web commands.
-       -n, --no-color          Disables console color. Useful for script wrapping.
-       -h, --help              Display this screen
-    
-    Loaded slices:
-        [active_model] [bmc] [broker] [image] [log] [model]
-        [node] [policy] [tag]
-    
+Switches
+   -v, --verbose           Enables verbose object printing
+   -d, --debug             Enables printing proper Ruby stacktrac
+   -w, --webcommand        Accepts web commands.
+   -n, --no-color          Disables console color. Useful for script wrapping.
+   -h, --help              Display this screen
 
+Loaded slices:
+    [active_model] [bmc] [broker] [image] [log] [model]
+    [node] [policy] [tag]
+```
 As you can see from the output of this command, there are currently nine visible slices defined within Razor:
 
 * **active_model** -- Used to interact with the Active Models constructed when a Policy is mapped to a specific Node by Razor
@@ -81,8 +80,8 @@ In the pages that follow, we will describe the CLI and RESTful APIs for each sli
 
 With those conventions in mind, the following pages describe the detailed documentation for the Razor CLI and RESTful API (slice-by-slice).
 
-* [[slice active model]]
-* [[slice bmc]]
+* [[active_model]]
+* [[bmc]]
 * [[slice broker]]
 * [[slice config]]
 * [[slice image]]
