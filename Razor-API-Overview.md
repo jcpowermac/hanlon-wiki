@@ -36,8 +36,7 @@ Where:
 
 The format of an API response is consistent between most Slices. An example JSON response for getting all nodes looks like:
 
-```
-json
+```json
 {
     "resource": "ProjectRazor::Slice::Node",
     "command": "nodes_query_all",
@@ -87,8 +86,7 @@ In a case like above where more than one object is returned. Razor will provide 
 
 The response would look like (truncated for size):
 
-```
-json
+```json
 {
     "resource": "ProjectRazor::Slice::Node",
     "command": "get_node_with_uuid",
