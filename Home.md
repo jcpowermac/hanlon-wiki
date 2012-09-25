@@ -84,7 +84,7 @@ With those conventions in mind, the following pages describe the detailed docume
 * [[bmc]]
 * [[broker]]
 * [[config]]
-* [[slice image]]
+* [[image]]
 * [[slice log]]
 * [[slice model]]
 * [[slice node]]
