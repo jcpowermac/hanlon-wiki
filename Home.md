@@ -4,7 +4,7 @@ Newly added machines in a Razor deployment will PXE-boot from a special Razor Mi
 
 ## Overview of the Razor CLI
 
-The Razor CLI allows the user to interact with a local Razor server instance via a login/shell prompt. The typical Razor CLI command can most easily be seen by running the "razor" command from the login/shell prompt on the Razor server (with no additional arguments):
+The Razor CLI allows the user to interact with a local Razor server instance via a login/shell prompt. The typical Razor CLI command can most easily be seen by running the 'razor' command from the login/shell prompt on the Razor server (with no additional arguments):
 ```bash
 razor [switches] [slice_name] [slice_operation] [UUID] [operation_flags] ...
 
@@ -27,9 +27,9 @@ As you can see from the output of this command, there are currently nine visible
 * **image** -- Used to manage the set of Images (Microkernel, OS, and Hypervisor ISOs) that are available within Razor. The Microkernel images are used during the Node discovery process (and may be used for other, more specialized tasks), while the OS and Hypervisor images are used in the construction of the Model instances that guide the Node Provisioning process.
 * **log** -- Used to view the current Razor log file (or subsets of that log file based on filter criteria included as part of the slice command)
 * **model** -- Used to define/manage the Model instances that are mapped to Nodes by Policies in Razor; these Model instances are constructed using one of a fixed set of Model Templates
-* **node** -- Used to view/manage Nodes within Razor. Nodes are physical or virtual servers that are managed by Razor, and they are neither created nor destroyed by end-users. Instead, Nodes are created by Razor during the Node Registration process and may be removed from Razor whenever Nodes are considered to have "expired" due to inactivity. From an end-user's perspective, the primary functionality of this slice is to view the details of a specific Node (or to view a summary list of the Nodes that are currently available in the system)
+* **node** -- Used to view/manage Nodes within Razor. Nodes are physical or virtual servers that are managed by Razor, and they are neither created nor destroyed by end-users. Instead, Nodes are created by Razor during the Node Registration process and may be removed from Razor whenever Nodes are considered to have 'expired' due to inactivity. From an end-user's perspective, the primary functionality of this slice is to view the details of a specific Node (or to view a summary list of the Nodes that are currently available in the system)
 * **policy** -- Used to map a Model to one or more Nodes based on the Tags that have been applied to those Nodes. The set of Policies in the system are organized as a policy table, with a priority assigned to each Policy in that table. The policy table is like a firewall rules table; the first Policy that matches a given Node will be applied to that Node (even if there is a second, lower-priority Policy that also matches based on the tags that have been applied to that Node)
-* **tag** -- A logical label that is applied to any Node whose properties match that Tag according to the on the rules contained within that Tag's "Tag Matchers" (there may be more than one Tag Matcher defined for a given Tag and it is the logical "AND" of the rules in those matchers that determines whether or not a given Tag matches a given Node)
+* **tag** -- A logical label that is applied to any Node whose properties match that Tag according to the on the rules contained within that Tag's 'Tag Matchers' (there may be more than one Tag Matcher defined for a given Tag and it is the logical 'AND' of the rules in those matchers that determines whether or not a given Tag matches a given Node)
 
 The supported operations for each slice and the command line flags that are allowed/required for a those slice operations will vary from slice to slice (and from operation to operation for a given slice), so we will leave the documentation of those operations/flags for later (in the documentation for the specific slices).
 
@@ -60,7 +60,7 @@ Almost all of the functionality that is supported using these slices via the Raz
     </tr>
 </table>
 
-The mapping from one API to the other is actually accomplished by invoking the equivalent `razor -w [slice_name] [slice_operation] ...` command from within the RESTful API (with the slice_operation being invoked being determined based on the verb used in the RESTful services request). The flags (if any) to the underlying slice_operation are passed into Razor via REST using a "json_hash" parameter, whose value is a JSON string version of a Hash map containing those flags and their values. We will show examples of this mapping within the documentation for each slice (below).
+The mapping from one API to the other is actually accomplished by invoking the equivalent 'razor -w [slice_name] [slice_operation] ...' command from within the RESTful API (with the slice_operation being invoked being determined based on the verb used in the RESTful services request). The flags (if any) to the underlying slice_operation are passed into Razor via REST using a 'json_hash' parameter, whose value is a JSON string version of a Hash map containing those flags and their values. We will show examples of this mapping within the documentation for each slice (below).
 
 ## Using Razor
 
