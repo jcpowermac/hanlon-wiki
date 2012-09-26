@@ -80,16 +80,16 @@ In the pages that follow, we will describe the CLI and RESTful APIs for each sli
 
 With those conventions in mind, the following pages describe the detailed documentation for the Razor CLI and RESTful API (slice-by-slice).
 
-* [[active_model]]
-* [[bmc]]
-* [[broker]]
-* [[config]]
-* [[image]]
-* [[log]]
-* [[model]]
-* [[node]]
-* [[policy]]
-* [[tag]]
+* The [[active_model]] slice
+* The [[bmc]] slice
+* The [[broker]] slice
+* The [[config]] slice
+* The [[image]] slice
+* The [[log]] slice
+* The [[model]] slice
+* The [[node]] slice
+* The [[policy]] slice
+* The [[tag]] slice
 
 ## Alternative configuration and support
 
