@@ -4,6 +4,8 @@ Newly added machines in a Razor deployment will PXE-boot from a special Razor Mi
 
 ## Overview of the Razor CLI
 
+For installation instructions see this page: [[Installation]]
+
 The Razor CLI allows the user to interact with a local Razor server instance via a login/shell prompt. The typical Razor CLI command can most easily be seen by running the 'razor' command from the login/shell prompt on the Razor server (with no additional arguments):
 ```bash
 razor [switches] [slice_name] [slice_operation] [UUID] [operation_flags] ...
