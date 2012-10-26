@@ -41,8 +41,6 @@ The second configuration (or something like it that is appropriate for your DHCP
 It should be noted here that those who are using a dnsmasq instance as a DHCP server can also configure their dnsmasq instance to skip the VGA-based PXE bypass menu used in Razor by default (and resolve this same issue).  The dnsmasq configuration file does not support the same sort of `if { } else { }` syntax that is supported in the ISC DHCP server's configuration file, so the configuration file fix shown above for the ISC DHCP server will not work for dnsmasq, however dnsmasq does support the concept of tagging (and these tags can be used to create the same effect).  Here is a snippet from a dnsmasq configuration file that uses tags to resolve this same issue:
 
 ```
-...
-
 # tag any machine who's DHCP user-class string includes
 # the substring "IPXE" with the tag "ipxe"
 dhcp-userclass=set:ipxe,iPXE
@@ -51,9 +49,9 @@ dhcp-userclass=set:ipxe,iPXE
 # (razor.ipxe for iPXE user-class strings, undionly.kpxe for everything else)
 dhcp-boot=tag:ipxe,razor.ipxe
 dhcp-boot=tag:!ipxe,undionly.kpxe
-
-...
 ```
+
+So, by simply adding this snippet to their dnsmasq configuration file (in place of the `dhcp-boot=pxelinux.0` line they are likely using out of the box) dnsmasq users can also resolve this dual chain loading issue (which can lead to some fairly to cryptic errors when PXE-booting a node using for network cards like the Broadcom NetXtreme II card).
 
 ## Optional Configuration - Support for Older Cards
 
