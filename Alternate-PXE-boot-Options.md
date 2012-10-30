@@ -42,7 +42,7 @@ It should be noted here that those who are using a dnsmasq instance as a DHCP se
 
 ```
 # tag any machine who's DHCP user-class string includes
-# the substring "IPXE" with the tag "ipxe"
+# the substring "iPXE" with the tag "ipxe"
 dhcp-userclass=set:ipxe,iPXE
 
 # then use this tag to select the "image" to use during the boot process
