@@ -21,7 +21,7 @@ Install Puppet Enterprise or Puppet open source.
 * [apt.puppetlabs.com](http://apt.puppetlabs.com)
 * [yum.puppetlabs.com](http://yum.puppetlabs.com)
 
-Puppet Enterprise installation documentation: http://docs.puppetlabs.com/pe/2.5/install_basic.html
+Puppet Enterprise installation documentation: http://links.puppetlabs.com/enterpriseinstall
 
 Open Source Puppet installation example script: https://gist.github.com/3170626
 
