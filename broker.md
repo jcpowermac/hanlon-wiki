@@ -27,10 +27,21 @@ razor broker add (options...)
 ```
 The value for the 'plugin' argument (above) must be the name of one of the available broker plugins defined in the system.  The names of the currently defined broker plugins can be easily obtained using the `razor broker plugins` command.
 
-It should also be noted here that when this functionality is accessed using the CLI, Razor will walk through an interactive script (much like is done in the case of the model slice) in order to gather additional (broker-plugin-specific) meta-data. For the 'puppet' broker plugin, that meta-data includes the following parameters:
+It should also be noted here that when this functionality is accessed using the CLI, Razor will walk through an interactive script (much like is done in the case of the model slice) in order to gather additional (broker-plugin-specific) meta-data. For the 'puppet' broker plugin, the following parameters are defined using that interactive script:
 
-* The **server** -- used to define the location of the Puppet master for a given node. It should be noted here that a hostname should be used for the value of this parameter (rather than an IP address) because this server value is also assumed to be the value of the 'ca_server', which will be embedded in the certificates used for authentication between puppet and the node). If the default value (an empty string) is used for this parameter, then the default hostname used by Puppet will be assumed for this hostname parameter.
-* The **broker_version** -- used to define the version of Puppet that should be installed locally on the node (using a 'gem install' command) during the node handoff process. If the default value (an empty string) is used for the value of this parameter, then the latest version of Puppet will be installed locally (whatever version that may be).
+* **server** -- used to define the location of the Puppet master for a given node. It should be noted here that a hostname should be used for the value of this parameter (rather than an IP address) because this server value is also assumed to be the value of the 'ca_server', which will be embedded in the certificates used for authentication between puppet and the node). If the default value (an empty string) is used for this parameter, then the default hostname used by Puppet will be assumed for this hostname parameter.
+* **broker_version** -- used to define the version of Puppet that should be installed locally on the node (using a 'gem install' command) during the node handoff process. If the default value (an empty string) is used for the value of this parameter, then the latest version of Puppet will be installed locally (whatever version that may be).
+
+For the 'chef' broker plugin, the following parameters are defined using a similar interactive script:
+
+* **chef_server_url** -- the URL of where the Chef server can be found
+* **chef_version** -- the Chef version to install locally on the node (used in the 'gem install' command to constrain the version of Chef that is installed)
+* **validation_key** -- the contents of the validation.pem file, followed by a blank line
+* **validation_client_name** -- the validation client name
+* **bootstrap_environment** -- the Chef environment in which the chef-client will run
+* **install_sh_url** -- the Omnibus installer script URL
+* **chef_client_path** -- an alternate path to the chef-client binary
+* **base_run_list** -- an optional run_list of common base roles.
 
 Like the 'broker add' command, there are a set of options to the 'broker update' command, and the user must also supply one or more of those options when updating a broker instance (each option that is supplied corresponds to a meta-data value that will be updated in the specific broker target instance).  Those options are shown here:
 ```bash
