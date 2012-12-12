@@ -51,12 +51,12 @@ The broker RESTful API is provided via two resources ('/broker' and '/broker/{UU
 * **GET /broker/plugins** -- used to obtain a list of the broker plugins that are available in the system; a broker plugin is used to define a template for a specific DevOps system (eg. Puppet or Chef), and one of these plugins must be specified when creating a new broker instance.
 * **POST /broker?json_hash=(JSON_STR)** -- used to create a new broker instance; the 'name', 'description',  'plugin', and 'servers' that are necessary for this operation are included in the (JSON_STR), a URL-encoded JSON hash value that must be included as part of the broker creation request.  An example of such a json_hash value would be something like the following string:
 ```html
-%7B%22name%22%3A%22Puppet%20Broker%22%2C%22plugin%22%3A%22puppet%22%2C%22description%22%3A%22An%20Example%20Puppet%20Broker%22%2C%22req_metadata_hash%22%3A%7B%22server%22%3A%22puppet.localdomain.com%22%2C%22version%22%3A%223.0.1%22%7D%7D
+%7B%22name%22%3A%22puppet_broker%22%2C%22plugin%22%3A%22puppet%22%2C%22description%22%3A%22Puppet%20Broker%22%2C%22req_metadata_hash%22%3A%7B%22server%22%3A%22puppet.localdomain.com%22%2C%22broker_version%22%3A%223.0.1%22%7D%7D
 ```
 which is the URL-encoded version of the following JSON string representation of a hash map containing values for these four parameters:
 ```json
-{"name":"Puppet Broker","plugin":"puppet","description":"An Example Puppet Broker","req_metadata_hash":{"server":"puppet.localdomain.com","version":"3.0.1"}}
+{"name":"puppet_broker","plugin":"puppet","description":"Puppet Broker","req_metadata_hash":{"server":"puppet.localdomain.com","broker_version":"3.0.1"}}
 ```
-*Note; the req_metatdata_hash value is itself a hash, and it contains the same meta-data values that are gathered interactively whenever a model instance of the specified type (based on the declared model template) is created via the CLI.*
+*Note; the req_metatdata_hash value is itself a hash, and it contains the same meta-data values that are gathered interactively whenever a broker plugin instance of the specified type (based on the 'plugin' value in the request) is created via the CLI.*
 * **PUT /broker/{UUID}?json_hash=(JSON_STR)** -- used to update an existing broker instance with new meta-data values.  One or more of the 'name', 'description', or 'req-metadata_hash' values must be included in the json_hash argument that is part of this request.  It should be noted here that the 'plugin' value for a broker instance cannot be updated in this manner.
 * **DELETE /broker/{UUID}** -- used to remove a specific broker instance; there is no 'remove all' operation supported via the broker RESTful API (it was felt that such an operation was too destructive to make available via REST).
