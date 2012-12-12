@@ -20,21 +20,27 @@ razor broker remove (UUID)|all             Remove existing broker(s)
 It should be noted here that there are a set of options that must be specified when adding a new broker target to the system using the 'broker add' command.  Those options are shown below:
 ```bash
 razor broker add (options...)
-   -p, --plugin BROKER_PLUGIN     The broker plugin to use
-   -n, --name BROKER_NAME         The name for the broker
-   -d, --description DESCRIPTION  A description for the broker
-   -s, --servers SERVER_LIST      A comma-separated list of servers
+    -p, --plugin BROKER_PLUGIN       The broker plugin to use. 
+    -n, --name BROKER_NAME           The name for the broker target. 
+    -d, --description DESCRIPTION    A description for the broker target. 
+    -h, --help                       Display this screen.
 ```
-The value for the 'plugin' argument (above) must be the name of one of the available broker plugins defined in the system.  The names of the currently defined broker plugins can be easily obtained using the  razor broker plugins command.
+The value for the 'plugin' argument (above) must be the name of one of the available broker plugins defined in the system.  The names of the currently defined broker plugins can be easily obtained using the `razor broker plugins` command.
+
+It should also be noted here that when this functionality is accessed using the CLI, Razor will walk through an interactive script (much like is done in the case of the model slice) in order to gather additional (broker-plugin-specific) meta-data. For the 'puppet' broker plugin, that meta-data includes the following parameters:
+
+1. the hostname of the puppet master (a hostname should be used, rather than an IP address, because the same value is assumed to be the value of the "ca_server" embedded in the certificates used for authentication between puppet and the node). If the default value (an empty string) is used for this parameter the default hostname assumed by Puppet will be assumed for this hostname parameter.
+2. the version of puppet to install locally on the node (using a 'gem install' command) during the node handoff process. If the default value (an empty string) is used for the value of this parameter, then the latest version of Puppet will be installed locally (whatever version that may be), otherwise the version specified using by the value of this parameter will be installed.
 
 Like the 'broker add' command, there are a set of options to the 'broker update' command, and the user must also supply one or more of those options when updating a broker instance (each option that is supplied corresponds to a meta-data value that will be updated in the specific broker target instance).  Those options are shown here:
 ```bash
 razor broker update (UUID) (options...)
-    -n, --name BROKER_NAME          New name for the broker
-    -d, --description DESCRIPTION   New description for the broker
-    -s, --servers SERVER_LIST       New list of servers for the broker
+    -n, --name BROKER_NAME           New name for the broker target. 
+    -d, --description DESCRIPTION    New description for the broker target. 
+    -c, --change-metadata            Used to trigger a change in the broker's meta-data 
+    -h, --help                       Display this screen.
 ```
-As you can see, except for the broker plugin, any of the meta-data values associated with a broker target can be changed via this 'broker update' command.  Changes to the broker plugin require the creation of a new broker target (and, possibly, the removal of the old target).
+As you can see, except for the broker plugin, any of the meta-data values associated with a broker target can be changed via this 'broker update' command.  Changes to the underlying (broker-plugin-specific) meta-data can be made interactively by including the '-c' or '--change-metadata' flag in the 'broker update' command.  Changes to the broker plugin type are not possible using a 'broker update' command.  Instead, the user must create a new broker target of the correct type (and, possibly, the remove the old broker target).
 
 ## The broker RESTful API
 
