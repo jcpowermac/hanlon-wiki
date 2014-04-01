@@ -60,7 +60,7 @@ Almost all of the functionality that is supported using these slices via the Occ
     </tr>
 </table>
 
-The mapping from one API to the other is actually accomplished by invoking the equivalent 'occam -w [slice_name] [slice_operation] ...' command from within the RESTful API (with the slice_operation being invoked being determined based on the verb used in the RESTful services request). The flags (if any) to the underlying slice_operation are passed into Occam via REST using a 'json_hash' parameter, whose value is a JSON string version of a Hash map containing those flags and their values. We will show examples of this mapping within the documentation for each slice (below).
+In Occam, the order of invocation has been inverted when compared to the Razor codebase that Occam was forked from.  In the new scheme, the flags and their values (if any) from a CLI slice call are converted into a JSON hash that is included in the body of the underlying RESTful call. We will show examples of this mapping within the documentation for each slice (below).
 
 ## Using Occam
 
