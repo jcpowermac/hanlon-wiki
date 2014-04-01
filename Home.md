@@ -12,8 +12,7 @@ occam [switches] [slice_name] [slice_operation] [UUID] [operation_flags] ...
 
 Switches
    -v, --verbose           Enables verbose object printing
-   -d, --debug             Enables printing proper Ruby stacktrac
-   -w, --webcommand        Accepts web commands.
+   -d, --debug             Enables printing proper Ruby stacktrace
    -n, --no-color          Disables console color. Useful for script wrapping.
    -h, --help              Display this screen
 
