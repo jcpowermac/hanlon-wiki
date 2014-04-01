@@ -18,16 +18,14 @@ Switches
    -h, --help              Display this screen
 
 Loaded slices:
-    [active_model] [bmc] [broker] [image] [log] [model]
-    [node] [policy] [tag]
+    [active_model] [broker] [image] [model] [node] [policy]
+    [tag]
 ```
 As you can see from the output of this command, there are currently nine visible slices defined within Occam:
 
 * **active_model** -- Used to interact with the Active Models constructed when a Policy is mapped to a specific Node by Occam
-* **bmc** -- Used to interact with the Baseboard Management Controller of a Node (if a BMC is available for a given Node). A BMC will typically be available on most of the physical servers used in modern datacenters, but the BMCs for these physical nodes must be discovered and registered separately to make them available through Occam. More detail will be provided about this process in the documentation for this slice (below)
 * **broker** -- Used to manage the process of handing off a Node to a DevOps framework (like Puppet)
 * **image** -- Used to manage the set of Images (Microkernel, OS, and Hypervisor ISOs) that are available within Occam. The Microkernel images are used during the Node discovery process (and may be used for other, more specialized tasks), while the OS and Hypervisor images are used in the construction of the Model instances that guide the Node Provisioning process.
-* **log** -- Used to view the current Occam log file (or subsets of that log file based on filter criteria included as part of the slice command)
 * **model** -- Used to define/manage the Model instances that are mapped to Nodes by Policies in Occam; these Model instances are constructed using one of a fixed set of Model Templates
 * **node** -- Used to view/manage Nodes within Occam. Nodes are physical or virtual servers that are managed by Occam, and they are neither created nor destroyed by end-users. Instead, Nodes are created by Occam during the Node Registration process and may be removed from Occam whenever Nodes are considered to have 'expired' due to inactivity. From an end-user's perspective, the primary functionality of this slice is to view the details of a specific Node (or to view a summary list of the Nodes that are currently available in the system)
 * **policy** -- Used to map a Model to one or more Nodes based on the Tags that have been applied to those Nodes. The set of Policies in the system are organized as a policy table, with a priority assigned to each Policy in that table. The policy table is like a firewall rules table; the first Policy that matches a given Node will be applied to that Node (even if there is a second, lower-priority Policy that also matches based on the tags that have been applied to that Node)
@@ -72,10 +70,10 @@ In the pages that follow, we will describe the CLI and RESTful APIs for each sli
 * For the RESTful API documentation, a prefix of /occam/api is assumed for all of the URIs that are shown. This means that if an operation that is documented as 'GET /resource_name' the actual request sent to the Occam server would be 'GET /occam/api/resource_name'. This assumed prefix is not included in the actual documentation for brevity.
 * The syntax /resource_name/{UUID} will be used in the RESTful API documentation (below) to indicate that a specific UUID value must be included as part of the RESTful services request that is submitted. The curly braces in that resource are not included in the actual request, instead they are meant to indicate that a specific UUID value should be used in the request. In the CLI documentation, the string '(UUID)' will be used to indicate that a specific UUID value is required by the CLI command being documented.
 * If there are multiple options available for a command in the CLI (eg. you could use '--help' or '-h'), those options will be shown as two values separated by a 'logical OR' (i.e. as a string like '--help|-h' in the example just shown) or a comma ('--help, -h').
-* Users can obtain help with the use of the slices supported by Occam (and with many of the commands supported by those slices) using the '--help' or '-h' flags when using the Occam CLI. An example of such usage would be 'occam bmc register --help', which provides help for the BMC registration command (see the description of the bmc slice, below, for more details on this command). These additional flags (for obtaining usage help) are common across all slices, so they will not be explicitly shown in the CLI documentation for each slice.
+* Users can obtain help with the use of the slices supported by Occam (and with many of the commands supported by those slices) using the '--help' or '-h' flags when using the Occam CLI. An example of such usage would be 'occam model update --help', which provides help for the Model update command (see the description of the model slice, below, for more details on this command). These additional flags (for obtaining usage help) are common across all slices, so they will not be explicitly shown in the CLI documentation for each slice.
 * Optional arguments to the CLI are shown surrounded by square brackets (eg. '[all]' or '[get]'); in some cases the command does the same thing without the optional argument ('[get]' is a good example of this for most slices), while in other cases the behavior of the command is different without the optional argument (eg. '[logs]' in the active_model slice, which can be included to get the log information for an active_model instance; without this argument the command returns the details for the instance, not the log information)
 * Some of the CLI commands support the use of 'aliases' (mainly to shorten the commands when typed from the CLI). Good examples of this are the 'attributes' sub-command for the node slice (which can be abbreviated using the aliases 'attrib' or 'attribute'). Whenever such aliases exist they will be shown in the CLI documentation. However, it should be noted that the use of these aliases is not supported in the RESTful API for those slices (and any attempts to use them will result in an error).
-* Many of the RESTful resources (active_model, bmc, broker, model, node, policy, and tag) support the use of a filter string in their default GET operation (which maps to a 'get all' operation in the underlying slice). This gives the user the ability to pass in a (URL encoded) set of name=value pairs as part of the GET request, and only resources who's 'name' field contains a matching 'value' will be returned (rather than returning all resources of a given type). The 'value' field can can take on one of the following forms:
+* Many of the RESTful resources (active_model, broker, model, node, policy, and tag) support the use of a filter string in their default GET operation (which maps to a 'get all' operation in the underlying slice). This gives the user the ability to pass in a (URL encoded) set of name=value pairs as part of the GET request, and only resources who's 'name' field contains a matching 'value' will be returned (rather than returning all resources of a given type). The 'value' field can can take on one of the following forms:
     * regex:PATTERN -- if this form is used, the value in the resource is compared against the given regular expression PATTERN (the syntax used is the syntax for a typical Ruby regular expression pattern)
     * STRING_VALUE -- if this form is used, a string comparison is made between the value in the resource and the given STRING_VALUE
     * BOOLEAN_VAL -- this form is used whenever a boolean value (in the form of the String values 'true' or 'false') is used as the value for a field in a filter expression. In that case, a literal comparison between the value in the resource and the boolean equivalent to the given string is made. It should be noted that this means the string values 'true' and 'false' cannot be used for String comparisons with the fields in a resource (since they will be automatically converted to their boolean equivalents), but it is possible to use a regular expression to match the String values 'true' or 'false' to a string value from a resource (if such a comparison becomes necessary).
@@ -83,11 +81,9 @@ In the pages that follow, we will describe the CLI and RESTful APIs for each sli
 With those conventions in mind, the following pages describe the detailed documentation for the Occam CLI and RESTful API (slice-by-slice).
 
 * The [[active_model]] slice
-* The [[bmc]] slice
 * The [[broker]] slice
 * The [[config]] slice
 * The [[image]] slice
-* The [[log]] slice
 * The [[model]] slice
 * The [[node]] slice
 * The [[policy]] slice

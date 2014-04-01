@@ -53,8 +53,11 @@ The policy RESTful API is provided via two resources ('/policy' and '/policy/{UU
 * **GET /policy/{UUID}** -- used to get the details of a specific policy instance (by UUID); the details returned are the same as those returned in the previous operation, but the values returned are only those for that specific policy instance.
 * **GET /policy/templates** -- used to obtain a list of the Policy Templates that are available in the system; one of these templates must be specified (by name) when creating a new policy instance.
 * **GET /policy/templates{name}** -- used to obtain a specific Policy Template that are available in the system for a given template (by name).
-* **POST /policy** -- used to create a new policy instance; the 'label', 'model_uuid',  'template', and 'tags' that are necessary for this operation.
-* **PUT /policy/{UUID}** -- used to update an existing policy instance with new parameters. It should be noted here that the 'template' value for a policy instance cannot be updated in this manner.
+* **POST /policy** -- used to create a new policy instance; the body of this POST should be a JSON hash containing all of the parameters necessary to create a new instance:
+```json
+{"label":"Test Policy", "model_uuid":"12Ek", "template":"linux_deploy", "tags":"two_disks,memsize_1GiB,nics_2"}
+```
+* **PUT /policy/{UUID}** -- used to update an existing policy instance with new parameter values. It should be noted here that the 'template' value for a policy instance cannot be updated in this manner. As was the case with the POST request (above), the body of the PUT should be a JSON hash containing the parameters that are being updated (and their new values).
 * **DELETE /policy/{UUID}*** -- used to remove a specific policy instance; there is no 'remove all' operation supported via the model RESTful API (it was felt that such an operation was too destructive to make available via REST).
 
 ## Policy Binding
