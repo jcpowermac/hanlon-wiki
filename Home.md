@@ -21,7 +21,7 @@ Loaded slices:
     [active_model] [broker] [image] [model] [node] [policy]
     [tag]
 ```
-As you can see from the output of this command, there are currently nine visible slices defined within Occam:
+As you can see from the output of this command, there are currently seven visible slices defined within Occam:
 
 * **active_model** -- Used to interact with the Active Models constructed when a Policy is mapped to a specific Node by Occam
 * **broker** -- Used to manage the process of handing off a Node to a DevOps framework (like Puppet)
