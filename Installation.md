@@ -8,47 +8,22 @@ The server boot process consists of:
 2. discover tftp server address via DHCP next-server settings.
 3. request pxelinux.0 from tftp service.
 4. ipxe load occam.ipxe settings from tftp service.
-5. ipxe chain boots image from occam service.
+5. ipxe chain boots image from the Occam server.
 
-Puppet Labs provides a puppetlabs-occam module to install occam and it's dependencies. This document will describe both the puppet installation process, as well as a manual installation process for users that does not run puppet in their environment.
+Puppet Labs provided a puppetlabs-razor module to install Razor and it's dependencies, but a similar module has not been written yet for Occam. Fortunately, Occam and it's dependencies are simpler to install than Razor (for example, there is no longer a dependency on Node.js and NPM), so we'll focus this document on the manual installation process.
 
 # Installation
 
-## Puppet
-Install Puppet Enterprise or Puppet open source.
-
-* [Puppet Enterprise](http://info.puppetlabs.com/download-pe.html)
-* [apt.puppetlabs.com](http://apt.puppetlabs.com)
-* [yum.puppetlabs.com](http://yum.puppetlabs.com)
-
-Puppet Enterprise installation documentation: http://links.puppetlabs.com/enterpriseinstall
-
-Open Source Puppet installation example script: https://gist.github.com/3170626
+The process for installing Occam and it's dependencies manually is fairly simple, and is outlined briefly here. For brevity, we are not discussing the installation and basic configuration of some of the external services used by Occam here (namely the DHCP and TFTP servers). For these services, only the changes to the 
 
 ## DHCP Service
 
-DHCP configuration should configure the boot filename to 'pxelinux.0' and set next-server to the tftp server's address:
+The DHCP server should be configured such that the boot filename to is set to 'pxelinux.0' and set next-server to the tftp server's address:
 
     filename "pxelinux.0";
     next-server ${tftp_server_ipaddress};
 
-[PuppetLabs DHCP Module](https://github.com/puppetlabs/puppetlabs-dhcp) will install and configure dhcp service with the following example manifests:
-
-    class { 'dhcp':
-      dnsdomain   => [
-                       'puppetlabs.lan',
-                       '1.0.10.in-addr.arpa',
-                     ],
-      nameservers => ['8.8.8.8'],
-      ntpservers  => ['us.pool.ntp.org'],
-      interfaces  => ['eth0'],
-      pxefilename => 'pxelinux.0', # DHCP filename
-      pxeserver   => '10.0.1.50',  # DHCP next-server
-    }
-
 ## TFTP Service
-
-The puppetlabs-occam module will install the TFTP service and all support files listed below. Puppet users can skip ahead to the Occam installation instructions.
 
 The TFTP service requires the following files in the tftp directory:
 
@@ -62,40 +37,34 @@ The TFTP service requires the following files in the tftp directory:
     ├── occam.ipxe
     └── undionly.kpxe
 
-undionly.kpxe is only required for compatibility with certain network cards, such as Broadcoms. See [alternate preboot doc](https://github.com/puppetlabs/Occam/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
+undionly.kpxe is only required for compatibility with certain network cards (some Broadcom cards, for example) that don't support chain-booting using both a PXE and an iPXE-boot process. See [alternate preboot doc](https://github.com/puppetlabs/Occam/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
 
 The ipxe and pxelinux files can be obtained from:
 
 * http://ipxe.org/download
 * http://www.syslinux.org/wiki/index.php/Download
 
-The occam ipxe file can be generated via the following command:
+The occam ipxe file can be generated via the following command (once the Occam server has been installed and an instance of this server is running):
 
     occam config ipxe
 
 ### Manual Installation
 
-Manual installation is documented below for environments that does not use puppet:
+The following Occam software dependencies must be installed before Occam can be installed and run:
 
-Occam software dependencies:
-
-* Ruby (1.8.7 or 1.9.3) and Rubygems
+* Ruby (1.8.7 or 1.9.3) and Rubygems must be installed on the Occam server. Users can install these packages natively (the following two commands can be used to install them natively under an Debian/Ubuntu or CentOS/RHEL system, respectively):
 
         apt-get install ruby rubygems
         yum install ruby rubygems
 
-    On RedHat platforms rubygems-update should be installed and update_rubygems should be executed to update gem version.
-* git and make
-* MongoDB installation: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/
-* NodeJS installation: https://github.com/joyent/node/wiki/Installation
-* NPM installation: http://npmjs.org/
+    or the same packages could be installed locally using a ruby management system like 'rbenv' or 'rvm'. for the latter two, there are more than enough resources online to guide the typical user through the ruby/rubygems install process. It should also be noted here that if you are choosing the 'native install' option on a RedHat platform, the  rubygems-update package should also be installed and update_rubygems should be executed to update gem version.
+* JRuby (1.7.5 or later) must be installed on the system that will be used to build the Occam server. This also means that Java (v6 or later) must be installed on that same system (since it's a dependency for running JRuby). We will leave the installation of JRuby and it's dependencies as an exercise for the reader.
+* git must be installed on the system that will be used to build the Occam server. The Occam server can now be built as a WAR file (and deployed to any servlet container in that form), or it can be run locally through a web server environment that supports Rackup applications built using JRuby::Rack (like the trinidad gem). In either case, Occam users will have to be able to clone the Occam project from the CSC GitHub repository (which requires access to the git command).
+* MongoDB or PostgreSQL need to be available to the Occam server. By default, Occam uses MongoDB to persist the state of the objects that it manages (nodes, images, models, policies, etc.), but the use of PostgreSQL as an alternative object store is a simple configuration change for Occam (even if it does require more setup than MongoDB). There are a number of online guides for setting up and configuring both of these servers. You can find a good example for installing MongoDB on a Debian or Ubuntu Linux server here: http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/
 
 Once the dependencies have been satisfied, occam can be installed from source:
 
     mkdir /opt/occam
     cd /opt/occam
-    gem install autotest base62 bson bson_ext colored daemons json logger macaddr mocha mongo net-ssh require_all syntax uuid
-    npm install express@2.5.11
-    npm install mime
-    git clone https://github.com/puppetlabs/Occam.git
-    /opt/occam/bin/occam_daemon.rb start
+    git clone https://github.com/csc/Occam.git .
+    bundle install
