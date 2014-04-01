@@ -1,19 +1,19 @@
-A Policy is used to map a specific model to a node in Razor (based on the Tags that Razor assigns to that Node).  There are typically a number of policy instances defined within Razor, and the that of policy instances form a Policy Table.  This policy table is like a firewall rules table, where every policy in the table has a policy number, and lower numbers have a higher priority than higher numbers.  The first (highest priority) policy that matches a given node (based on the tags that have been assigned to that node) is bound to that particular node.  Until a policy is bound to a node, that node will remain in an unbound state (and a discovery Microkernel will be deployed to it whenever that node boots).  Once a policy is bound to a node (in the form of an active_model), that node will remain bound to that policy until the active_model instance that was created during the policy binding process is removed from the system.
+A Policy is used to map a specific model to a node in Occam (based on the Tags that Occam assigns to that Node).  There are typically a number of policy instances defined within Occam, and the that of policy instances form a Policy Table.  This policy table is like a firewall rules table, where every policy in the table has a policy number, and lower numbers have a higher priority than higher numbers.  The first (highest priority) policy that matches a given node (based on the tags that have been assigned to that node) is bound to that particular node.  Until a policy is bound to a node, that node will remain in an unbound state (and a discovery Microkernel will be deployed to it whenever that node boots).  Once a policy is bound to a node (in the form of an active_model), that node will remain bound to that policy until the active_model instance that was created during the policy binding process is removed from the system.
 
 ## The policy CLI
 
 The policy CLI provides users with the ability to create new policy instances, view a summary list of the policies that have been created (or view the details of a specific policy), update a specific policy, or remove a specific policy (or all policies) from the system.  Here is a high-level summary of the commands that are available via the policy CLI:
 ```
-razor policy [get] [all]                      View all policies
-razor policy [get] (UUID)                     View a specific policy
-razor policy [get] templates|types            View available policy templates
-razor policy add (options...)                 Create a new policy
-razor policy update (UUID) (options...)       Update an existing policy
-razor policy remove (UUID)|all                Remove existing policy(s)
+occam policy [get] [all]                      View all policies
+occam policy [get] (UUID)                     View a specific policy
+occam policy [get] templates|types            View available policy templates
+occam policy add (options...)                 Create a new policy
+occam policy update (UUID) (options...)       Update an existing policy
+occam policy remove (UUID)|all                Remove existing policy(s)
 ```
 As you can see from the usage shown above, there are options that are required when creating a new policy instance using the 'policy add' command.  Those options are shown below:
 ```
-Usage: razor policy add (options...)
+Usage: occam policy add (options...)
    -p, --template TEMPLATE_NAME     The policy template name to use.
    -l, --label POLICY_LABEL         A label to name this policy.
    -m, --model-uuid MODEL_UUID      The model to attach to the policy.
@@ -28,11 +28,11 @@ there are three optional arguments included in this list:
 * **maximum** -- this parameter is used to define a maximum number of nodes that should be bound using the policy that is being created; it has a default value of '0' (zero), which means that the policy instance being created has no maximum count.  If a non-zero maximum count is defined, then the policy will only be bound to that many nodes.  Once the maximum count is reached, the policy instance will, effectively, be disabled (and no further nodes will be bound to that policy).
 * **enabled** -- this flag is optional, and if it is included the policy will be created with its 'enabled' state set to the value passed through using its ENABLED_FLAG value ('true' or 'false'); if this flag is not included, then the policy will be created with this 'enabled' state set to 'false' (the default value for this parameter), which leaves the creates a disabled policy instance.
 
-All other the other arguments shown above MUST be provided as part of the 'policy add' command for the command to be valid.  The value for the 'template' argument (above) must be the name of one of the available policy templates defined in the system.  The names of the currently defined policy templates can be easily obtained using the  razor policy templates command.  Currently there are two policy templates defined in Razor ('linux_deploy' and 'vmware_hypervisor'), and the policy template that is chosen when creating a new policy instance must be consistent with the underlying model referred to by the 'model_uuid' parameter’s value.  Any new policy instance that is created is placed at the end of the policy table (below all other policy instances in terms of priority), but this placement can be changed later using a 'policy update' command (see below for more on this option).
+All other the other arguments shown above MUST be provided as part of the 'policy add' command for the command to be valid.  The value for the 'template' argument (above) must be the name of one of the available policy templates defined in the system.  The names of the currently defined policy templates can be easily obtained using the  occam policy templates command.  Currently there are two policy templates defined in occam ('linux_deploy' and 'vmware_hypervisor'), and the policy template that is chosen when creating a new policy instance must be consistent with the underlying model referred to by the 'model_uuid' parameter’s value.  Any new policy instance that is created is placed at the end of the policy table (below all other policy instances in terms of priority), but this placement can be changed later using a 'policy update' command (see below for more on this option).
 
 As part of the 'policy update' command the user must also supply one or more options (each option that is supplied corresponds to the value of a parameter that will be updated in the specific policy instance).  Those options are shown here:
 ```
-Usage: razor policy update (UUID) (options...)
+Usage: occam policy update (UUID) (options...)
    -l, --label POLICY_LABEL         A label to name this policy.
    -m, --model-uuid MODEL_UUID      The model to attached to the policy.
    -b, --broker-uuid BROKER_UUID    The broker attached to the policy.
@@ -52,19 +52,13 @@ The policy RESTful API is provided via two resources ('/policy' and '/policy/{UU
 * **GET /policy** -- used to get a summary view of all of the policy instances that are registered with the system
 * **GET /policy/{UUID}** -- used to get the details of a specific policy instance (by UUID); the details returned are the same as those returned in the previous operation, but the values returned are only those for that specific policy instance.
 * **GET /policy/templates** -- used to obtain a list of the Policy Templates that are available in the system; one of these templates must be specified (by name) when creating a new policy instance.
-* **POST /policy?json_hash=(JSON_STR)** -- used to create a new policy instance; the 'label', 'model_uuid',  'template', and 'tags' that are necessary for this operation MUST included in the (JSON_STR) value, a URL-encoded JSON hash that must be included as part of the broker creation request.  In addition, one or more of the optional parameters ('broker_uuid', 'enabled', and 'maximum') MAY be included as part of this same value.  Any of these optional parameters that are not included will assume their default values in the policy instance that is created.  An example of such a json_hash value would be something like the following string:
-```html
-%7B%22label%22%3A%22Test%20Policy%22%2C%20%22model_uuid%22%3A%2212Ek%22%2C%20%22template%22%3A%22linux_deploy%22%2C%20%22tags%22%3A%22two_disks%2Cmemsize_1GiB%2Cnics_2%22%7D%0A
-```
-which is the URL-encoded version of the following JSON string representation of a Hash map that contains values for the four parameters required by this operation:
-```json
-{"label":"Test Policy", "model_uuid":"12Ek", "template":"linux_deploy", "tags":"two_disks,memsize_1GiB,nics_2"}
-```
-* **PUT /policy/{UUID}?json_hash=(JSON_STR)** -- used to update an existing policy instance with new parameters.  One or more of the parameters that can be included in the json_hash argument of a POST to the same resource ('label', 'model_uuid', 'broker_uuid', 'tags', 'maximum', 'new_line_number', and 'enabled') must be included in the json_hash argument that is part of this request.  It should be noted here that the 'template' value for a policy instance cannot be updated in this manner.
+* **GET /policy/templates{name}** -- used to obtain a specific Policy Template that are available in the system for a given template (by name).
+* **POST /policy** -- used to create a new policy instance; the 'label', 'model_uuid',  'template', and 'tags' that are necessary for this operation.
+* **PUT /policy/{UUID}** -- used to update an existing policy instance with new parameters. It should be noted here that the 'template' value for a policy instance cannot be updated in this manner.
 * **DELETE /policy/{UUID}*** -- used to remove a specific policy instance; there is no 'remove all' operation supported via the model RESTful API (it was felt that such an operation was too destructive to make available via REST).
 
 ## Policy Binding
 
-When a Node matches a Policy it is bound to it creating an Active Model assigned to that Node. The '#/Max' column when using `razor policy` displays the number of Active Models and the maximum allowed.
+When a Node matches a Policy it is bound to it creating an Active Model assigned to that Node. The '#/Max' column when using `occam policy` displays the number of Active Models and the maximum allowed.
 
-To control and view the Active Models use the `razor active_model` command or see the [Active Model](active_model) page.
+To control and view the Active Models use the `occam active_model` command or see the [Active Model](active_model) page.
