@@ -29,4 +29,4 @@ Note that when it comes to these last two parameters (OS_NAME and OS_VERSION), c
 
 ## The image RESTful API
 
-The image slice does not support a RESTful API other than a fairly low-level RESTful resource model that is used during the iPXE boot process (and the OS provisioning process) to obtain the local path to resources that are needed during those two processes. Any attempts to access resources from this slice via REST will result in a 'ProjectOccam::Error::Slice::NotImplemented' error being thrown (this error is mapped into an HTTP 403 error code).
+The image slice RESTful API is provided via two resources ('/image' and '/image/{UUID}'), but these endpoints are only accessible from the Occam subnet (and are meant to be used either by the corresponding CLI methods or by nodes that are network booting and are using Occam as their source for boot images). The image slice's RESTful API is not intended to be the primary interface to this functionality (and, as such, is not documented here).

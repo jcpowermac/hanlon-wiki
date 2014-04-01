@@ -59,7 +59,7 @@ Almost all of the functionality that is supported using these slices via the Occ
     </tr>
 </table>
 
-In Occam, the order of invocation has been inverted when compared to the Razor codebase that Occam was forked from.  In the new scheme, the flags and their values (if any) from a CLI slice call are converted into a JSON hash that is included in the body of the underlying RESTful call. We will show examples of this mapping within the documentation for each slice (below).
+In Occam, the order of invocation has been inverted when compared to the Razor codebase that Occam was forked from. In the new scheme, the flags and their values (if any) from a CLI slice call are converted into a JSON hash that is included in the body of the underlying RESTful call. We will show examples of this mapping within the documentation for each slice (below).
 
 ## Using Occam
 
