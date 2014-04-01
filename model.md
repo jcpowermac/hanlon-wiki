@@ -10,7 +10,7 @@ occam model [get] [all]                 View all models
 occam model [get] (UUID)                View specific model instance
 occam model add (options...)            Create a new model instance
 occam model update (UUID) (options...)  Update a specific model instance
-occam model remove (UUID)|all           Remove existing model(s)
+occam model remove (UUID)               Remove existing model(s)
 occam model --help                      Display this screen
 ```
 As you can see from the usage shown above, there are options that are required when creating a new model instance using the 'model add' command.  Those options are shown below:

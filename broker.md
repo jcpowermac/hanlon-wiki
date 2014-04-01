@@ -15,7 +15,7 @@ occam broker [get] (UUID)                  View specific broker target
 occam broker [get] plugin|plugins|t        View list of broker plugins
 occam broker add (options...)              Create a new broker target
 occam broker update (UUID) (options...)    Update a specific broker
-occam broker remove (UUID)|all             Remove existing broker(s)
+occam broker remove (UUID)                 Remove existing broker(s)
 ```
 It should be noted here that there are a set of options that must be specified when adding a new broker target to the system using the 'broker add' command.  Those options are shown below:
 ```bash

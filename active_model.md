@@ -7,7 +7,7 @@ The active_model CLI provides users with commands to get a list of the active_mo
 occam active_model [get] [all]          View all active models
 occam active_model [get] (UUID) [logs]  View specific active model (log)
 occam active_model logs                 Prints an aggregate view of active model logs
-occam active_model remove (UUID)        Remove existing (or all) active model(s)
+occam active_model remove (UUID)        Remove existing active model(s)
 occam active_model --help|-h            Display this screen
 ```
 ## The active_model RESTful API

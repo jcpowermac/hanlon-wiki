@@ -9,7 +9,7 @@ occam policy [get] (UUID)                     View a specific policy
 occam policy [get] templates|types            View available policy templates
 occam policy add (options...)                 Create a new policy
 occam policy update (UUID) (options...)       Update an existing policy
-occam policy remove (UUID)|all                Remove existing policy(s)
+occam policy remove (UUID)                    Remove existing policy(s)
 ```
 As you can see from the usage shown above, there are options that are required when creating a new policy instance using the 'policy add' command.  Those options are shown below:
 ```

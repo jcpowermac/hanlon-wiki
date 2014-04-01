@@ -12,7 +12,7 @@ occam tag [get] [all]                           View Tag summary
 occam tag [get] (UUID)                          View details of a Tag
 occam tag add (...)                             Create a new Tag
 occam tag update (UUID) (...)                   Update an existing Tag
-occam tag remove (UUID)|all                     Remove existing Tag(s)
+occam tag remove (UUID)                         Remove existing Tag(s)
 ```
 As you can see from the usage shown above, there are options required when creating a new tag instance, which are shown using the string '(...)' in the 'tag add' command, above.  Those options are shown below:
 ```
