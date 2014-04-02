@@ -40,9 +40,11 @@ The model RESTful API is provided via two resources ('/model' and '/model/{UUID}
 * **GET /model/templates** -- used to obtain a list of the Model Templates that are available in the system; as was mentioned previously, a model template defines a template for the installation of a specific OS instance (eg. RedHat 6 or Ubuntu Oneiric), and one of these templates must be specified when creating a model instance.
 * **GET /model/templates{name}** -- used to get the details of a specific Model Templates that are available in the system (by name). the details returned are the same as those returned in the previous operation, but the values returned are only those for that specific Model Templates (by name).
 * **POST /model** -- used to create a new model instance; the body of this POST should be a JSON hash containing all of the parameters necessary to create a new instance:
-```json
-{"label":"Test Model", "image_uuid":"OTP", "template":"ubuntu_oneiric", "req_metadata_hash":{"hostname_prefix":"test","domainname":"testdomain.com","root_password":"test4321"}}
-```
-*Note; the req_metadata_hash part of this JSON hash contains the same meta-data values that are gathered interactively whenever a model instance of the specified type (based on the declared model template) is created via the CLI.*
+
+    ```json
+    {"label":"Test Model", "image_uuid":"OTP", "template":"ubuntu_oneiric", "req_metadata_hash":{"hostname_prefix":"test","domainname":"testdomain.com","root_password":"test4321"}}
+    ```
+
+    *Note; the req_metadata_hash part of this JSON hash contains the same meta-data values that are gathered interactively whenever a model instance of the specified type (based on the declared model template) is created via the CLI.*
 * **PUT /model/{UUID}** -- used to update an existing model instance (by UUID) with new parameter values. It should be noted here that the 'template' value for a model instance cannot be updated in this manner. As was the case with the POST request (above), the body of the PUT should be a JSON hash containing the parameters that are being updated (and their new values).
 * **DELETE /model/{UUID}** -- used to remove a specific model instance; there is no 'remove all' operation supported via the model RESTful API (it was felt that such an operation was too destructive to make available via REST).
