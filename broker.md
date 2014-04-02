@@ -62,9 +62,12 @@ The broker RESTful API is provided via two resources ('/broker' and '/broker/{UU
 * **GET /broker/plugins** -- used to obtain a list of the broker plugins that are available in the system; a broker plugin is used to define a template for a specific DevOps system (eg. Puppet or Chef), and one of these plugins must be specified when creating a new broker instance.
 * **GET /broker/plugins{name}** -- used to obtain a specific broker plugins that are available in the system (by name);the details returned are the same as those returned in the previous operation, but the value returned for the specified broker plugin by name.
 * **POST /broker** -- used to create a new broker instance; the body of this POST should be a JSON hash containing all of the parameters necessary to create a new instance:
-```json
-{"name":"puppet_broker","plugin":"puppet","description":"Puppet Broker","req_metadata_hash":{"server":"puppet.localdomain.com","broker_version":"3.0.1"}}
-```
-*Note; the req_metadata_hash part of this JSON hash contains the same meta-data values that are gathered interactively whenever a broker instance of the specified type (based on the declared broker plugin) is created via the CLI.*
+
+    ```json
+    {"name":"puppet_broker","plugin":"puppet","description":"Puppet Broker","req_metadata_hash":{"server":"puppet.localdomain.com","broker_version":"3.0.1"}}
+    ```
+
+    *Note; the req_metadata_hash part of this JSON hash contains the same meta-data values that are gathered interactively whenever a broker instance of the specified type (based on the declared broker plugin) is created via the CLI*
+
 * **PUT /broker/{UUID}** -- used to update an existing broker instance (by UUID) with new parameter values. It should be noted here that the 'plugin' value for a broker instance cannot be updated in this manner. As was the case with the POST request (above), the body of the PUT should be a JSON hash containing the parameters that are being updated (and their new values).
 * **DELETE /broker/{UUID}** -- used to remove a specific broker instance; there is no 'remove all' operation supported via the broker RESTful API (it was felt that such an operation was too destructive to make available via REST).
