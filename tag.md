@@ -64,9 +64,10 @@ The tag RESTful API is provided via four resources ('/tag', '/tag/{UUID}', '/tag
 * **GET /tag** -- used to get a summary view of all of the tag instances that are registered with the system
 * **GET /tag/{UUID}** -- used to get the details of a specific tag instance (by UUID); the details returned are the same as those returned in the previous operation, but the values returned are only those for that specific tag instance.
 * **POST /tag** -- used to create a new tag instance; the body of this POST should be a JSON hash containing all of the parameters necessary to create a new instance:
-```json
-{"name":"Test Tag", "tag":"test_tag"}
-```
+
+    ```json
+    {"name":"Test Tag", "tag":"test_tag"}
+    ```
 * **PUT /tag/{UUID}** -- used to update an specific tag instance (by UUID) with new parameter values (name or tag); either the name or tag (or both) can be updated. As was the case with the POST request (above), the body of the PUT should be a JSON hash containing the parameters that are being updated (and their new values).
 * **DELETE /tag/{UUID}** -- used to remove a specific tag instance; there is no 'remove all' operation supported via the model RESTful API (it was felt that such an operation was too destructive to make available via REST).
 
@@ -75,8 +76,9 @@ The second part of the tag RESTful  API, which is focused on tag matchers, is si
 * **GET /tag/{UUID}/matcher** -- used to get the list of of all tag matchers for a given tag (by UUID).
 * **GET /tag/{T_UUID}/matcher/{UUID}** -- used to get the details of a specific tag matcher instance (by UUID) and add to the given tag.
 * **POST /tag/{UUID}/matcher** -- used to create a new tag matcher instance for the tag instance specified by the tag (by UUID) value; the body of this POST should be a JSON hash containing all of the parameters necessary to create a new instance:
-```json
-{"key":"mk_hw_nic_count","compare":"equal","value":"2"}
-```
+
+    ```json
+    {"key":"mk_hw_nic_count","compare":"equal","value":"2"}
+    ```
 * **PUT /tag/{T_UUID}/matcher/{UUID}** -- used to update an existing tag matcher instance for a given tag (by T_UUID) with new parameter values. As was the case with the POST request (above), the body of the PUT should be a JSON hash containing the parameters that are being updated (and their new values).
 * **DELETE /tag/{T_UUID}/matcher/{UUID}** -- used to remove a specific tag matcher instance from a specific tag (by T_UUID); there is no 'remove all' operation supported via the tag (matcher) RESTful API (it was felt that such an operation was too destructive to make available via REST).
