@@ -1,5 +1,5 @@
-This guide is intended to be a quickstart for using the Occam REST API. This is not meant to be a comprehensive guide as Occam is still in beta and API elements may change.
 
+This guide is intended to be a quickstart for using the Occam REST API. This is not meant to be a comprehensive guide as Occam is still in beta and API elements may change.
 
 ## Occam API & REST
 
