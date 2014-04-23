@@ -96,4 +96,4 @@ With those conventions in mind, the following pages describe the detailed docume
 
 * [[Hanlon API Overview]]
 
-And see here for a general overview of Hanlon's [[Typical Hanlon workflow]]
+And see here for a general overview of Hanlon's [[typical workflow|Typical Hanlon workflow]]
