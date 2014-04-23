@@ -1,5 +1,3 @@
-# Overview
-
 Hanlon is a discovery and provisioning tool for baremetal and virtual servers. Hanlon requires the appropriate files in tftp service directory, and configuration changes to the DHCP service to establish the appropriate pxeboot process to contact the hanlon service. This document will describe the installation and configuration process to DHCP and TFTP in addition to the Hanlon software installation process.
 
 The server boot process consists of:
