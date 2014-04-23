@@ -1,5 +1,3 @@
-# Hanlon Workflow
-
 This page describes typical workflows in Hanlon for provisioning a new operating system.
 
 ## Add MicroKernel
