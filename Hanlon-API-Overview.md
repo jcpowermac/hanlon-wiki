@@ -1,4 +1,3 @@
-
 This guide is intended to be a quickstart for using the Hanlon REST API. This is not meant to be a comprehensive guide as Hanlon is still in beta and API elements may change.
 
 ## Hanlon API & REST
