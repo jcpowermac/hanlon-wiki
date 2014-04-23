@@ -1,16 +1,16 @@
 
-This guide is intended to be a quickstart for using the Occam REST API. This is not meant to be a comprehensive guide as Occam is still in beta and API elements may change.
+This guide is intended to be a quickstart for using the Hanlon REST API. This is not meant to be a comprehensive guide as Hanlon is still in beta and API elements may change.
 
-## Occam API & REST
+## Hanlon API & REST
 
-Occam provides the ability to expose a [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API through each Slice. Many of the existing Slices provide API access for controlling Occam and its objects.
+Hanlon provides the ability to expose a [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API through each Slice. Many of the existing Slices provide API access for controlling Hanlon and its objects.
 
-Occam uses JSON to represent objects rather than XML. At this time XML is not supported.
+Hanlon uses JSON to represent objects rather than XML. At this time XML is not supported.
 
 
 ## HTTP Commands
 
-In REST-style API interfaces: HTTP commands determine the actions performed. Occam API follows this standard with the following commands:
+In REST-style API interfaces: HTTP commands determine the actions performed. Hanlon API follows this standard with the following commands:
 
 1. GET -  Retrieves an object or set of objects
 1. POST - Creates an object or performs a command call
@@ -21,13 +21,13 @@ In REST-style API interfaces: HTTP commands determine the actions performed. Occ
 
 The URI for an API element follows this format:
 
-http://**{OCCAM API IP}**:**{API PORT}**/occam/api/**{API VERSION}**/**{SLICE NAME}**/**{COMMAND}**/**{COMMAND}**/...
+http://**{HANLON API IP}**:**{API PORT}**/hanlon/api/**{API VERSION}**/**{SLICE NAME}**/**{COMMAND}**/**{COMMAND}**/...
 
 Where:
 
-* **OCCAM API IP** = IP Address for Occam service.
-* **API PORT** = Port number for Occam service. Defaults to 8026.
-* **API VERSION** = Version number for the Occam API. Currently 'v1'.
+* **HANLON API IP** = IP Address for Hanlon service.
+* **API PORT** = Port number for Hanlon service. Defaults to 8026.
+* **API VERSION** = Version number for the Hanlon API. Currently 'v1'.
 * **SLICE NAME** = Name of the Slice you are calling. Examples are: node, model, policy, broker, etc.
 * **COMMAND** = Commands to pass to API.
 
@@ -37,7 +37,7 @@ The format of an API response is consistent between most Slices. An example JSON
 
 ```json
 {
-    "resource": "ProjectOccam::Slice::Node",
+    "resource": "ProjectHanlon::Slice::Node",
     "command": "nodes_query_all",
     "result": "Ok",
     "http_err_code": 200,
@@ -45,28 +45,28 @@ The format of an API response is consistent between most Slices. An example JSON
     "response": [
         {
             "@uuid": "1dKkHnYnI633yuijQfTp2c",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1dKkHnYnI633yuijQfTp2c"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1dKkHnYnI633yuijQfTp2c"
         },
         {
             "@uuid": "1etJ2JLU0m0xJRYPD2GAyc",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1etJ2JLU0m0xJRYPD2GAyc"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1etJ2JLU0m0xJRYPD2GAyc"
         },
         {
             "@uuid": "1fs9YAc647Tzxh1RrHACtq",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1fs9YAc647Tzxh1RrHACtq"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1fs9YAc647Tzxh1RrHACtq"
         },
         {
             "@uuid": "1hWZE8LyvLJfxOoDP2tbKY",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1hWZE8LyvLJfxOoDP2tbKY"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1hWZE8LyvLJfxOoDP2tbKY"
         },
         {
             "@uuid": "1iqntXADkLNDiMy6plT0as",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1iqntXADkLNDiMy6plT0as"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1iqntXADkLNDiMy6plT0as"
         }
     ]
 }
@@ -76,18 +76,18 @@ The format of an API response is consistent between most Slices. An example JSON
 * **command** = Command called
 * **result** = HTTP Code Response String
 * **http\_err\_code** = HTTP Code Response Number
-* **errcode** = Occam Internal Error Code
+* **errcode** = Hanlon Internal Error Code
 * **response** = JSON Array containing returned Nodes
 
-In a case like above where more than one object is returned. Occam will provide a smaller output with the UUID, Classname, and URI of the Object. You can then use a new HTTP GET request to get the objects you need in full detail. So for the first item in this list we would just need to do a HTTP GET to the URI:
+In a case like above where more than one object is returned. Hanlon will provide a smaller output with the UUID, Classname, and URI of the Object. You can then use a new HTTP GET request to get the objects you need in full detail. So for the first item in this list we would just need to do a HTTP GET to the URI:
 
-    http://192.168.99.10:8026/occam/api/v1/node/1dKkHnYnI633yuijQfTp2c
+    http://192.168.99.10:8026/hanlon/api/v1/node/1dKkHnYnI633yuijQfTp2c
 
 The response would look like (truncated for size):
 
 ```json
 {
-    "resource": "ProjectOccam::Slice::Node",
+    "resource": "ProjectHanlon::Slice::Node",
     "command": "get_node_with_uuid",
     "result": "Ok",
     "http_err_code": 200,
@@ -96,7 +96,7 @@ The response would look like (truncated for size):
         {
             "@uuid": "5IFPEErRIcfk93tcIBBrD4",
             "@version": 2,
-            "@classname": "ProjectOccam::Node",
+            "@classname": "ProjectHanlon::Node",
             "@is_template": false,
             "@hw_id": [
                 "0015C5CEB6C9"
@@ -207,7 +207,7 @@ The response would look like (truncated for size):
             "@timestamp": 1338312101,
             "@last_state": "idle",
             "@status": "inactive",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/5IFPEErRIcfk93tcIBBrD4"
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/5IFPEErRIcfk93tcIBBrD4"
         }
     ]
 }
@@ -217,7 +217,7 @@ A HTTP GET to an object's URI will yield the full object details.
 
 ## API Examples
 
-The following sections will illustrate how to call the Occam API using the above HTTP commands. Some of the examples include JSON parsing and some do not.
+The following sections will illustrate how to call the Hanlon API using the above HTTP commands. Some of the examples include JSON parsing and some do not.
 
 ## GET
 
@@ -227,7 +227,7 @@ To get all objects simple perform a HTTP GET against the slice in question. The 
 
 Example path:
 
-    /occam/api/v1/node
+    /hanlon/api/v1/node
 
 _Returns all Node objects._
 
@@ -237,7 +237,7 @@ _Returns all Node objects._
 # We use Net::HTTP
 require "net/http"
 # We create a URI object with our IP, Port, and the path to the Slice (Node)
-uri = URI "http://127.0.0.1:8026/occam/api/v1/node"
+uri = URI "http://127.0.0.1:8026/hanlon/api/v1/node"
 # We run an HTTP GET against our Node Slice API
 res = Net::HTTP.get(uri)
 # This returns 
@@ -252,7 +252,7 @@ puts response_hash.inspect
 use LWP::Simple;
 use JSON;
 # We run an HTTP GET against our Node Slice API
-$contents = get("http://127.0.0.1:8026/occam/api/v1/node");
+$contents = get("http://127.0.0.1:8026/hanlon/api/v1/node");
 # Parse the JSON
 $json_hash = from_json( $contents );
 # Print the HTTP response
@@ -266,7 +266,7 @@ print $contents;
 import httplib
 import json
 conn = httplib.HTTPConnection('127.0.0.1:8026')
-conn.request("GET", "/occam/api/v1/node")
+conn.request("GET", "/hanlon/api/v1/node")
 resp = conn.getresponse()
 body = resp.read()
 print json.loads(body)
@@ -276,7 +276,7 @@ print json.loads(body)
 
 ```csharp
 static string GetNodes() {
-  string url = "http://192.168.99.10:8026/occam/api/v1/node";
+  string url = "http://192.168.99.10:8026/hanlon/api/v1/node";
   HttpWebRequest req = WebRequest.Create(url)
   as HttpWebRequest;
   string result = null;
@@ -295,7 +295,7 @@ return result;
 
 ```java
 public static String GetNodes() {
-  URL url = new URL("http://192.168.99.10:8026/occam/api/v1/node");
+  URL url = new URL("http://192.168.99.10:8026/hanlon/api/v1/node");
   HttpURLConnection conn =
       (HttpURLConnection) url.openConnection();
 
@@ -318,7 +318,7 @@ public static String GetNodes() {
 _Note:  JSON parsing not shown. [Windows 8 PowerShell V3 includes new JSON cmdlets](http://powershelljson.codeplex.com/)_
 
 ```powershell
-$api_url = "http://192.168.99.10:8026/occam/api/v1/node"
+$api_url = "http://192.168.99.10:8026/hanlon/api/v1/node"
 
 $request = [System.Net.WebRequest]::Create($api_url)
 $request.Method ="GET"
@@ -333,7 +333,7 @@ Sample Response (JSON)
 
 ```json
 {
-    "resource": "ProjectOccam::Slice::Node",
+    "resource": "ProjectHanlon::Slice::Node",
     "command": "nodes_query_all",
     "result": "Ok",
     "http_err_code": 200,
@@ -341,28 +341,28 @@ Sample Response (JSON)
     "response": [
         {
             "@uuid": "1dKkHnYnI633yuijQfTp2c",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1dKkHnYnI633yuijQfTp2c"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1dKkHnYnI633yuijQfTp2c"
         },
         {
             "@uuid": "1etJ2JLU0m0xJRYPD2GAyc",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1etJ2JLU0m0xJRYPD2GAyc"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1etJ2JLU0m0xJRYPD2GAyc"
         },
         {
             "@uuid": "1fs9YAc647Tzxh1RrHACtq",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1fs9YAc647Tzxh1RrHACtq"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1fs9YAc647Tzxh1RrHACtq"
         },
         {
             "@uuid": "1hWZE8LyvLJfxOoDP2tbKY",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1hWZE8LyvLJfxOoDP2tbKY"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1hWZE8LyvLJfxOoDP2tbKY"
         },
         {
             "@uuid": "1iqntXADkLNDiMy6plT0as",
-            "@classname": "ProjectOccam::Node",
-            "@uri": "http://192.168.99.10:8026/occam/api/v1/node/1iqntXADkLNDiMy6plT0as"
+            "@classname": "ProjectHanlon::Node",
+            "@uri": "http://192.168.99.10:8026/hanlon/api/v1/node/1iqntXADkLNDiMy6plT0as"
         }
     ]
 }
@@ -374,7 +374,7 @@ You can get a single Object by adding the Object's UUID to the request path .
 
 Example path:
 
-    /occam/api/v1/node/123456789
+    /hanlon/api/v1/node/123456789
 
 _Returns the Node with the UUID of '123456789' if it exists._
 
@@ -384,19 +384,19 @@ You can use GET variables to filter your requests. You may use exact property ma
 
 Example with exact: 
 
-    /occam/api/v1/node?status=inactive
+    /hanlon/api/v1/node?status=inactive
 
 _matches any Node with status that equals 'inactive'_
 
 Example using regex:
 
-    /occam/api/v1/node?status=regex:(^active|^inactive)
+    /hanlon/api/v1/node?status=regex:(^active|^inactive)
 
 _matches any Node with status that equals 'active' or 'inactive'_
 
 Example using both:
 
-    /occam/api/v1/node?status=regex:(^active|^inactive)&last_state=idle
+    /hanlon/api/v1/node?status=regex:(^active|^inactive)&last_state=idle
 
 _matches any Node with status that equals 'active' or 'inactive'_ and has a last_state of 'idle'.
  
@@ -415,7 +415,7 @@ The example below is for creating a Tag Rule and creating a Matcher for the Tag 
 require "net/http"
 require "json"
 
-uri = URI "http://127.0.0.1:8026/occam/api/v1/tag"
+uri = URI "http://127.0.0.1:8026/hanlon/api/v1/tag"
 rule_name = "example01" # Tag Rule name
 tag = "example" # Tag Rule tag
 json_hash = {"name" => rule_name, "tag" => tag} # Build our Hash
@@ -432,7 +432,7 @@ tag_rule_uuid = response_hash["response"].first["@uuid"]
 
 # Now we add the Matcher to this Tag Rule
 # Add the 'matcher' command on the end of the uri to access matcher actions
-uri = URI "http://127.0.0.1:8026/occam/api/v1/tag/matcher"
+uri = URI "http://127.0.0.1:8026/hanlon/api/v1/tag/matcher"
 json_hash = {"tag_rule_uuid" => tag_rule_uuid, # We supply the UUID from the Tag Rule above
              "key" =>     "virtual",
              "compare" => "equal",
@@ -462,7 +462,7 @@ $json_hash = { name => "example01", # Tag Rule name
 $json_string = to_json($json_hash); # Convert Hash to JSON String
 
 # HTTP POST our JSON String as the value for 'json_hash'
-$req = $ua->post('http://127.0.0.1:8026/occam/api/v1/tag',
+$req = $ua->post('http://127.0.0.1:8026/hanlon/api/v1/tag',
                    [ json_hash => $json_string ]);
 die "Error: ", $req->status_line
  unless $req->is_success;
@@ -482,7 +482,7 @@ $json_string = to_json($json_hash); # Convert Hash to JSON String
 
 # HTTP POST our JSON String as the value for 'json_hash'
 # We have added 'matcher' on the end of the URI to access matcher actions
-$req = $ua->post('http://127.0.0.1:8026/occam/api/v1/tag/matcher',
+$req = $ua->post('http://127.0.0.1:8026/hanlon/api/v1/tag/matcher',
                    [ json_hash => $json_string ]);
 die "Error: ", $req->status_line
  unless $req->is_success;
@@ -507,7 +507,7 @@ headers = {"Content-type": "application/x-www-form-urlencoded",
             "Accept": "text/plain"}
 conn = httplib.HTTPConnection('127.0.0.1:8026')
 # HTTP POST to our URI
-conn.request("POST", "/occam/api/v1/tag", params, headers)
+conn.request("POST", "/hanlon/api/v1/tag", params, headers)
 resp = conn.getresponse()
 # Check to be sure object was created
 if resp.status != 201:
@@ -528,7 +528,7 @@ json_string = json.dumps(json_dict) # Convert to JSON String
 params = urllib.urlencode({'json_hash': json_string})
 conn = httplib.HTTPConnection('127.0.0.1:8026')
 # We add 'matcher' to the URI path to access Matcher actions
-conn.request("POST", "/occam/api/v1/tag/matcher", params, headers)
+conn.request("POST", "/hanlon/api/v1/tag/matcher", params, headers)
 # HTTP POST to our URI adding the Matcher to the Tag Rule
 resp = conn.getresponse() 
 if resp.status != 201:
@@ -545,7 +545,7 @@ This example uses [JSON.Net](http://james.newtonking.com/projects/json-net.aspx)
 static string CreateTagRule(string name, string tag)
 {
     // Create our URL and HttpWebRequest
-    string url = "http://192.168.99.10:8026/occam/api/v1/tag";
+    string url = "http://192.168.99.10:8026/hanlon/api/v1/tag";
     HttpWebRequest req = WebRequest.Create(new Uri(url))
                             as HttpWebRequest;
     // Set header
@@ -590,7 +590,7 @@ static string CreateTagRule(string name, string tag)
 static string CreateMatcher(string tag_rule_uuid, string key, string compare, string value, string invert)
 {
     // Create our URL and HttpWebRequest
-    string url = "http://192.168.99.10:8026/occam/api/v1/tag/matcher";
+    string url = "http://192.168.99.10:8026/hanlon/api/v1/tag/matcher";
     HttpWebRequest req = WebRequest.Create(new Uri(url))
                             as HttpWebRequest;
     // Set header
@@ -638,7 +638,7 @@ This example is using the [PowerShell V3 RC](http://blogs.msdn.com/b/powershell/
 
 ```powershell
 # Create our URL
-$url = "http://192.168.99.10:8026/occam/api/v1/tag"
+$url = "http://192.168.99.10:8026/hanlon/api/v1/tag"
 # Create a Dictionary with our Tag Rule properties
 $json_dict = @{"name" = "example01";
                "tag"  = "example"}
@@ -665,7 +665,7 @@ $rs = $resp.GetResponseStream()
 $json_results = ConvertFrom-Json $results
 $tag_rule_uuid = $json_results.response."@uuid"
 # Change URL to add 'matcher' command
-$url = "http://192.168.99.10:8026/occam/api/v1/tag/matcher"
+$url = "http://192.168.99.10:8026/hanlon/api/v1/tag/matcher"
 # Create new Dictionary with Tag Rule UUID
 $json_dict = @{"tag_rule_uuid" = $tag_rule_uuid
                "key"     = "virtual";
@@ -705,7 +705,7 @@ Just like HTTP POST above, you PUT a JSON Hash as string with the variable name 
 
 The proper URI looks like:
 
-    http://127.0.0.1:8026/occam/api/v1/policy/1234567890
+    http://127.0.0.1:8026/hanlon/api/v1/policy/1234567890
 
 _Where '1234567890' is the UUID of the Policy we wish to Update._
 
@@ -722,7 +722,7 @@ policy_uuid = "6ZCbx6TxEBN26yts9XKQp4"
 json_hash = {"label" => "ESXi_Basic_Small", "tags" => "vmware,small_vm"}
 json_string = JSON.generate(json_hash)
 http = Net::HTTP.new('127.0.0.1','8026')
-request = Net::HTTP::Put.new("/occam/api/v1/policy/#{policy_uuid}")
+request = Net::HTTP::Put.new("/hanlon/api/v1/policy/#{policy_uuid}")
 request.set_form_data({"json_hash" => json_string})
 res = http.request(request)
 response_hash = JSON.parse(res.body)
@@ -741,7 +741,7 @@ use JSON;
 
 # Create our LWP::UserAgent     
 $ua = new LWP::UserAgent;
-$url = 'http://127.0.0.1:8026/occam/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4';
+$url = 'http://127.0.0.1:8026/hanlon/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4';
 $json_hash = { label    => "ESXi_Small_Basic",
                tags      => "vmware,small_vm,perl",
                enabled  => "false"};
@@ -778,7 +778,7 @@ headers = {"Content-type": "application/x-www-form-urlencoded",
             "Accept": "text/plain"}
 conn = httplib.HTTPConnection('127.0.0.1:8026')
 # HTTP POST to our URI
-conn.request("PUT", "/occam/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4", params, headers)
+conn.request("PUT", "/hanlon/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4", params, headers)
 resp = conn.getresponse()
 # Check to be sure object was updated
 if resp.status != 202:
@@ -793,7 +793,7 @@ This example uses [JSON.Net](http://james.newtonking.com/projects/json-net.aspx)
 ```c#
 static string UpdatePolicy(string policy_uuid)
 {
-    string url = "http://192.168.99.10:8026/occam/api/v1/policy/" + policy_uuid;
+    string url = "http://192.168.99.10:8026/hanlon/api/v1/policy/" + policy_uuid;
     HttpWebRequest req = WebRequest.Create(new Uri(url))
                             as HttpWebRequest;
     req.Method = "PUT";
@@ -836,7 +836,7 @@ This example is using the [PowerShell V3 RC](http://blogs.msdn.com/b/powershell/
 
 ```powershell
 # Create our URL
-$url = "http://192.168.99.10:8026/occam/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4"
+$url = "http://192.168.99.10:8026/hanlon/api/v1/policy/6ZCbx6TxEBN26yts9XKQp4"
 # Create a Dictionary with our Policy properties we want to update
 $json_dict = @{"label" = "ESXi_Small_Basic";
                "tags"  = "vmware,small_vm,powershell";
@@ -882,7 +882,7 @@ require "json"
 # Our Broker UUID. Best practice is to get this from a GET request.
 broker_uuid = "1234567890"
 http = Net::HTTP.new('127.0.0.1','8026')
-request = Net::HTTP::Delete.new("/occam/api/v1/broker/#{broker_uuid}")
+request = Net::HTTP::Delete.new("/hanlon/api/v1/broker/#{broker_uuid}")
 res = http.request(request)
 response_hash = JSON.parse(res.body)
 unless res.class == Net::HTTPAccepted
@@ -900,7 +900,7 @@ use JSON;
 
 # Create our LWP::UserAgent     
 $ua = new LWP::UserAgent;
-$url = 'http://127.0.0.1:8026/occam/api/v1/broker/1234567890';
+$url = 'http://127.0.0.1:8026/hanlon/api/v1/broker/1234567890';
 # Make request
 $request  = HTTP::Request::Common::DELETE($url);
 $req = $ua->request($request);
@@ -919,7 +919,7 @@ import json
 # Set headers
 conn = httplib.HTTPConnection('127.0.0.1:8026')
 # HTTP POST to our URI
-conn.request("DELETE", "/occam/api/v1/broker/1234567890")
+conn.request("DELETE", "/hanlon/api/v1/broker/1234567890")
 resp = conn.getresponse()
 # Check to be sure object was created
 if resp.status != 202:
@@ -932,7 +932,7 @@ if resp.status != 202:
 ```c#
 static string RemoveBroker(string broker_uuid)
 {
-    string url = "http://192.168.99.10:8026/occam/api/v1/broker/" + broker_uuid;
+    string url = "http://192.168.99.10:8026/hanlon/api/v1/broker/" + broker_uuid;
     HttpWebRequest req = WebRequest.Create(new Uri(url))
                             as HttpWebRequest;
     req.Method = "DELETE";
@@ -951,7 +951,7 @@ static string RemoveBroker(string broker_uuid)
 **PowerShell**
 
 ```powershell
-$api_url = "http://192.168.99.10:8026/occam/api/v1/broker/6KyX4rIVBCTBleurWXbAFa"
+$api_url = "http://192.168.99.10:8026/hanlon/api/v1/broker/6KyX4rIVBCTBleurWXbAFa"
 
 $request = [System.Net.WebRequest]::Create($api_url)
 $request.Method ="DELETE"
@@ -965,7 +965,7 @@ $reader.ReadToEnd()
 
 # Error Handling
 
-The Occam API responds with the appropriate HTTP Response Code depending on the request. Here are the successful response for each HTTP command:
+The Hanlon API responds with the appropriate HTTP Response Code depending on the request. Here are the successful response for each HTTP command:
 
 1. GET = 200 OK
 2. POST = 201 CREATED
@@ -977,4 +977,4 @@ Error codes will depend on what failed about the request. Invalid requests will 
 
 # Note
 
-This document is in flux as the Occam API is improved. Individual documentation per Slice will be coming soon.
+This document is in flux as the Hanlon API is improved. Individual documentation per Slice will be coming soon.

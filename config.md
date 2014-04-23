@@ -1,6 +1,6 @@
-The `config` slice is used to view the current configuration of the Occam server.
+The `config` slice is used to view the current configuration of the Hanlon server.
 ```bash
-ProjectOccam Config:
+ProjectHanlon Config:
         image_svc_host: 192.168.1.1 
         persist_mode: mongo 
         persist_host: 127.0.0.1 
@@ -13,14 +13,14 @@ ProjectOccam Config:
         mk_checkin_interval: 60 
         mk_checkin_skew: 5 
         mk_uri: http://192.168.1.1:8026 
-        mk_register_path: /occam/api/node/register 
-        mk_checkin_path: /occam/api/node/checkin 
+        mk_register_path: /hanlon/api/node/register 
+        mk_checkin_path: /hanlon/api/node/checkin 
         mk_fact_excl_pattern: (^facter.*$)|(^id$)|(^kernel.*$)|(^memoryfree$)|(^operating.*$)|(^osfamily$)|(^path$)|(^ps$)|(^ruby.*$)|(^selinux$)|(^ssh.*$)|(^swap.*$)|(^timezone$)|(^uniqueid$)|(^uptime.*$)|(.*json_str$) 
         mk_log_level: Logger::ERROR 
         mk_tce_mirror_uri: http://localhost:2157/tinycorelinux 
         mk_tce_install_list_uri: http://localhost:2157/tinycorelinux/tce-install-list 
         mk_kmod_install_list_uri: http://localhost:2157/tinycorelinux/kmod-install-list 
-        image_svc_path: /opt/occam/image 
+        image_svc_path: /opt/hanlon/image 
         register_timeout: 300 
         force_mk_uuid:  
         default_ipmi_power_state: off 
@@ -28,29 +28,29 @@ ProjectOccam Config:
         default_ipmi_password: ipmi_password 
         daemon_min_cycle_time: 30 
         node_expire_timeout: 900 
-        ocm_mk_boot_debug_level:  
+        hnl_mk_boot_debug_level:  
 ```
-If the configuration file does not exist, occam will generate a default configuration during intial startup. The configuration settings are stored in the Occam installation directory: conf/occam_server.conf.
+If the configuration file does not exist, hanlon will generate a default configuration during intial startup. The configuration settings are stored in the Hanlon installation directory: conf/hanlon_server.conf.
 
 ## Settings
 
-The Occam configuration slice reports on the following settings:
+The Hanlon configuration slice reports on the following settings:
 
-* **admin_port**: occam admin management port.
-* **api_port**: occam slice RESTful api port.
-* **daemon_min_cycle_time**: the minimum cycle time for the occam daemon (in seconds).
+* **admin_port**: hanlon admin management port.
+* **api_port**: hanlon slice RESTful api port.
+* **daemon_min_cycle_time**: the minimum cycle time for the hanlon daemon (in seconds).
 * **default_ipmi_username**: username for the node BMCs.
 * **default_ipmi_password**: password for the node BMCs.
 * **default_ipmi_power_state**: default power state for the node BMCs.
-* **image_svc_host**: occam image service IP address.
-* **image_svc_port**: occam image service port.
+* **image_svc_host**: hanlon image service IP address.
+* **image_svc_port**: hanlon image service port.
 * **image_svc_path**: local image service ISO storage path.
 * **mk_uri**: URI to use for microkernel checkin/register requests.
 * **mk_checkin_path**: path to use for microkernel checkin requests (appended to mk_uri, above).
 * **mk_checkin_interval**: microkernel checkin interval (in seconds).
 * **mk_checkin_skew**: maximum initial microkernel checkin splay time (in seconds).
 * **mk_register_path**: path to use for microkernel registration requests (appended to mk_uri, above).
-* **mk_fact_excl_pattern**: pattern defining facts that should not be excluded from all registration requests sent to the occam server.
+* **mk_fact_excl_pattern**: pattern defining facts that should not be excluded from all registration requests sent to the hanlon server.
 * **mk_tce_mirror_uri**: mirror to use when downloading microkernel extensions.
 * **mk_tce_mirror_port**: port to use when downloading microkernel extensions.
 * **mk_tce_install_list_uri**: URI for the list of microkernel extensions to install during boot process.
@@ -62,14 +62,14 @@ The Occam configuration slice reports on the following settings:
 * **persist_mode**: backend database (currently uses mongodb).
 * **persist_timeout**: database persistence timeout.
 * **register_timeout**: microkernel registration timeout.
-* **ocm_mk_boot_debug_level**: microkernel debug level (for initial boot); defaults to the same value as the mk_log_level (above) if not specified.
+* **hnl_mk_boot_debug_level**: microkernel debug level (for initial boot); defaults to the same value as the mk_log_level (above) if not specified.
 * **force_mk_uuid**: (currently unused?) 
 
-## Setting the Occam Server Debug Level
+## Setting the Hanlon Server Debug Level
 
-To modify the debug level, set the environment variable `OCCAM_LOG_LEVEL`.
+To modify the debug level, set the environment variable `HANLON_LOG_LEVEL`.
 
-    export OCCAM_LOG_LEVEL=3; start_node.sh
+    export HANLON_LOG_LEVEL=3; start_node.sh
 
 The log level value corresponds to the Ruby Logger class:
 

@@ -1,41 +1,41 @@
-A tag is simply a string label that can be applied to one or more nodes within Occam. Tags are applied to nodes based on the rules defined in the set of tag matchers that are contained within those tags. A node is 'tagged' with the string contained within a given tag if the properties of those nodes match the set of rules defined within the set of tag matchers that have been added to that tag. It should be noted that there is no 'action' within Occam that will tag a given node with a given tag; the application of a tag (or set of tags) to a node is a dynamic process that occurs automatically whenever a node is retrieved from Occam. As such, the set of tags that have been applied to a node can (and typically will) change over time as new tags and tag matchers are defined. It should also be apparent from the previous discussion that if there are no tag matchers defined for a given tag, then that tag is simply a string that will never be applied to a node by Occam.
+A tag is simply a string label that can be applied to one or more nodes within Hanlon. Tags are applied to nodes based on the rules defined in the set of tag matchers that are contained within those tags. A node is 'tagged' with the string contained within a given tag if the properties of those nodes match the set of rules defined within the set of tag matchers that have been added to that tag. It should be noted that there is no 'action' within Hanlon that will tag a given node with a given tag; the application of a tag (or set of tags) to a node is a dynamic process that occurs automatically whenever a node is retrieved from Hanlon. As such, the set of tags that have been applied to a node can (and typically will) change over time as new tags and tag matchers are defined. It should also be apparent from the previous discussion that if there are no tag matchers defined for a given tag, then that tag is simply a string that will never be applied to a node by Hanlon.
 
-As can be seen in the documentation for the policy slice, these tags are used when defining new policy instances. If the tags that have been applied to a node match the tags in a given policy instance, then that policy instance MAY be applied to that node. Whether or not that policy instance actually will be applied to that node depends on that policy instance's position within the policy table (and whether or not there is another policy with a higher priority that also matches the tags that have been applied to that node). Like the process of tagging a node, the mapping of policies to nodes is a dynamic process that occurs automatically, with Occam evaluating the mapping of policies a given node every time a node checks in with Occam (binding a given node to the appropriate policy automatically if there is a policy that matches that node at that time).
+As can be seen in the documentation for the policy slice, these tags are used when defining new policy instances. If the tags that have been applied to a node match the tags in a given policy instance, then that policy instance MAY be applied to that node. Whether or not that policy instance actually will be applied to that node depends on that policy instance's position within the policy table (and whether or not there is another policy with a higher priority that also matches the tags that have been applied to that node). Like the process of tagging a node, the mapping of policies to nodes is a dynamic process that occurs automatically, with Hanlon evaluating the mapping of policies a given node every time a node checks in with Hanlon (binding a given node to the appropriate policy automatically if there is a policy that matches that node at that time).
 
-In addition to their use within policy instances (which we just described), tags have a second use within Occam. The tags that have been applied to a node are passed on to the DevOps system during the node handoff process, providing the DevOps system with a set of labels for each node that it receives that it can use to make further decisions as to how each node that it receives from Occam should be configured (in the post-node-handoff phase). This pattern becomes even more powerful when one considers that the tags, tag matchers, and policies themselves could, quite possibly, have been configured from within the DevOps system using the RESTful API that is provided by Occam. It is this combination of tags, tag matchers, policies, and the DevOps system that make Occam such a powerful and dynamic system for managing a set of nodes in a typical next-generation datacenter.
+In addition to their use within policy instances (which we just described), tags have a second use within Hanlon. The tags that have been applied to a node are passed on to the DevOps system during the node handoff process, providing the DevOps system with a set of labels for each node that it receives that it can use to make further decisions as to how each node that it receives from Hanlon should be configured (in the post-node-handoff phase). This pattern becomes even more powerful when one considers that the tags, tag matchers, and policies themselves could, quite possibly, have been configured from within the DevOps system using the RESTful API that is provided by Hanlon. It is this combination of tags, tag matchers, policies, and the DevOps system that make Hanlon such a powerful and dynamic system for managing a set of nodes in a typical next-generation datacenter.
 
 ## The tag CLI
 
 The tag CLI can best be thought of in two parts. The first part of this CLI is used to view, create, update, and delete tags from the system. Here is a high-level summary of that first set of commands:
 ```
-occam tag [get] [all]                           View Tag summary
-occam tag [get] (UUID)                          View details of a Tag
-occam tag add (...)                             Create a new Tag
-occam tag update (UUID) (...)                   Update an existing Tag
-occam tag remove (UUID)                         Remove existing Tag(s)
+hanlon tag [get] [all]                           View Tag summary
+hanlon tag [get] (UUID)                          View details of a Tag
+hanlon tag add (...)                             Create a new Tag
+hanlon tag update (UUID) (...)                   Update an existing Tag
+hanlon tag remove (UUID)                         Remove existing Tag(s)
 ```
 As you can see from the usage shown above, there are options required when creating a new tag instance, which are shown using the string '(...)' in the 'tag add' command, above. Those options are shown below:
 ```
-Usage: occam tag add (options...)
+Usage: hanlon tag add (options...)
    -n, --name NAME                  Name for the tagrule being created
    -t, --tag TAG                    Tag for the tagrule being created
 ```
 As part of the 'tag update' command the user must also supply one or more of these two options, as is shown here:
 ```
-Usage: occam tag update (UUID) (options...)
+Usage: hanlon tag update (UUID) (options...)
    -n, --name NAME                  New name for the tagrule being updated.
    -t, --tag TAG                    New tag for the tagrule being updated.
 ```
 The second part of the tag CLI is used to view, create, update, and delete tag matchers from a given tag instance. Here is a high-level summary of that second set of commands:
 ```
-occam tag (T_UUID) matcher [get] (UUID)         View Tag Matcher details
-occam tag (T_UUID) matcher add (...)            Create a new Tag Matcher
-occam tag (T_UUID) matcher update (UUID) (...)  Update a Tag Matcher
-occam tag (T_UUID) matcher remove (UUID)        Remove a Tag Matcher
+hanlon tag (T_UUID) matcher [get] (UUID)         View Tag Matcher details
+hanlon tag (T_UUID) matcher add (...)            Create a new Tag Matcher
+hanlon tag (T_UUID) matcher update (UUID) (...)  Update a Tag Matcher
+hanlon tag (T_UUID) matcher remove (UUID)        Remove a Tag Matcher
 ```
 As you can see from the usage shown above, there are options required when adding a tag matcher to an existing tag. These options, which are shown using the string '(...)' in the 'tag matcher add' command usage shown above, are as follows:
 ```
-Usage: occam tag (T_UUID) matcher add (options...)
+Usage: hanlon tag (T_UUID) matcher add (options...)
    -k, --key KEY_FIELD        The node attribute key to match against.
    -c, --compare METHOD       The comparison method to use ('equal'|'like').
    -v, --value VALUE          The value to match against
@@ -49,7 +49,7 @@ In this command, the invert parameter is optional (and defaults to 'false'). If 
 
 As part of the 'tag matcher update' command the user must also supply one or more of these same options (as is shown here):
 ```
-Usage: occam tag (T_UUID) matcher update (UUID) (options...)
+Usage: hanlon tag (T_UUID) matcher update (UUID) (options...)
    -k, --key KEY_FIELD     The new node attribute key to match against.
    -c, --compare METHOD    The new comparison method to use ('equal'|'like').
    -v, --value VALUE       The new value to match against.
