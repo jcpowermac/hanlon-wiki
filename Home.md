@@ -4,7 +4,7 @@ Newly added machines in a Hanlon deployment will PXE-boot from a special Hanlon 
 
 ## Overview of the Hanlon CLI
 
-For installation instructions see this page: [[Installation]]
+For installation instructions see this page: [[Installation (Overview)]]
 
 The Hanlon CLI allows the user to interact with a local Hanlon server instance via a login/shell prompt. The typical Hanlon CLI command can most easily be seen by running the 'hanlon' command from the login/shell prompt on the Hanlon server (with no additional arguments):
 ```bash
@@ -96,4 +96,4 @@ With those conventions in mind, the following pages describe the detailed docume
 
 * [[Hanlon API Overview]]
 
-And see here for a general overview of Hanlon's [[workflow]]
+And see here for a general overview of Hanlon's [[Typical Hanlon workflow]]
