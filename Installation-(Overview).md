@@ -10,18 +10,18 @@ The server boot process consists of:
 
 Puppet Labs provided a puppetlabs-razor module to install Razor and it's dependencies, but a similar module has not been written yet for Hanlon. Fortunately, Hanlon and it's dependencies are simpler to install than Razor (for example, there is no longer a dependency on Node.js and NPM), so we'll focus this document on the manual installation process.
 
-# Installation
+## Installation
 
 The process for installing Hanlon and it's dependencies manually is fairly simple, and is outlined briefly here. For brevity, we are not discussing the installation and basic configuration of some of the external services used by Hanlon here (namely the DHCP and TFTP servers). For these services, only the changes to the 
 
-## DHCP Service
+### DHCP Service
 
 The DHCP server should be configured such that the boot filename to is set to 'pxelinux.0' and set next-server to the tftp server's address:
 
     filename "pxelinux.0";
     next-server ${tftp_server_ipaddress};
 
-## TFTP Service
+### TFTP Service
 
 The TFTP service requires the following files in the tftp directory:
 
@@ -46,7 +46,7 @@ The hanlon ipxe file can be generated via the following command (once the Hanlon
 
     hanlon config ipxe
 
-### Manual Installation
+## Manual Installation
 
 The following Hanlon software dependencies must be installed before Hanlon can be installed and run:
 
