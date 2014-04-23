@@ -1,6 +1,6 @@
 Here, we outline (briefly) the process used to provision an ESXi Hypervisor using Hanlon
 
-### Load the VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso into Hanlon image service.
+### Load the VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso
     $ hanlon image add [os|mk|esxi] (PATH TO ISO)
 
     $ hanlon image add esxi VMware-VMvisor-Installer-5.0.0-469512.x86_64.iso
@@ -16,7 +16,7 @@ Here, we outline (briefly) the process used to provision an ESXi Hypervisor usin
             Status: Valid   
             Version: VMware ESXi 5.0 GA
 
-### Create a new model using the esxi template and associate it with the image.
+### Create a new model using the esxi template and associate it with the image
 
 When asked, use the example AAAAA-BBBBB-CCCCC-DDDDD-EEEEE as the ESX License Key.
 
