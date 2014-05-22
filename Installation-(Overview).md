@@ -35,7 +35,7 @@ The TFTP service requires the following files in the tftp directory:
     ├── hanlon.ipxe
     └── undionly.kpxe
 
-undionly.kpxe is only required for compatibility with certain network cards (some Broadcom cards, for example) that don't support chain-booting using both a PXE and an iPXE-boot process. See [alternate preboot doc](https://github.com/puppetlabs/Hanlon/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
+undionly.kpxe is only required for compatibility with certain network cards (some Broadcom cards, for example) that don't support chain-booting using both a PXE and an iPXE-boot process. See [alternate preboot doc](https://github.com/csc/Hanlon/wiki/Alternate-Pre-boot-Options-for-Compatibility) for additional information.
 
 The ipxe and pxelinux files can be obtained from:
 
