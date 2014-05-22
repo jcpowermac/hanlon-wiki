@@ -4,7 +4,7 @@ This page describes typical workflows in Hanlon for provisioning a new operating
 
 When Hanlon is initially installed there are no images loaded in the system. A microkernel image is required to perform the initial inventory discovery process as a system connects to Hanlon.
 
-* Download a microkernel (MK) from the project site: https://github.com/puppetlabs/Hanlon/downloads
+* Download a Hanlon Microkernel (MK) for the release you would like to use from the releases area of the Hanlon Microkernel site: https://github.com/csc/Hanlon-Microkernel/releases/tag/v1.0
 * Load the microkernel via the `hanlon image` command:
 
         $ hanlon image add mk ./hnl_mk_dev-image.0.8.8.0.iso
@@ -108,4 +108,3 @@ The initial policy creates a single rule which can be enabled/disabled. When mul
     Policies
     #  Enabled     Label         Tags        Model Label    Count           UUID           
     0  true     precise  [memsize_4GiB,vmware_vm]  install_precise  0      41o1z77j2R4ZsgjD9KTpPe
-
