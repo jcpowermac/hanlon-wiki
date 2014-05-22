@@ -1,6 +1,6 @@
 This page describes typical workflows in Hanlon for provisioning a new operating system.
 
-## Add MicroKernel
+## Add a Microkernel to your Hanlon server
 
 When Hanlon is initially installed there are no images loaded in the system. A microkernel image is required to perform the initial inventory discovery process as a system connects to Hanlon.
 
