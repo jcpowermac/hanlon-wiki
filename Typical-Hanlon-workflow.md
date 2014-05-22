@@ -4,7 +4,7 @@ This page describes typical workflows in Hanlon for provisioning a new operating
 
 When Hanlon is initially installed there are no images loaded in the system. A microkernel image is required to perform the initial inventory discovery process as a system connects to Hanlon.
 
-* Download a Hanlon Microkernel (MK) for the release you would like to use from the releases area of the Hanlon Microkernel site: https://github.com/csc/Hanlon-Microkernel/releases/tag/v1.0
+* Download a Hanlon Microkernel (MK) for the release you would like to use from the releases area of the Hanlon Microkernel site (eg. any one of the three Microkernel ISOs for the v1.0 release could be downloaded from https://github.com/csc/Hanlon-Microkernel/releases/tag/v1.0)
 * Load the microkernel via the `hanlon image` command:
 
         $ hanlon image add mk ./hnl_mk_dev-image.0.8.8.0.iso
